@@ -5,6 +5,7 @@
 #include <filesystem>
 #include <regex>
 #include <memory>
+#include <functional>
 #include <boost/program_options.hpp>
 
 #include "input.hpp"
