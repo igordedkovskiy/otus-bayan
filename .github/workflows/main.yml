@@ -15,9 +15,9 @@ jobs:
           submodules: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
       - run: sudo apt-get install libboost-all-dev
       - run: cmake -S . -B ./Release -DPATCH_VERSION=${{ github.run_number }} -DWITH_GTEST=ON
+        #shell: bash
         #env:
         #  CC:   gcc-10
         #  CXX:  g++-10
