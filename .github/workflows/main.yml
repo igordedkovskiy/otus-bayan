@@ -20,8 +20,8 @@ jobs:
       - run: cmake -S . -B ./Release -DPATCH_VERSION=${{ github.run_number }} -DWITH_GTEST=ON
         shell: bash
         env:
-          CC:   gcc-10
-          CXX:  g++-10
+          CC:   gcc-11
+          CXX:  g++-11
       - run: cmake --build ./Release
       - run: cmake --build ./Release --target test
       - run: cmake --build ./Release --target package
