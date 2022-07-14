@@ -19,10 +19,12 @@ files_t make_set_of_files(const folders_t &to_discover, const folders_t &to_ommi
     using path_t = File::path_t;
 
     files_t set_of_files;
-    std::hash<path_t> path_hash;
-    std::unordered_set<decltype(path_hash(path_t{}))> paths_to_ommit;
+    //std::hash<path_t> path_hash;
+    //std::unordered_set<decltype(path_hash(path_t{}))> paths_to_ommit;
+    std::unordered_set<decltype(std::hash<path_t>{}(path_t{}))> paths_to_ommit;
     for(const auto& folder:to_ommit)
-        paths_to_ommit.insert(path_hash(fs::absolute(folder)));
+        //paths_to_ommit.insert(path_hash(fs::absolute(folder)));
+        paths_to_ommit.insert(std::hash<path_t>{}(fs::absolute(folder)));
     File::block_size(block_size);
     const auto halgo{to_hash_algo_name(hash_algo)};
     const auto regexp_cmp{std::regex(masks)};
@@ -31,7 +33,8 @@ files_t make_set_of_files(const folders_t &to_discover, const folders_t &to_ommi
         try
         {
             const auto path{fs::absolute(folder)};
-            const auto phash{path_hash(path)};
+            //const auto phash{path_hash(path)};
+            const auto phash{std::hash<path_t>{}(path)};
             auto el{paths_to_ommit.find(phash)};
             if(el != paths_to_ommit.end())
                 continue;
