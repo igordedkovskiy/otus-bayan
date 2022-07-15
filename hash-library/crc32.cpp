@@ -11,6 +11,11 @@
 //#include <endian.h>
 //#endif
 
+#ifdef __linux__
+#include <endian.h>
+//#elif _WIN32
+#endif
+
 
 /// same as reset()
 CRC32::CRC32()
