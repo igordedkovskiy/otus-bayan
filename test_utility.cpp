@@ -128,6 +128,27 @@ TEST(TEST_BAYAN, test_main_actions)
         }
     };
 
+    auto compare_file_sets = [](const ordered_files_t& l, const ordered_files_t& r)
+    {
+        auto find = [](const ordered_files_t::value_type& fset, const ordered_files_t& ordered_files)
+        {
+            for(const auto& rfset:ordered_files)
+            {
+                if(fset == rfset)
+                    return true;;
+            }
+            return false;
+        };
+        if(l.size() != r.size())
+            return false;
+        for(const auto& fset:l)
+        {
+            if(!find(fset, r))
+                return false;
+        }
+        return true;
+    };
+
     {
         constexpr int argc{11};
         const char* argv[argc]{in_argv[0],
@@ -147,7 +168,7 @@ TEST(TEST_BAYAN, test_main_actions)
         sort(ordered_files);
         print(ordered_files);
         ordered_files_t ref{{"pic18f-1.txt", "pic18f-3.txt"}, {"pic18f-2.txt"}};
-        ASSERT_TRUE(ordered_files == ref);
+        ASSERT_TRUE(compare_file_sets(ordered_files, ref));
     }
 
     {
@@ -171,7 +192,7 @@ TEST(TEST_BAYAN, test_main_actions)
         ordered_files_t ref{{"Data Sheet-1.txt", "and may be superseded-3.txt"},
                             {"High Performance-2.txt", "through suggestion only-2.txt"}
                            };
-        ASSERT_TRUE(ordered_files == ref);
+        ASSERT_TRUE(compare_file_sets(ordered_files, ref));
     }
 }
 
