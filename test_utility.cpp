@@ -118,6 +118,15 @@ TEST(TEST_BAYAN, test_main_actions)
                 file = std::filesystem::path{file}.filename().string();
         }
     };
+    auto print = [](const ordered_files_t& ordered_files)
+    {
+        for(const auto& fset:ordered_files)
+        {
+            for(const auto& file:fset)
+                std::cout << file << '\n';
+            std::cout << '\n';
+        }
+    };
 
     {
         constexpr int argc{11};
@@ -136,6 +145,7 @@ TEST(TEST_BAYAN, test_main_actions)
         auto ordered_files{bayan(argc, argv)};
         to_filename(ordered_files);
         sort(ordered_files);
+        print(ordered_files);
         ordered_files_t ref{{"pic18f-1.txt", "pic18f-3.txt"}, {"pic18f-2.txt"}};
         ASSERT_TRUE(ordered_files == ref);
     }
@@ -157,6 +167,7 @@ TEST(TEST_BAYAN, test_main_actions)
         auto ordered_files{bayan(argc, argv)};
         to_filename(ordered_files);
         sort(ordered_files);
+        print(ordered_files);
         ordered_files_t ref{{"Data Sheet-1.txt", "and may be superseded-3.txt"},
                             {"High Performance-2.txt", "through suggestion only-2.txt"}
                            };
