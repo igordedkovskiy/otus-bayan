@@ -1,0 +1,6136 @@
+? 2002 Microchip Technology Inc. DS39564B
+PIC18FXX2
+Data Sheet
+High Performance, Enhanced FLASH
+Microcontrollers with 10-Bit A/D
+M
+DS39564B - page ii ? 2002 Microchip Technology Inc.
+Information contained in this publication regarding device
+applications and the like is intended through suggestion only
+and may be superseded by updates. It is your responsibility to
+ensure that your application meets with your specifications.
+No representation or warranty is given and no liability is
+assumed by Microchip Technology Incorporated with respect
+to the accuracy or use of such information, or infringement of
+patents or other intellectual property rights arising from such
+use or otherwise. Use of Microchip’s products as critical components
+in life support systems is not authorized except with
+express written approval by Microchip. No licenses are conveyed,
+implicitly or otherwise, under any intellectual property
+rights.
+Trademarks
+The Microchip name and logo, the Microchip logo, KEELOQ,
+MPLAB, PIC, PICmicro, PICSTART and PRO MATE are
+registered trademarks of Microchip Technology Incorporated
+in the U.S.A. and other countries.
+FilterLab, microID, MXDEV, MXLAB, PICMASTER, SEEVAL
+and The Embedded Control Solutions Company are
+registered trademarks of Microchip Technology Incorporated
+in the U.S.A.
+dsPIC, dsPICDEM.net, ECONOMONITOR, FanSense,
+FlexROM, fuzzyLAB, In-Circuit Serial Programming, ICSP,
+ICEPIC, microPort, Migratable Memory, MPASM, MPLIB,
+MPLINK, MPSIM, PICC, PICDEM, PICDEM.net, rfPIC, Select
+Mode and Total Endurance are trademarks of Microchip
+Technology Incorporated in the U.S.A. and other countries.
+Serialized Quick Turn Programming (SQTP) is a service mark
+of Microchip Technology Incorporated in the U.S.A.
+All other trademarks mentioned herein are property of their
+respective companies.
+© 2002, Microchip Technology Incorporated, Printed in the
+U.S.A., All Rights Reserved.
+Printed on recycled paper.
+Microchip received QS-9000 quality system
+certification for its worldwide headquarters,
+design and wafer fabrication facilities in
+Chandler and Tempe, Arizona in July 1999
+and Mountain View, California in March 2002.
+The Company’s quality system processes and
+procedures are QS-9000 compliant for its
+PICmicro® 8-bit MCUs, KEELOQ® code hopping
+devices, Serial EEPROMs, microperipherals,
+non-volatile memory and analog products. In
+addition, Microchip’s quality system for the
+design and manufacture of development
+systems is ISO 9001 certified.
+Note the following details of the code protection feature on PICmicro® MCUs.
+• The PICmicro family meets the specifications contained in the Microchip Data Sheet.
+• Microchip believes that its family of PICmicro microcontrollers is one of the most secure products of its kind on the market today,
+when used in the intended manner and under normal conditions.
+• There are dishonest and possibly illegal methods used to breach the code protection feature. All of these methods, to our knowledge,
+require using the PICmicro microcontroller in a manner outside the operating specifications contained in the data sheet.
+The person doing so may be engaged in theft of intellectual property.
+• Microchip is willing to work with the customer who is concerned about the integrity of their code.
+• Neither Microchip nor any other semiconductor manufacturer can guarantee the security of their code. Code protection does not
+mean that we are guaranteeing the product as “unbreakable”.
+• Code protection is constantly evolving. We at Microchip are committed to continuously improving the code protection features of
+our product.
+If you have any further questions about this matter, please contact the local sales office nearest to you.
+? 2002 Microchip Technology Inc. DS39564B-page 1
+M PIC18FXX2
+High Performance RISC CPU:
+• C compiler optimized architecture/instruction set
+- Source code compatible with the PIC16 and
+PIC17 instruction sets
+• Linear program memory addressing to 32 Kbytes
+• Linear data memory addressing to 1.5 Kbytes
+• Up to 10 MIPs operation:
+- DC - 40 MHz osc./clock input
+- 4 MHz - 10 MHz osc./clock input with PLL active
+• 16-bit wide instructions, 8-bit wide data path
+• Priority levels for interrupts
+• 8 x 8 Single Cycle Hardware Multiplier
+Peripheral Features:
+• High current sink/source 25 mA/25 mA
+• Three external interrupt pins
+• Timer0 module: 8-bit/16-bit timer/counter with
+8-bit programmable prescaler
+• Timer1 module: 16-bit timer/counter
+• Timer2 module: 8-bit timer/counter with 8-bit
+period register (time-base for PWM)
+• Timer3 module: 16-bit timer/counter
+• Secondary oscillator clock option - Timer1/Timer3
+• Two Capture/Compare/PWM (CCP) modules.
+CCP pins that can be configured as:
+- Capture input: capture is 16-bit,
+max. resolution 6.25 ns (TCY/16)
+- Compare is 16-bit, max. resolution 100 ns (TCY)
+- PWM output: PWM resolution is 1- to 10-bit,
+max. PWM freq. @: 8-bit resolution = 156 kHz
+10-bit resolution = 39 kHz
+• Master Synchronous Serial Port (MSSP) module,
+Two modes of operation:
+- 3-wire SPI™ (supports all 4 SPI modes)
+- I2C™ Master and Slave mode
+Peripheral Features (Continued):
+• Addressable USART module:
+- Supports RS-485 and RS-232
+• Parallel Slave Port (PSP) module
+Analog Features:
+• Compatible 10-bit Analog-to-Digital Converter
+module (A/D) with:
+- Fast sampling rate
+- Conversion available during SLEEP
+- Linearity ? 1 LSb
+• Programmable Low Voltage Detection (PLVD)
+- Supports interrupt on-Low Voltage Detection
+• Programmable Brown-out Reset (BOR)
+Special Microcontroller Features:
+• 100,000 erase/write cycle Enhanced FLASH
+program memory typical
+• 1,000,000 erase/write cycle Data EEPROM
+memory
+• FLASH/Data EEPROM Retention: > 40 years
+• Self-reprogrammable under software control
+• Power-on Reset (POR), Power-up Timer (PWRT)
+and Oscillator Start-up Timer (OST)
+• Watchdog Timer (WDT) with its own On-Chip RC
+Oscillator for reliable operation
+• Programmable code protection
+• Power saving SLEEP mode
+• Selectable oscillator options including:
+- 4X Phase Lock Loop (of primary oscillator)
+- Secondary Oscillator (32 kHz) clock input
+• Single supply 5V In-Circuit Serial Programming™
+(ICSP™) via two pins
+• In-Circuit Debug (ICD) via two pins
+CMOS Technology:
+• Low power, high speed FLASH/EEPROM
+technology
+• Fully static design
+• Wide operating voltage range (2.0V to 5.5V)
+• Industrial and Extended temperature ranges
+• Low power consumption:
+- < 1.6 mA typical @ 5V, 4 MHz
+- 25 ?A typical @ 3V, 32 kHz
+- < 0.2 ?A typical standby current
+Device
+On-Chip Program
+Memory On-Chip
+RAM
+(bytes)
+Data
+EEPROM
+FLASH (bytes)
+(bytes)
+# Single Word
+Instructions
+PIC18F242 16K 8192 768 256
+PIC18F252 32K 16384 1536 256
+PIC18F442 16K 8192 768 256
+PIC18F452 32K 16384 1536 256
+28/40-pin High Performance, Enhanced FLASH
+Microcontrollers with 10-Bit A/D
+PIC18FXX2
+DS39564B-page 2 ? 2002 Microchip Technology Inc.
+Pin Diagrams
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+44
+8 7
+654321
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+9
+PIC18F442
+RA4/T0CKI
+RA5/AN4/SS/LVDIN
+RE0/RD/AN5
+OSC2/CLKO/RA6
+NC
+RE1/WR/AN6
+RE2/CS/AN7
+VDD
+OSC1/CLKI
+RB3/CCP2*
+RB2/INT2
+RB1/INT1
+RB0/INT0
+VDD
+VSS
+RD7/PSP7
+RD6/PSP6
+RD5/PSP5
+RD4/PSP4
+RC7/RX/DT
+RA3/AN3/VREF+
+RA2/AN2/VREFRA1/
+AN1
+RA0/AN0
+MCLR/VPP
+NC
+RB7/PGD
+RB6/PGC
+RB5/PGM
+RB4
+NC NC
+RC6/TX/CK
+RC5/SDO
+RC4/SDI/SDA
+RD3/PSP3
+RD2/PSP2
+RD1/PSP1
+RD0/PSP0
+RC3/SCK/SCL
+RC2/CCP1
+RC1/T1OSI/CCP2*
+10
+11
+2
+345
+6
+1
+18
+19
+20
+21
+22
+12
+13
+14
+15
+38
+8 7
+44
+43
+42
+41
+40
+39
+16
+17
+29
+30
+31
+32
+33
+23
+24
+25
+26
+27
+28
+36
+34
+35
+9
+PIC18F442
+37
+RA3/AN3/VREF+
+RA2/AN2/VREFRA1/
+AN1
+RA0/AN0
+MCLR/VPP
+NC
+RB7/PGD
+RB6/PGC
+RB5/PGM
+RB4
+NC
+RC6/TX/CK
+RC5/SDO
+RC4/SDI/SDA
+RD3/PSP3
+RD2/PSP2
+RD1/PSP1
+RD0/PSP0
+RC3/SCK/SCL
+RC2/CCP1
+RC1/T1OSI/CCP2*
+NC
+NC
+RC0/T1OSO/T1CKI
+OSC2/CLKO/RA6
+OSC1/CLKI
+VSS
+VDD
+RE2/AN7/CS
+RE1/AN6/WR
+RE0/AN5/RD
+RA5/AN4/SS/LVDIN
+RA4/T0CKI
+RC7/RX/DT
+RD4/PSP4
+RD5/PSP5
+RD6/PSP6
+RD7/PSP7
+VSS
+VDD
+RB0/INT0
+RB1/INT1
+RB2/INT2
+RB3/CCP2*
+PLCC
+TQFP
+* RB3 is the alternate pin for the CCP2 pin multiplexing.
+VSS
+RC0/T1OSO/T1CKI
+PIC18F452
+PIC18F452
+? 2002 Microchip Technology Inc. DS39564B-page 3
+PIC18FXX2
+Pin Diagrams (Cont.’d)
+RB7/PGD
+RB6/PGC
+RB5/PGM
+RB4
+RB3/CCP2*
+RB2/INT2
+RB1/INT1
+RB0/INT0
+VDD
+VSS
+RD7/PSP7
+RD6/PSP6
+RD5/PSP5
+RD4/PSP4
+RC7/RX/DT
+RC6/TX/CK
+RC5/SDO
+RC4/SDI/SDA
+RD3/PSP3
+RD2/PSP2
+MCLR/VPP
+RA0/AN0
+RA1/AN1
+RA2/AN2/VREFRA3/
+AN3/VREF+
+RA4/T0CKI
+RA5/AN4/SS/LVDIN
+RE0/RD/AN5
+RE1/WR/AN6
+RE2/CS/AN7
+VDD
+VSS
+OSC1/CLKI
+OSC2/CLKO/RA6
+RC0/T1OSO/T1CKI
+RC1/T1OSI/CCP2*
+RC2/CCP1
+RC3/SCK/SCL
+RD0/PSP0
+RD1/PSP1
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+40
+39
+38
+37
+36
+35
+34
+33
+32
+31
+30
+29
+28
+27
+26
+25
+24
+23
+22
+21
+PIC18F242 PIC18F442
+10
+11
+2
+3
+4
+5
+6
+1
+8
+7
+9
+12
+13
+14 15
+16
+17
+18
+19
+20
+23
+24
+25
+26
+27
+28
+22
+21
+MCLR/VPP
+RA0/AN0
+RA1/AN1
+RA2/AN2/VREFRA3/
+AN3/VREF+
+RA4/T0CKI
+RA5/AN4/SS/LVDIN
+VSS
+OSC1/CLKI
+OSC2/CLKO/RA6
+RC0/T1OSO/T1CKI
+RC1/T1OSI/CCP2*
+RC2/CCP1
+RC3/SCK/SCL
+RB7/PGD
+RB6/PGC
+RB5/PGM
+RB4
+RB3/CCP2*
+RB2/INT2
+RB1/INT1
+RB0/INT0
+VDD
+VSS
+RC7/RX/DT
+RC6/TX/CK
+RC5/SDO
+RC4/SDI/SDA
+* RB3 is the alternate pin for the CCP2 pin multiplexing.
+DIP
+DIP, SOIC
+Note: Pin compatible with 40-pin PIC16C7X devices.
+PIC18F452
+PIC18F252
+PIC18FXX2
+DS39564B-page 4 ? 2002 Microchip Technology Inc.
+Table of Contents
+1.0 Device Overview .......................................................................................................................................................................... 7
+2.0 Oscillator Configurations ............................................................................................................................................................ 17
+3.0 Reset .......................................................................................................................................................................................... 25
+4.0 Memory Organization ................................................................................................................................................................. 35
+5.0 FLASH Program Memory ........................................................................................................................................................... 55
+6.0 Data EEPROM Memory ............................................................................................................................................................. 65
+7.0 8 X 8 Hardware Multiplier ........................................................................................................................................................... 71
+8.0 Interrupts .................................................................................................................................................................................... 73
+9.0 I/O Ports ..................................................................................................................................................................................... 87
+10.0 Timer0 Module ......................................................................................................................................................................... 103
+11.0 Timer1 Module ......................................................................................................................................................................... 107
+12.0 Timer2 Module ......................................................................................................................................................................... 111
+13.0 Timer3 Module ......................................................................................................................................................................... 113
+14.0 Capture/Compare/PWM (CCP) Modules ................................................................................................................................. 117
+15.0 Master Synchronous Serial Port (MSSP) Module .................................................................................................................... 125
+16.0 Addressable Universal Synchronous Asynchronous Receiver Transmitter (USART).............................................................. 165
+17.0 Compatible 10-bit Analog-to-Digital Converter (A/D) Module................................................................................................... 181
+18.0 Low Voltage Detect .................................................................................................................................................................. 189
+19.0 Special Features of the CPU.................................................................................................................................................... 195
+20.0 Instruction Set Summary .......................................................................................................................................................... 211
+21.0 Development Support............................................................................................................................................................... 253
+22.0 Electrical Characteristics .......................................................................................................................................................... 259
+23.0 DC and AC Characteristics Graphs and Tables....................................................................................................................... 289
+24.0 Packaging Information.............................................................................................................................................................. 305
+Appendix A: Revision History ............................................................................................................................................................ 313
+Appendix B: Device Differences........................................................................................................................................................ 313
+Appendix C: Conversion Considerations........................................................................................................................................... 314
+Appendix D: Migration from Baseline to Enhanced Devices ............................................................................................................. 314
+Appendix E: Migration from Mid-range to Enhanced Devices........................................................................................................... 315
+Appendix F: Migration from High-end to Enhanced Devices ............................................................................................................ 315
+Index .................................................................................................................................................................................................. 317
+On-Line Support................................................................................................................................................................................. 327
+Reader Response .............................................................................................................................................................................. 328
+PIC18FXX2 Product Identification System......................................................................................................................................... 329
+? 2002 Microchip Technology Inc. DS39564B-page 5
+PIC18FXX2
+TO OUR VALUED CUSTOMERS
+It is our intention to provide our valued customers with the best documentation possible to ensure successful use of your Microchip
+products. To this end, we will continue to improve our publications to better suit your needs. Our publications will be refined and
+enhanced as new volumes and updates are introduced.
+If you have any questions or comments regarding this publication, please contact the Marketing Communications Department via
+E-mail at docerrors@mail.microchip.com or fax the Reader Response Form in the back of this data sheet to (480) 792-4150.
+We welcome your feedback.
+Most Current Data Sheet
+To obtain the most up-to-date version of this data sheet, please register at our Worldwide Web site at:
+http://www.microchip.com
+You can determine the version of a data sheet by examining its literature number found on the bottom outside corner of any page.
+The last character of the literature number is the version number, (e.g., DS30000A is version A of document DS30000).
+Errata
+An errata sheet, describing minor operational differences from the data sheet and recommended workarounds, may exist for current
+devices. As device/documentation issues become known to us, we will publish an errata sheet. The errata will specify the revision
+of silicon and revision of document to which it applies.
+To determine if an errata sheet exists for a particular device, please check with one of the following:
+• Microchip’s Worldwide Web site; http://www.microchip.com
+• Your local Microchip sales office (see last page)
+• The Microchip Corporate Literature Center; U.S. FAX: (480) 792-7277
+When contacting a sales office or the literature center, please specify which device, revision of silicon and data sheet (include literature
+number) you are using.
+Customer Notification System
+Register on our web site at www.microchip.com/cn to receive the most current information on all of our products.
+PIC18FXX2
+DS39564B-page 6 ? 2002 Microchip Technology Inc.
+NOTES:
+? 2002 Microchip Technology Inc. DS39564B-page 7
+PIC18FXX2
+1.0 DEVICE OVERVIEW
+This document contains device specific information for
+the following devices:
+These devices come in 28-pin and 40/44-pin packages.
+The 28-pin devices do not have a Parallel Slave Port
+(PSP) implemented and the number of Analog-to-
+Digital (A/D) converter input channels is reduced to 5.
+An overview of features is shown in Table 1-1.
+The following two figures are device block diagrams
+sorted by pin count: 28-pin for Figure 1-1 and 40/44-pin
+for Figure 1-2. The 28-pin and 40/44-pin pinouts are
+listed in Table 1-2 and Table 1-3, respectively.
+TABLE 1-1: DEVICE FEATURES
+• PIC18F242 • PIC18F442
+• PIC18F252 • PIC18F452
+Features PIC18F242 PIC18F252 PIC18F442 PIC18F452
+Operating Frequency DC - 40 MHz DC - 40 MHz DC - 40 MHz DC - 40 MHz
+Program Memory (Bytes) 16K 32K 16K 32K
+Program Memory (Instructions) 8192 16384 8192 16384
+Data Memory (Bytes) 768 1536 768 1536
+Data EEPROM Memory (Bytes) 256 256 256 256
+Interrupt Sources 17 17 18 18
+I/O Ports Ports A, B, C Ports A, B, C Ports A, B, C, D, E Ports A, B, C, D, E
+Timers 4 4 4 4
+Capture/Compare/PWM Modules 2 2 2 2
+Serial Communications
+MSSP,
+Addressable
+USART
+MSSP,
+Addressable
+USART
+MSSP,
+Addressable
+USART
+MSSP,
+Addressable
+USART
+Parallel Communications — — PSP PSP
+10-bit Analog-to-Digital Module 5 input channels 5 input channels 8 input channels 8 input channels
+RESETS (and Delays)
+POR, BOR,
+RESET Instruction,
+Stack Full,
+Stack Underflow
+(PWRT, OST)
+POR, BOR,
+RESET Instruction,
+Stack Full,
+Stack Underflow
+(PWRT, OST)
+POR, BOR,
+RESET Instruction,
+Stack Full,
+Stack Underflow
+(PWRT, OST)
+POR, BOR,
+RESET Instruction,
+Stack Full,
+Stack Underflow
+(PWRT, OST)
+Programmable Low Voltage
+Detect
+Yes Yes Yes Yes
+Programmable Brown-out Reset Yes Yes Yes Yes
+Instruction Set 75 Instructions 75 Instructions 75 Instructions 75 Instructions
+Packages
+28-pin DIP
+28-pin SOIC
+28-pin DIP
+28-pin SOIC
+40-pin DIP
+44-pin PLCC
+44-pin TQFP
+40-pin DIP
+44-pin PLCC
+44-pin TQFP
+PIC18FXX2
+DS39564B-page 8 ? 2002 Microchip Technology Inc.
+FIGURE 1-1: PIC18F2X2 BLOCK DIAGRAM
+Instruction
+Decode &
+Control
+PORTA
+PORTB
+PORTC
+RA4/T0CKI
+RA5/AN4/SS/LVDIN
+RC0/T1OSO/T1CKI
+RC1/T1OSI/CCP2(1)
+RC2/CCP1
+RC3/SCK/SCL
+RC4/SDI/SDA
+RC5/SDO
+RC6/TX/CK
+RC7/RX/DT
+Note 1: Optional multiplexing of CCP2 input/output with RB3 is enabled by selection of configuration bit.
+2: The high order bits of the Direct Address for the RAM are from the BSR register (except for the MOVFF instruction).
+3: Many of the general purpose I/O pins are multiplexed with one or more peripheral module functions. The multiplexing combinations
+are device dependent.
+Addressable
+CCP1 Synchronous
+Timer0 Timer1 Timer2
+Serial Port
+RA3/AN3/VREF+
+RA2/AN2/VREFRA1/
+AN1
+RA0/AN0
+A/D Converter
+Data Latch
+Data RAM
+Address Latch
+Address<12>
+12
+(2)
+BSR FSR0
+FSR1
+FSR2
+4 12 4
+PCH PCL
+PCLATH
+8
+31 Level Stack
+Program Counter
+PRODH PRODL
+8 x 8 Multiply
+WREG
+8
+BIT OP
+8 8
+ALU<8>
+8
+Address Latch
+Program Memory
+(up to 2 Mbytes)
+Data Latch
+21
+21
+16
+8
+8
+8
+inc/dec logic
+21
+8
+Data Bus<8>
+8
+Instruction
+12
+3
+ROM Latch
+Timer3
+CCP2
+Bank0, F
+PCLATU
+PCU
+RA6
+USART
+Master
+8
+Register
+Table Latch
+Table Pointer
+inc/dec
+Decode logic
+RB0/INT0
+RB4
+RB1/INT1
+RB2/INT2
+RB3/CCP2(1)
+RB5/PGM
+RB6/PCG
+RB7/PGD
+Data EEPROM
+Power-up
+Timer
+Oscillator
+Start-up Timer
+Power-on
+Reset
+Watchdog
+Timer
+OSC1/CLKI
+OSC2/CLKO
+MCLR
+VDD, VSS
+Brown-out
+Reset
+Timing
+Generation
+4X PLL
+T1OSCI
+T1OSCO
+Precision
+Reference
+Voltage
+Low Voltage
+Programming
+In-Circuit
+Debugger
+? 2002 Microchip Technology Inc. DS39564B-page 9
+PIC18FXX2
+FIGURE 1-2: PIC18F4X2 BLOCK DIAGRAM
+Power-up
+Timer
+Oscillator
+Start-up Timer
+Power-on
+Reset
+Watchdog
+Timer
+Instruction
+Decode &
+Control
+OSC1/CLKI
+OSC2/CLKO
+MCLR
+VDD, VSS
+PORTA
+PORTB
+PORTC
+RA4/T0CKI
+RA5/AN4/SS/LVDIN
+RB0/INT0
+RB4
+RC0/T1OSO/T1CKI
+RC1/T1OSI/CCP2(1)
+RC2/CCP1
+RC3/SCK/SCL
+RC4/SDI/SDA
+RC5/SDO
+RC6/TX/CK
+RC7/RX/DT
+Brown-out
+Reset
+Note 1: Optional multiplexing of CCP2 input/output with RB3 is enabled by selection of configuration bit.
+2: The high order bits of the Direct Address for the RAM are from the BSR register (except for the MOVFF instruction).
+3: Many of the general purpose I/O pins are multiplexed with one or more peripheral module functions. The multiplexing combinations
+are device dependent.
+CCP1 Addressable
+Master
+Timer0 Timer1 Timer2
+Serial Port
+RA3/AN3/VREF+
+RA2/AN2/VREFRA1/
+AN1
+RA0/AN0
+Parallel Slave Port
+Timing
+Generation
+4X PLL
+A/D Converter
+RB1/INT1
+Data Latch
+Data RAM
+(up to 4K
+address reach)
+Address Latch
+Address<12>
+12
+(2)
+BSR FSR0 Bank0, F
+FSR1
+FSR2
+4 12 4
+PCH PCL
+PCLATH
+8
+31 Level Stack
+Program Counter
+PRODH PRODL
+8 x 8 Multiply
+WREG
+8
+BIT OP
+8 8
+ALU<8>
+8
+Address Latch
+Program Memory
+(up to 2 Mbytes)
+Data Latch
+21
+21
+16
+8
+8
+8
+inc/dec logic
+21
+8
+Data Bus<8>
+Table Latch
+8
+Instruction
+12
+3
+ROM Latch
+Timer3
+PORTD
+PORTE
+RE0/AN5/RD
+RE1/AN6/WR
+RE2/AN7/CS
+CCP2
+RB2/INT2
+RB3/CCP2(1)
+T1OSCI
+T1OSCO
+PCLATU
+PCU
+RA6
+Precision
+Reference
+Voltage
+Synchronous
+USART
+Register
+8
+Table Pointer
+inc/dec
+Decode logic
+RD0/PSP0
+RD1/PSP1
+RD2/PSP2
+RD3/PSP3
+RD4/PSP4
+RD5/PSP5
+RD6/PSP6
+RD7/PSP7
+Low Voltage
+Programming
+In-Circuit
+Debugger
+Data EEPROM
+RB5/PGM
+RB6/PCG
+RB7/PGD
+PIC18FXX2
+DS39564B-page 10 ? 2002 Microchip Technology Inc.
+TABLE 1-2: PIC18F2X2 PINOUT I/O DESCRIPTIONS
+Pin Name
+Pin Number Pin
+Type
+Buffer
+Type
+Description
+DIP SOIC
+MCLR/VPP
+MCLR
+VPP
+1 1
+I
+I
+ST
+ST
+Master Clear (input) or high voltage ICSP programming
+enable pin.
+Master Clear (Reset) input. This pin is an active low
+RESET to the device.
+High voltage ICSP programming enable pin.
+NC — — — — These pins should be left unconnected.
+OSC1/CLKI
+OSC1
+CLKI
+9 9
+I
+I
+ST
+CMOS
+Oscillator crystal or external clock input.
+Oscillator crystal input or external clock source input.
+ST buffer when configured in RC mode, CMOS otherwise.
+External clock source input. Always associated with
+pin function OSC1. (See related OSC1/CLKI,
+OSC2/CLKO pins.)
+OSC2/CLKO/RA6
+OSC2
+CLKO
+RA6
+10 10
+O
+O
+I/O
+—
+—
+TTL
+Oscillator crystal or clock output.
+Oscillator crystal output. Connects to crystal or
+resonator in Crystal Oscillator mode.
+In RC mode, OSC2 pin outputs CLKO which has 1/4
+the frequency of OSC1, and denotes the instruction
+cycle rate.
+General Purpose I/O pin.
+PORTA is a bi-directional I/O port.
+RA0/AN0
+RA0
+AN0
+2 2
+I/O
+I
+TTL
+Analog
+Digital I/O.
+Analog input 0.
+RA1/AN1
+RA1
+AN1
+3 3
+I/O
+I
+TTL
+Analog
+Digital I/O.
+Analog input 1.
+RA2/AN2/VREFRA2
+AN2
+VREF-
+4 4
+I/O
+I
+I
+TTL
+Analog
+Analog
+Digital I/O.
+Analog input 2.
+A/D Reference Voltage (Low) input.
+RA3/AN3/VREF+
+RA3
+AN3
+VREF+
+5 5
+I/O
+I
+I
+TTL
+Analog
+Analog
+Digital I/O.
+Analog input 3.
+A/D Reference Voltage (High) input.
+RA4/T0CKI
+RA4
+T0CKI
+6 6
+I/O
+I
+ST/OD
+ST
+Digital I/O. Open drain when configured as output.
+Timer0 external clock input.
+RA5/AN4/SS/LVDIN
+RA5
+AN4
+SS
+LVDIN
+7 7
+I/O
+I
+I
+I
+TTL
+Analog
+ST
+Analog
+Digital I/O.
+Analog input 4.
+SPI Slave Select input.
+Low Voltage Detect Input.
+RA6 See the OSC2/CLKO/RA6 pin.
+Legend: TTL = TTL compatible input CMOS = CMOS compatible input or output
+ST = Schmitt Trigger input with CMOS levels I = Input
+O = Output P = Power
+OD = Open Drain (no P diode to VDD)
+? 2002 Microchip Technology Inc. DS39564B-page 11
+PIC18FXX2
+PORTB is a bi-directional I/O port. PORTB can be software
+programmed for internal weak pull-ups on all inputs.
+RB0/INT0
+RB0
+INT0
+21 21
+I/O
+I
+TTL
+ST
+Digital I/O.
+External Interrupt 0.
+RB1/INT1
+RB1
+INT1
+22 22
+I/O
+I
+TTL
+ST External Interrupt 1.
+RB2/INT2
+RB2
+INT2
+23 23
+I/O
+I
+TTL
+ST
+Digital I/O.
+External Interrupt 2.
+RB3/CCP2
+RB3
+CCP2
+24 24
+I/O
+I/O
+TTL
+ST
+Digital I/O.
+Capture2 input, Compare2 output, PWM2 output.
+RB4 25 25 I/O TTL Digital I/O.
+Interrupt-on-change pin.
+RB5/PGM
+RB5
+PGM
+26 26
+I/O
+I/O
+TTL
+ST
+Digital I/O. Interrupt-on-change pin.
+Low Voltage ICSP programming enable pin.
+RB6/PGC
+RB6
+PGC
+27 27
+I/O
+I/O
+TTL
+ST
+Digital I/O. Interrupt-on-change pin.
+In-Circuit Debugger and ICSP programming clock pin.
+RB7/PGD
+RB7
+PGD
+28 28
+I/O
+I/O
+TTL
+ST
+Digital I/O. Interrupt-on-change pin.
+In-Circuit Debugger and ICSP programming data pin.
+TABLE 1-2: PIC18F2X2 PINOUT I/O DESCRIPTIONS (CONTINUED)
+Pin Name
+Pin Number Pin
+Type
+Buffer
+Type
+Description
+DIP SOIC
+Legend: TTL = TTL compatible input CMOS = CMOS compatible input or output
+ST = Schmitt Trigger input with CMOS levels I = Input
+O = Output P = Power
+OD = Open Drain (no P diode to VDD)
+PIC18FXX2
+DS39564B-page 12 ? 2002 Microchip Technology Inc.
+PORTC is a bi-directional I/O port.
+RC0/T1OSO/T1CKI
+RC0
+T1OSO
+T1CKI
+11 11
+I/O
+O
+I
+ST
+—
+ST
+Digital I/O.
+Timer1 oscillator output.
+Timer1/Timer3 external clock input.
+RC1/T1OSI/CCP2
+RC1
+T1OSI
+CCP2
+12 12
+I/O
+I
+I/O
+ST
+CMOS
+ST
+Digital I/O.
+Timer1 oscillator input.
+Capture2 input, Compare2 output, PWM2 output.
+RC2/CCP1
+RC2
+CCP1
+13 13
+I/O
+I/O
+ST
+ST
+Digital I/O.
+Capture1 input/Compare1 output/PWM1 output.
+RC3/SCK/SCL
+RC3
+SCK
+SCL
+14 14
+I/O
+I/O
+I/O
+ST
+ST
+ST
+Digital I/O.
+Synchronous serial clock input/output for SPI mode.
+Synchronous serial clock input/output for I2C mode
+RC4/SDI/SDA
+RC4
+SDI
+SDA
+15 15
+I/O
+I
+I/O
+ST
+ST
+ST
+Digital I/O.
+SPI Data In.
+I2C Data I/O.
+RC5/SDO
+RC5
+SDO
+16 16
+I/O
+O
+ST
+—
+Digital I/O.
+SPI Data Out.
+RC6/TX/CK
+RC6
+TX
+CK
+17 17
+I/O
+O
+I/O
+ST
+—
+ST
+Digital I/O.
+USART Asynchronous Transmit.
+USART Synchronous Clock (see related RX/DT).
+RC7/RX/DT
+RC7
+RX
+DT
+18 18
+I/O
+I
+I/O
+ST
+ST
+ST
+Digital I/O.
+USART Asynchronous Receive.
+USART Synchronous Data (see related TX/CK).
+VSS 8, 19 8, 19 P — Ground reference for logic and I/O pins.
+VDD 20 20 P — Positive supply for logic and I/O pins.
+TABLE 1-2: PIC18F2X2 PINOUT I/O DESCRIPTIONS (CONTINUED)
+Pin Name
+Pin Number Pin
+Type
+Buffer
+Type
+Description
+DIP SOIC
+Legend: TTL = TTL compatible input CMOS = CMOS compatible input or output
+ST = Schmitt Trigger input with CMOS levels I = Input
+O = Output P = Power
+OD = Open Drain (no P diode to VDD)
+? 2002 Microchip Technology Inc. DS39564B-page 13
+PIC18FXX2
+TABLE 1-3: PIC18F4X2 PINOUT I/O DESCRIPTIONS
+Pin Name
+Pin Number Pin
+Type
+Buffer
+Type
+Description
+DIP PLCC TQFP
+MCLR/VPP
+MCLR
+VPP
+1 2 18
+I
+I
+ST
+ST
+Master Clear (input) or high voltage ICSP
+programming enable pin.
+Master Clear (Reset) input. This pin is an active
+low RESET to the device.
+High voltage ICSP programming enable pin.
+NC — — — These pins should be left unconnected.
+OSC1/CLKI
+OSC1
+CLKI
+13 14 30
+I
+I
+ST
+CMOS
+Oscillator crystal or external clock input.
+Oscillator crystal input or external clock source
+input. ST buffer when configured in RC mode,
+CMOS otherwise.
+External clock source input. Always associated
+with pin function OSC1. (See related OSC1/CLKI,
+OSC2/CLKO pins.)
+OSC2/CLKO/RA6
+OSC2
+CLKO
+RA6
+14 15 31
+O
+O
+I/O
+—
+—
+TTL
+Oscillator crystal or clock output.
+Oscillator crystal output. Connects to crystal
+or resonator in Crystal Oscillator mode.
+In RC mode, OSC2 pin outputs CLKO,
+which has 1/4 the frequency of OSC1 and
+denotes the instruction cycle rate.
+General Purpose I/O pin.
+PORTA is a bi-directional I/O port.
+RA0/AN0
+RA0
+AN0
+2 3 19
+I/O
+I
+TTL
+Analog
+Digital I/O.
+Analog input 0.
+RA1/AN1
+RA1
+AN1
+3 4 20
+I/O
+I
+TTL
+Analog
+Digital I/O.
+Analog input 1.
+RA2/AN2/VREFRA2
+AN2
+VREF-
+4 5 21
+I/O
+I
+I
+TTL
+Analog
+Analog
+Digital I/O.
+Analog input 2.
+A/D Reference Voltage (Low) input.
+RA3/AN3/VREF+
+RA3
+AN3
+VREF+
+5 6 22
+I/O
+I
+I
+TTL
+Analog
+Analog
+Digital I/O.
+Analog input 3.
+A/D Reference Voltage (High) input.
+RA4/T0CKI
+RA4
+T0CKI
+6 7 23
+I/O
+I
+ST/OD
+ST
+Digital I/O. Open drain when configured as output.
+Timer0 external clock input.
+RA5/AN4/SS/LVDIN
+RA5
+AN4
+SS
+LVDIN
+7 8 24
+I/O
+I
+I
+I
+TTL
+Analog
+ST
+Analog
+Digital I/O.
+Analog input 4.
+SPI Slave Select input.
+Low Voltage Detect Input.
+RA6 (See the OSC2/CLKO/RA6 pin.)
+Legend: TTL = TTL compatible input CMOS = CMOS compatible input or output
+ST = Schmitt Trigger input with CMOS levels I = Input
+O = Output P = Power
+OD = Open Drain (no P diode to VDD)
+PIC18FXX2
+DS39564B-page 14 ? 2002 Microchip Technology Inc.
+PORTB is a bi-directional I/O port. PORTB can be
+software programmed for internal weak pull-ups on all
+inputs.
+RB0/INT0
+RB0
+INT0
+33 36 8
+I/O
+I
+TTL
+ST
+Digital I/O.
+External Interrupt 0.
+RB1/INT1
+RB1
+INT1
+34 37 9
+I/O
+I
+TTL
+ST External Interrupt 1.
+RB2/INT2
+RB2
+INT2
+35 38 10
+I/O
+I
+TTL
+ST
+Digital I/O.
+External Interrupt 2.
+RB3/CCP2
+RB3
+CCP2
+36 39 11
+I/O
+I/O
+TTL
+ST
+Digital I/O.
+Capture2 input, Compare2 output, PWM2 output.
+RB4 37 41 14 I/O TTL Digital I/O. Interrupt-on-change pin.
+RB5/PGM
+RB5
+PGM
+38 42 15
+I/O
+I/O
+TTL
+ST
+Digital I/O. Interrupt-on-change pin.
+Low Voltage ICSP programming enable pin.
+RB6/PGC
+RB6
+PGC
+39 43 16
+I/O
+I/O
+TTL
+ST
+Digital I/O. Interrupt-on-change pin.
+In-Circuit Debugger and ICSP programming clock
+pin.
+RB7/PGD
+RB7
+PGD
+40 44 17
+I/O
+I/O
+TTL
+ST
+Digital I/O. Interrupt-on-change pin.
+In-Circuit Debugger and ICSP programming data
+pin.
+TABLE 1-3: PIC18F4X2 PINOUT I/O DESCRIPTIONS (CONTINUED)
+Pin Name
+Pin Number Pin
+Type
+Buffer
+Type
+Description
+DIP PLCC TQFP
+Legend: TTL = TTL compatible input CMOS = CMOS compatible input or output
+ST = Schmitt Trigger input with CMOS levels I = Input
+O = Output P = Power
+OD = Open Drain (no P diode to VDD)
+? 2002 Microchip Technology Inc. DS39564B-page 15
+PIC18FXX2
+PORTC is a bi-directional I/O port.
+RC0/T1OSO/T1CKI
+RC0
+T1OSO
+T1CKI
+15 16 32
+I/O
+O
+I
+ST
+—
+ST
+Digital I/O.
+Timer1 oscillator output.
+Timer1/Timer3 external clock input.
+RC1/T1OSI/CCP2
+RC1
+T1OSI
+CCP2
+16 18 35
+I/O
+I
+I/O
+ST
+CMOS
+ST
+Digital I/O.
+Timer1 oscillator input.
+Capture2 input, Compare2 output, PWM2 output.
+RC2/CCP1
+RC2
+CCP1
+17 19 36
+I/O
+I/O
+ST
+ST
+Digital I/O.
+Capture1 input/Compare1 output/PWM1 output.
+RC3/SCK/SCL
+RC3
+SCK
+SCL
+18 20 37
+I/O
+I/O
+I/O
+ST
+ST
+ST
+Digital I/O.
+Synchronous serial clock input/output for
+SPI mode.
+Synchronous serial clock input/output for
+I2C mode.
+RC4/SDI/SDA
+RC4
+SDI
+SDA
+23 25 42
+I/O
+I
+I/O
+ST
+ST
+ST
+Digital I/O.
+SPI Data In.
+I2C Data I/O.
+RC5/SDO
+RC5
+SDO
+24 26 43
+I/O
+O
+ST
+—
+Digital I/O.
+SPI Data Out.
+RC6/TX/CK
+RC6
+TX
+CK
+25 27 44
+I/O
+O
+I/O
+ST
+—
+ST
+Digital I/O.
+USART Asynchronous Transmit.
+USART Synchronous Clock (see related RX/DT).
+RC7/RX/DT
+RC7
+RX
+DT
+26 29 1
+I/O
+I
+I/O
+ST
+ST
+ST
+Digital I/O.
+USART Asynchronous Receive.
+USART Synchronous Data (see related TX/CK).
+TABLE 1-3: PIC18F4X2 PINOUT I/O DESCRIPTIONS (CONTINUED)
+Pin Name
+Pin Number Pin
+Type
+Buffer
+Type
+Description
+DIP PLCC TQFP
+Legend: TTL = TTL compatible input CMOS = CMOS compatible input or output
+ST = Schmitt Trigger input with CMOS levels I = Input
+O = Output P = Power
+OD = Open Drain (no P diode to VDD)
+PIC18FXX2
+DS39564B-page 16 ? 2002 Microchip Technology Inc.
+PORTD is a bi-directional I/O port, or a Parallel Slave
+Port (PSP) for interfacing to a microprocessor port.
+These pins have TTL input buffers when PSP module
+is enabled.
+RD0/PSP0 19 21 38 I/O ST
+TTL
+Digital I/O.
+Parallel Slave Port Data.
+RD1/PSP1 20 22 39 I/O ST
+TTL
+Digital I/O.
+Parallel Slave Port Data.
+RD2/PSP2 21 23 40 I/O ST
+TTL
+Digital I/O.
+Parallel Slave Port Data.
+RD3/PSP3 22 24 41 I/O ST
+TTL
+Digital I/O.
+Parallel Slave Port Data.
+RD4/PSP4 27 30 2 I/O ST
+TTL
+Digital I/O.
+Parallel Slave Port Data.
+RD5/PSP5 28 31 3 I/O ST
+TTL
+Digital I/O.
+Parallel Slave Port Data.
+RD6/PSP6 29 32 4 I/O ST
+TTL
+Digital I/O.
+Parallel Slave Port Data.
+RD7/PSP7 30 33 5 I/O ST
+TTL
+Digital I/O.
+Parallel Slave Port Data.
+PORTE is a bi-directional I/O port.
+RE0/RD/AN5
+RE0
+RD
+AN5
+8 9 25 I/O
+ST
+TTL
+Analog
+Digital I/O.
+Read control for parallel slave port
+(see also WR and CS pins).
+Analog input 5.
+RE1/WR/AN6
+RE1
+WR
+AN6
+9 10 26 I/O
+ST
+TTL
+Analog
+Digital I/O.
+Write control for parallel slave port
+(see CS and RD pins).
+Analog input 6.
+RE2/CS/AN7
+RE2
+CS
+AN7
+10 11 27 I/O
+ST
+TTL
+Analog
+Digital I/O.
+Chip Select control for parallel slave port
+(see related RD and WR).
+Analog input 7.
+VSS 12, 31 13, 34 6, 29 P — Ground reference for logic and I/O pins.
+VDD 11, 32 12, 35 7, 28 P — Positive supply for logic and I/O pins.
+TABLE 1-3: PIC18F4X2 PINOUT I/O DESCRIPTIONS (CONTINUED)
+Pin Name
+Pin Number Pin
+Type
+Buffer
+Type
+Description
+DIP PLCC TQFP
+Legend: TTL = TTL compatible input CMOS = CMOS compatible input or output
+ST = Schmitt Trigger input with CMOS levels I = Input
+O = Output P = Power
+OD = Open Drain (no P diode to VDD)
+? 2002 Microchip Technology Inc. DS39564B-page 17
+PIC18FXX2
+2.0 OSCILLATOR
+CONFIGURATIONS
+2.1 Oscillator Types
+The PIC18FXX2 can be operated in eight different
+Oscillator modes. The user can program three configuration
+bits (FOSC2, FOSC1, and FOSC0) to select one
+of these eight modes:
+1. LP Low Power Crystal
+2. XT Crystal/Resonator
+3. HS High Speed Crystal/Resonator
+4. HS + PLL High Speed Crystal/Resonator
+with PLL enabled
+5. RC External Resistor/Capacitor
+6. RCIO External Resistor/Capacitor with
+I/O pin enabled
+7. EC External Clock
+8. ECIO External Clock with I/O pin
+enabled
+2.2 Crystal Oscillator/Ceramic
+Resonators
+In XT, LP, HS or HS+PLL Oscillator modes, a crystal or
+ceramic resonator is connected to the OSC1 and
+OSC2 pins to establish oscillation. Figure 2-1 shows
+the pin connections.
+The PIC18FXX2 oscillator design requires the use of a
+parallel cut crystal.
+FIGURE 2-1: CRYSTAL/CERAMIC
+RESONATOR OPERATION
+(HS, XT OR LP
+CONFIGURATION)
+TABLE 2-1: CAPACITOR SELECTION FOR
+CERAMIC RESONATORS
+Note: Use of a series cut crystal may give a frequency
+out of the crystal manufacturers
+specifications.
+Note 1: See Table 2-1 and Table 2-2 for
+recommended values of C1 and C2.
+2: A series resistor (RS) may be required for
+AT strip cut crystals.
+3: RF varies with the Oscillator mode chosen.
+C1(1)
+C2(1)
+XTAL
+OSC2
+OSC1
+RF(3)
+SLEEP
+To
+Logic
+PIC18FXXX
+RS(2)
+Internal
+Ranges Tested:
+Mode Freq C1 C2
+XT 455 kHz
+2.0 MHz
+4.0 MHz
+68 - 100 pF
+15 - 68 pF
+15 - 68 pF
+68 - 100 pF
+15 - 68 pF
+15 - 68 pF
+HS 8.0 MHz
+16.0 MHz
+10 - 68 pF
+10 - 22 pF
+10 - 68 pF
+10 - 22 pF
+These values are for design guidance only.
+See notes following this table.
+Resonators Used:
+455 kHz Panasonic EFO-A455K04B ± 0.3%
+2.0 MHz Murata Erie CSA2.00MG ± 0.5%
+4.0 MHz Murata Erie CSA4.00MG ± 0.5%
+8.0 MHz Murata Erie CSA8.00MT ± 0.5%
+16.0 MHz Murata Erie CSA16.00MX ± 0.5%
+All resonators used did not have built-in capacitors.
+Note 1: Higher capacitance increases the stability
+of the oscillator, but also increases the
+start-up time.
+2: When operating below 3V VDD, or when
+using certain ceramic resonators at any
+voltage, it may be necessary to use
+high-gain HS mode, try a lower frequency
+resonator, or switch to a crystal oscillator.
+3: Since each resonator/crystal has its own
+characteristics, the user should consult the
+resonator/crystal manufacturer for appropriate
+values of external components, or
+verify oscillator performance.
+PIC18FXX2
+DS39564B-page 18 ? 2002 Microchip Technology Inc.
+TABLE 2-2: CAPACITOR SELECTION FOR
+CRYSTAL OSCILLATOR
+An external clock source may also be connected to the
+OSC1 pin in the HS, XT and LP modes, as shown in
+Figure 2-2.
+FIGURE 2-2: EXTERNAL CLOCK INPUT
+OPERATION (HS, XT OR LP
+OSC CONFIGURATION)
+2.3 RC Oscillator
+For timing-insensitive applications, the “RC” and
+“RCIO” device options offer additional cost savings.
+The RC oscillator frequency is a function of the supply
+voltage, the resistor (REXT) and capacitor (CEXT) values
+and the operating temperature. In addition to this,
+the oscillator frequency will vary from unit to unit due to
+normal process parameter variation. Furthermore, the
+difference in lead frame capacitance between package
+types will also affect the oscillation frequency, especially
+for low CEXT values. The user also needs to take
+into account variation due to tolerance of external R
+and C components used. Figure 2-3 shows how the
+R/C combination is connected.
+In the RC Oscillator mode, the oscillator frequency
+divided by 4 is available on the OSC2 pin. This signal
+may be used for test purposes or to synchronize other
+logic.
+FIGURE 2-3: RC OSCILLATOR MODE
+The RCIO Oscillator mode functions like the RC mode,
+except that the OSC2 pin becomes an additional general
+purpose I/O pin. The I/O pin becomes bit 6 of
+PORTA (RA6).
+Ranges Tested:
+Mode Freq C1 C2
+LP 32.0 kHz 33 pF 33 pF
+200 kHz 15 pF 15 pF
+XT 200 kHz 22-68 pF 22-68 pF
+1.0 MHz 15 pF 15 pF
+4.0 MHz 15 pF 15 pF
+HS 4.0 MHz 15 pF 15 pF
+8.0 MHz 15-33 pF 15-33 pF
+20.0 MHz 15-33 pF 15-33 pF
+25.0 MHz 15-33 pF 15-33 pF
+These values are for design guidance only.
+See notes following this table.
+Crystals Used
+32.0 kHz Epson C-001R32.768K-A ± 20 PPM
+200 kHz STD XTL 200.000KHz ± 20 PPM
+1.0 MHz ECS ECS-10-13-1 ± 50 PPM
+4.0 MHz ECS ECS-40-20-1 ± 50 PPM
+8.0 MHz Epson CA-301 8.000M-C ± 30 PPM
+20.0 MHz Epson CA-301 20.000M-C ± 30 PPM
+Note 1: Higher capacitance increases the stability
+of the oscillator, but also increases the
+start-up time.
+2: Rs may be required in HS mode, as well
+as XT mode, to avoid overdriving crystals
+with low drive level specification.
+3: Since each resonator/crystal has its own
+characteristics, the user should consult the
+resonator/crystal manufacturer for appropriate
+values of external components., or
+verify oscillator performance.
+OSC1
+Open OSC2
+Clock from
+Ext. System PIC18FXXX
+Note: If the oscillator frequency divided by 4 signal
+is not required in the application, it is
+recommended to use RCIO mode to save
+current.
+OSC2/CLKO
+CEXT
+REXT
+PIC18FXXX
+OSC1
+FOSC/4
+Internal
+Clock
+VDD
+VSS
+Recommended values:3 k? ? REXT ? 100 k?
+CEXT > 20pF
+? 2002 Microchip Technology Inc. DS39564B-page 19
+PIC18FXX2
+2.4 External Clock Input
+The EC and ECIO Oscillator modes require an external
+clock source to be connected to the OSC1 pin. The
+feedback device between OSC1 and OSC2 is turned
+off in these modes to save current. There is no oscillator
+start-up time required after a Power-on Reset or
+after a recovery from SLEEP mode.
+In the EC Oscillator mode, the oscillator frequency
+divided by 4 is available on the OSC2 pin. This signal
+may be used for test purposes or to synchronize other
+logic. Figure 2-4 shows the pin connections for the EC
+Oscillator mode.
+FIGURE 2-4: EXTERNAL CLOCK INPUT
+OPERATION
+(EC CONFIGURATION)
+The ECIO Oscillator mode functions like the EC mode,
+except that the OSC2 pin becomes an additional general
+purpose I/O pin. The I/O pin becomes bit 6 of
+PORTA (RA6). Figure 2-5 shows the pin connections
+for the ECIO Oscillator mode.
+FIGURE 2-5: EXTERNAL CLOCK INPUT
+OPERATION
+(ECIO CONFIGURATION)
+2.5 HS/PLL
+A Phase Locked Loop circuit is provided as a programmable
+option for users that want to multiply the frequency
+of the incoming crystal oscillator signal by 4.
+For an input clock frequency of 10 MHz, the internal
+clock frequency will be multiplied to 40 MHz. This is
+useful for customers who are concerned with EMI due
+to high frequency crystals.
+The PLL can only be enabled when the oscillator configuration
+bits are programmed for HS mode. If they are
+programmed for any other mode, the PLL is not
+enabled and the system clock will come directly from
+OSC1.
+The PLL is one of the modes of the FOSC<2:0> configuration
+bits. The Oscillator mode is specified during
+device programming.
+A PLL lock timer is used to ensure that the PLL has
+locked before device execution starts. The PLL lock
+timer has a time-out that is called TPLL.
+FIGURE 2-6: PLL BLOCK DIAGRAM
+OSC1
+FOSC/4 OSC2
+Clock from
+Ext. System PIC18FXXX
+OSC1
+RA6 I/O (OSC2)
+Clock from
+Ext. System PIC18FXXX
+MUX
+VCO
+Loop
+Filter
+Divide by 4
+Crystal
+Osc
+OSC2
+OSC1
+PLL Enable
+FIN
+FOUT SYSCLK
+Phase
+Comparator
+(from Configuration HS Osc
+bit Register)
+PIC18FXX2
+DS39564B-page 20 ? 2002 Microchip Technology Inc.
+2.6 Oscillator Switching Feature
+The PIC18FXX2 devices include a feature that allows
+the system clock source to be switched from the main
+oscillator to an alternate low frequency clock source.
+For the PIC18FXX2 devices, this alternate clock source
+is the Timer1 oscillator. If a low frequency crystal (32
+kHz, for example) has been attached to the Timer1
+oscillator pins and the Timer1 oscillator has been
+enabled, the device can switch to a Low Power Execution
+mode. Figure 2-7 shows a block diagram of the
+system clock sources. The clock switching feature is
+enabled by programming the Oscillator Switching
+Enable (OSCSEN) bit in Configuration Register1H to a
+’0’. Clock switching is disabled in an erased device.
+See Section 11.0 for further details of the Timer1 oscillator.
+See Section 19.0 for Configuration Register
+details.
+FIGURE 2-7: DEVICE CLOCK SOURCES
+PIC18FXXX
+TOSC
+4 x PLL
+TT1P
+TSCLK
+Clock
+Source
+MUX
+TOSC/4
+Timer1 Oscillator
+T1OSCEN
+Enable
+Oscillator
+T1OSO
+T1OSI
+Clock Source option
+for other modules
+OSC1
+OSC2
+SLEEP
+Main Oscillator
+? 2002 Microchip Technology Inc. DS39564B-page 21
+PIC18FXX2
+2.6.1 SYSTEM CLOCK SWITCH BIT
+The system clock source switching is performed under
+software control. The system clock switch bit, SCS
+(OSCCON<0>) controls the clock switching. When the
+SCS bit is ’0’, the system clock source comes from the
+main oscillator that is selected by the FOSC configuration
+bits in Configuration Register1H. When the SCS bit
+is set, the system clock source will come from the
+Timer1 oscillator. The SCS bit is cleared on all forms of
+RESET.
+REGISTER 2-1: OSCCON REGISTER
+Note: The Timer1 oscillator must be enabled and
+operating to switch the system clock
+source. The Timer1 oscillator is enabled by
+setting the T1OSCEN bit in the Timer1
+control register (T1CON). If the Timer1
+oscillator is not enabled, then any write to
+the SCS bit will be ignored (SCS bit forced
+cleared) and the main oscillator will
+continue to be the system clock source.
+U-0 U-0 U-0 U-0 U-0 U-0 U-0 R/W-1
+— — — — — — — SCS
+bit 7 bit 0
+bit 7-1 Unimplemented: Read as '0'
+bit 0 SCS: System Clock Switch bit
+When OSCSEN configuration bit = ’0’ and T1OSCEN bit is set:
+1 = Switch to Timer1 oscillator/clock pin
+0 = Use primary oscillator/clock input pin
+When OSCSEN and T1OSCEN are in other states:
+bit is forced clear
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+PIC18FXX2
+DS39564B-page 22 ? 2002 Microchip Technology Inc.
+2.6.2 OSCILLATOR TRANSITIONS
+The PIC18FXX2 devices contain circuitry to prevent
+“glitches” when switching between oscillator sources.
+Essentially, the circuitry waits for eight rising edges of
+the clock source that the processor is switching to. This
+ensures that the new clock source is stable and that its
+pulse width will not be less than the shortest pulse
+width of the two clock sources.
+A timing diagram indicating the transition from the main
+oscillator to the Timer1 oscillator is shown in
+Figure 2-8. The Timer1 oscillator is assumed to be running
+all the time. After the SCS bit is set, the processor
+is frozen at the next occurring Q1 cycle. After eight synchronization
+cycles are counted from the Timer1 oscillator,
+operation resumes. No additional delays are
+required after the synchronization cycles.
+FIGURE 2-8: TIMING DIAGRAM FOR TRANSITION FROM OSC1 TO TIMER1 OSCILLATOR
+The sequence of events that takes place when switching
+from the Timer1 oscillator to the main oscillator will
+depend on the mode of the main oscillator. In addition
+to eight clock cycles of the main oscillator, additional
+delays may take place.
+If the main oscillator is configured for an external crystal
+(HS, XT, LP), then the transition will take place after
+an oscillator start-up time (TOST) has occurred. A timing
+diagram, indicating the transition from the Timer1 oscillator
+to the main oscillator for HS, XT and LP modes, is
+shown in Figure 2-9.
+FIGURE 2-9: TIMING FOR TRANSITION BETWEEN TIMER1 AND OSC1 (HS, XT, LP)
+Q2 Q3 Q4 Q1 Q2 Q3
+OSC1
+Internal
+SCS
+(OSCCON<0>)
+Program PC PC + 2
+Note 1: Delay on internal system clock is eight oscillator cycles for synchronization.
+Q1
+T1OSI
+Q4 Q1
+PC + 4
+Q1
+Tscs
+Clock
+Counter
+System
+Q2 Q3 Q4 Q1
+TDLY
+TT1P
+TOSC
+1 2 3 4 5 6 7 8
+Q3 Q4 Q1 Q2 Q3 Q4 Q1 Q2 Q3
+OSC1
+Internal System
+SCS
+(OSCCON<0>)
+Program Counter PC PC + 2
+Note 1: TOST = 1024 TOSC (drawing not to scale).
+T1OSI
+Clock
+OSC2
+TOST
+Q1
+PC + 6
+TT1P
+TOSC
+TSCS
+1 2 3 4 5 6 7 8
+? 2002 Microchip Technology Inc. DS39564B-page 23
+PIC18FXX2
+If the main oscillator is configured for HS-PLL mode, an
+oscillator start-up time (TOST) plus an additional PLL
+time-out (TPLL) will occur. The PLL time-out is typically
+2 ms and allows the PLL to lock to the main oscillator
+frequency. A timing diagram indicating the transition
+from the Timer1 oscillator to the main oscillator for
+HS-PLL mode is shown in Figure 2-10.
+FIGURE 2-10: TIMING FOR TRANSITION BETWEEN TIMER1 AND OSC1 (HS WITH PLL)
+If the main oscillator is configured in the RC, RCIO, EC
+or ECIO modes, there is no oscillator start-up time-out.
+Operation will resume after eight cycles of the main
+oscillator have been counted. A timing diagram, indicating
+the transition from the Timer1 oscillator to the
+main oscillator for RC, RCIO, EC and ECIO modes, is
+shown in Figure 2-11.
+FIGURE 2-11: TIMING FOR TRANSITION BETWEEN TIMER1 AND OSC1 (RC, EC)
+Q4 Q1 Q1 Q2 Q3 Q4 Q1 Q2
+OSC1
+Internal System
+SCS
+(OSCCON<0>)
+Program Counter PC PC + 2
+Note 1: TOST = 1024 TOSC (drawing not to scale).
+T1OSI
+Clock
+TOST
+Q3
+PC + 4
+TPLL
+TOSC
+TT1P
+TSCS
+Q4
+OSC2
+PLL Clock
+Input 1 2 3 4 5 6 7 8
+Q3 Q4 Q1 Q1 Q2 Q3 Q4 Q1 Q2 Q3
+OSC1
+Internal System
+SCS
+(OSCCON<0>)
+Program Counter PC PC + 2
+Note 1: RC Oscillator mode assumed.
+PC + 4
+T1OSI
+Clock
+OSC2
+Q4
+TT1P
+TOSC
+TSCS
+1 2 3 4 5 6 7 8
+PIC18FXX2
+DS39564B-page 24 ? 2002 Microchip Technology Inc.
+2.7 Effects of SLEEP Mode on the
+On-Chip Oscillator
+When the device executes a SLEEP instruction, the
+on-chip clocks and oscillator are turned off and the
+device is held at the beginning of an instruction cycle
+(Q1 state). With the oscillator off, the OSC1 and OSC2
+signals will stop oscillating. Since all the transistor
+switching currents have been removed, SLEEP mode
+achieves the lowest current consumption of the device
+(only leakage currents). Enabling any on-chip feature
+that will operate during SLEEP will increase the current
+consumed during SLEEP. The user can wake from
+SLEEP through external RESET, Watchdog Timer
+Reset, or through an interrupt.
+TABLE 2-3: OSC1 AND OSC2 PIN STATES IN SLEEP MODE
+2.8 Power-up Delays
+Power up delays are controlled by two timers, so that
+no external RESET circuitry is required for most applications.
+The delays ensure that the device is kept in
+RESET, until the device power supply and clock are
+stable. For additional information on RESET operation,
+see Section 3.0.
+The first timer is the Power-up Timer (PWRT), which
+optionally provides a fixed delay of 72 ms (nominal) on
+power-up only (POR and BOR). The second timer is
+the Oscillator Start-up Timer (OST), intended to keep
+the chip in RESET until the crystal oscillator is stable.
+With the PLL enabled (HS/PLL Oscillator mode), the
+time-out sequence following a Power-on Reset is different
+from other Oscillator modes. The time-out
+sequence is as follows: First, the PWRT time-out is
+invoked after a POR time delay has expired. Then, the
+Oscillator Start-up Timer (OST) is invoked. However,
+this is still not a sufficient amount of time to allow the
+PLL to lock at high frequencies. The PWRT timer is
+used to provide an additional fixed 2 ms (nominal)
+time-out to allow the PLL ample time to lock to the
+incoming clock frequency.
+OSC Mode OSC1 Pin OSC2 Pin
+RC Floating, external resistor
+should pull high
+At logic low
+RCIO Floating, external resistor
+should pull high
+Configured as PORTA, bit 6
+ECIO Floating Configured as PORTA, bit 6
+EC Floating At logic low
+LP, XT, and HS Feedback inverter disabled, at
+quiescent voltage level
+Feedback inverter disabled, at
+quiescent voltage level
+Note: See Table 3-1, in the “Reset” section, for time-outs due to SLEEP and MCLR Reset.
+? 2002 Microchip Technology Inc. DS39564B-page 25
+PIC18FXX2
+3.0 RESET
+The PIC18FXXX differentiates between various kinds
+of RESET:
+a) Power-on Reset (POR)
+b) MCLR Reset during normal operation
+c) MCLR Reset during SLEEP
+d) Watchdog Timer (WDT) Reset (during normal
+operation)
+e) Programmable Brown-out Reset (BOR)
+f) RESET Instruction
+g) Stack Full Reset
+h) Stack Underflow Reset
+Most registers are unaffected by a RESET. Their status
+is unknown on POR and unchanged by all other
+RESETS. The other registers are forced to a “RESET
+state” on Power-on Reset, MCLR, WDT Reset, Brownout
+Reset, MCLR Reset during SLEEP and by the
+RESET instruction.
+Most registers are not affected by a WDT wake-up,
+since this is viewed as the resumption of normal operation.
+Status bits from the RCON register, RI, TO, PD,
+POR and BOR, are set or cleared differently in different
+RESET situations, as indicated in Table 3-2. These bits
+are used in software to determine the nature of the
+RESET. See Table 3-3 for a full description of the
+RESET states of all registers.
+A simplified block diagram of the On-Chip Reset Circuit
+is shown in Figure 3-1.
+The Enhanced MCU devices have a MCLR noise filter
+in the MCLR Reset path. The filter will detect and
+ignore small pulses.
+The MCLR pin is not driven low by any internal
+RESETS, including the WDT.
+FIGURE 3-1: SIMPLIFIED BLOCK DIAGRAM OF ON-CHIP RESET CIRCUIT
+S
+R Q
+External Reset
+MCLR
+VDD
+OSC1
+WDT
+Module
+VDD Rise
+Detect
+OST/PWRT
+On-chip
+RC OSC(1)
+WDT
+Time-out
+Power-on Reset
+OST
+10-bit Ripple Counter
+PWRT
+Chip_Reset
+10-bit Ripple Counter
+Reset
+Enable OST(2)
+Enable PWRT
+SLEEP
+Note 1: This is a separate oscillator from the RC oscillator of the CLKI pin.
+2: See Table 3-1 for time-out situations.
+Brown-out
+Reset BOREN
+RESET
+Instruction
+Stack
+Pointer Stack Full/Underflow Reset
+PIC18FXX2
+DS39564B-page 26 ? 2002 Microchip Technology Inc.
+3.1 Power-On Reset (POR)
+A Power-on Reset pulse is generated on-chip when
+VDD rise is detected. To take advantage of the POR circuitry,
+just tie the MCLR pin directly (or through a resistor)
+to VDD. This will eliminate external RC components
+usually needed to create a Power-on Reset delay. A
+minimum rise rate for VDD is specified
+(parameter D004). For a slow rise time, see Figure 3-2.
+When the device starts normal operation (i.e., exits the
+RESET condition), device operating parameters (voltage,
+frequency, temperature, etc.) must be met to
+ensure operation. If these conditions are not met, the
+device must be held in RESET until the operating
+conditions are met.
+FIGURE 3-2: EXTERNAL POWER-ON
+RESET CIRCUIT (FOR
+SLOW VDD POWER-UP)
+3.2 Power-up Timer (PWRT)
+The Power-up Timer provides a fixed nominal time-out
+(parameter 33) only on power-up from the POR. The
+Power-up Timer operates on an internal RC oscillator.
+The chip is kept in RESET as long as the PWRT is
+active. The PWRT’s time delay allows VDD to rise to an
+acceptable level. A configuration bit is provided to
+enable/disable the PWRT.
+The power-up time delay will vary from chip-to-chip due
+to VDD, temperature and process variation. See DC
+parameter D033 for details.
+3.3 Oscillator Start-up Timer (OST)
+The Oscillator Start-up Timer (OST) provides a 1024
+oscillator cycle (from OSC1 input) delay after the
+PWRT delay is over (parameter 32). This ensures that
+the crystal oscillator or resonator has started and
+stabilized.
+The OST time-out is invoked only for XT, LP and HS
+modes and only on Power-on Reset or wake-up from
+SLEEP.
+3.4 PLL Lock Time-out
+With the PLL enabled, the time-out sequence following
+a Power-on Reset is different from other Oscillator
+modes. A portion of the Power-up Timer is used to provide
+a fixed time-out that is sufficient for the PLL to lock
+to the main oscillator frequency. This PLL lock time-out
+(TPLL) is typically 2 ms and follows the oscillator
+start-up time-out (OST).
+3.5 Brown-out Reset (BOR)
+A configuration bit, BOREN, can disable (if clear/
+programmed), or enable (if set) the Brown-out Reset
+circuitry. If VDD falls below parameter D005 for greater
+than parameter 35, the brown-out situation will reset
+the chip. A RESET may not occur if VDD falls below
+parameter D005 for less than parameter 35. The chip
+will remain in Brown-out Reset until VDD rises above
+BVDD. If the Power-up Timer is enabled, it will be
+invoked after VDD rises above BVDD; it then will keep
+the chip in RESET for an additional time delay
+(parameter 33). If VDD drops below BVDD while the
+Power-up Timer is running, the chip will go back into a
+Brown-out Reset and the Power-up Timer will be initialized.
+Once VDD rises above BVDD, the Power-up Timer
+will execute the additional time delay.
+3.6 Time-out Sequence
+On power-up, the time-out sequence is as follows:
+First, PWRT time-out is invoked after the POR time
+delay has expired. Then, OST is activated. The total
+time-out will vary based on oscillator configuration and
+the status of the PWRT. For example, in RC mode with
+the PWRT disabled, there will be no time-out at all.
+Figure 3-3, Figure 3-4, Figure 3-5, Figure 3-6 and
+Figure 3-7 depict time-out sequences on power-up.
+Since the time-outs occur from the POR pulse, if MCLR
+is kept low long enough, the time-outs will expire.
+Bringing MCLR high will begin execution immediately
+(Figure 3-5). This is useful for testing purposes or to
+synchronize more than one PIC18FXXX device operating
+in parallel.
+Table 3-2 shows the RESET conditions for some
+Special Function Registers, while Table 3-3 shows the
+RESET conditions for all the registers.
+Note 1: External Power-on Reset circuit is required
+only if the VDD power-up slope is too slow.
+The diode D helps discharge the capacitor
+quickly when VDD powers down.
+2: R < 40 k? is recommended to make sure that
+the voltage drop across R does not violate
+the device’s electrical specification.
+3: R1 = 100? to 1 k? will limit any current flowing
+into MCLR from external capacitor C, in
+the event of MCLR/VPP pin breakdown due to
+Electrostatic Discharge (ESD) or Electrical
+Overstress (EOS).
+C
+R1
+D R
+VDD
+MCLR
+PIC18FXXX
+? 2002 Microchip Technology Inc. DS39564B-page 27
+PIC18FXX2
+TABLE 3-1: TIME-OUT IN VARIOUS SITUATIONS
+REGISTER 3-1: RCON REGISTER BITS AND POSITIONS
+TABLE 3-2: STATUS BITS, THEIR SIGNIFICANCE AND THE INITIALIZATION CONDITION FOR
+RCON REGISTER
+Oscillator
+Configuration
+Power-up(2)
+Brown-out
+Wake-up from
+SLEEP or
+PWRTE = 0 PWRTE = 1 Oscillator Switch
+HS with PLL enabled(1) 72 ms + 1024 TOSC
++ 2ms
+1024 TOSC
++ 2 ms
+72 ms(2) + 1024 TOSC
++ 2 ms
+1024 TOSC + 2 ms
+HS, XT, LP 72 ms + 1024 TOSC 1024 TOSC 72 ms(2) + 1024 TOSC 1024 TOSC
+EC 72 ms — 72 ms(2) —
+External RC 72 ms — 72 ms(2) —
+Note 1: 2 ms is the nominal time required for the 4x PLL to lock.
+2: 72 ms is the nominal power-up timer delay, if implemented.
+R/W-0 U-0 U-0 R/W-1 R-1 R-1 R/W-0 R/W-0
+IPEN — — RI TO PD POR BOR
+bit 7 bit 0
+Note 1: Refer to Section 4.14 (page 53) for bit definitions.
+Condition
+Program
+Counter
+RCON
+Register
+RI TO PD POR BOR STKFUL STKUNF
+Power-on Reset 0000h 0--1 1100 1 1 1 0 0 u u
+MCLR Reset during normal
+operation
+0000h 0--u uuuu u u u u u u u
+Software Reset during normal
+operation
+0000h 0--0 uuuu 0 u u u u u u
+Stack Full Reset during normal
+operation
+0000h 0--u uu11 u u u u u u 1
+Stack Underflow Reset during
+normal operation
+0000h 0--u uu11 u u u u u 1 u
+MCLR Reset during SLEEP 0000h 0--u 10uu u 1 0 u u u u
+WDT Reset 0000h 0--u 01uu 1 0 1 u u u u
+WDT Wake-up PC + 2 u--u 00uu u 0 0 u u u u
+Brown-out Reset 0000h 0--1 11u0 1 1 1 1 0 u u
+Interrupt wake-up from SLEEP PC + 2(1) u--u 00uu u 1 0 u u u u
+Legend: u = unchanged, x = unknown, - = unimplemented bit, read as '0'
+Note 1: When the wake-up is due to an interrupt and the GIEH or GIEL bits are set, the PC is loaded with the
+interrupt vector (0x000008h or 0x000018h).
+PIC18FXX2
+DS39564B-page 28 ? 2002 Microchip Technology Inc.
+TABLE 3-3: INITIALIZATION CONDITIONS FOR ALL REGISTERS
+Register Applicable Devices
+Power-on Reset,
+Brown-out Reset
+MCLR Resets
+WDT Reset
+RESET Instruction
+Stack Resets
+Wake-up via WDT
+or Interrupt
+TOSU 242 442 252 452 ---0 0000 ---0 0000 ---0 uuuu(3)
+TOSH 242 442 252 452 0000 0000 0000 0000 uuuu uuuu(3)
+TOSL 242 442 252 452 0000 0000 0000 0000 uuuu uuuu(3)
+STKPTR 242 442 252 452 00-0 0000 uu-0 0000 uu-u uuuu(3)
+PCLATU 242 442 252 452 ---0 0000 ---0 0000 ---u uuuu
+PCLATH 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+PCL 242 442 252 452 0000 0000 0000 0000 PC + 2(2)
+TBLPTRU 242 442 252 452 --00 0000 --00 0000 --uu uuuu
+TBLPTRH 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+TBLPTRL 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+TABLAT 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+PRODH 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+PRODL 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+INTCON 242 442 252 452 0000 000x 0000 000u uuuu uuuu(1)
+INTCON2 242 442 252 452 1111 -1-1 1111 -1-1 uuuu -u-u(1)
+INTCON3 242 442 252 452 11-0 0-00 11-0 0-00 uu-u u-uu(1)
+INDF0 242 442 252 452 N/A N/A N/A
+POSTINC0 242 442 252 452 N/A N/A N/A
+POSTDEC0 242 442 252 452 N/A N/A N/A
+PREINC0 242 442 252 452 N/A N/A N/A
+PLUSW0 242 442 252 452 N/A N/A N/A
+FSR0H 242 442 252 452 ---- xxxx ---- uuuu ---- uuuu
+FSR0L 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+WREG 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+INDF1 242 442 252 452 N/A N/A N/A
+POSTINC1 242 442 252 452 N/A N/A N/A
+POSTDEC1 242 442 252 452 N/A N/A N/A
+PREINC1 242 442 252 452 N/A N/A N/A
+PLUSW1 242 442 252 452 N/A N/A N/A
+Legend: u = unchanged, x = unknown, - = unimplemented bit, read as ’0’, q = value depends on condition.
+Shaded cells indicate conditions do not apply for the designated device.
+Note 1: One or more bits in the INTCONx or PIRx registers will be affected (to cause wake-up).
+2: When the wake-up is due to an interrupt and the GIEL or GIEH bit is set, the PC is loaded with the interrupt
+vector (0008h or 0018h).
+3: When the wake-up is due to an interrupt and the GIEL or GIEH bit is set, the TOSU, TOSH and TOSL are
+updated with the current value of the PC. The STKPTR is modified to point to the next location in the
+hardware stack.
+4: See Table 3-2 for RESET value for specific condition.
+5: Bit 6 of PORTA, LATA, and TRISA are enabled in ECIO and RCIO Oscillator modes only. In all other
+Oscillator modes, they are disabled and read ’0’.
+6: Bit 6 of PORTA, LATA and TRISA are not available on all devices. When unimplemented, they are read ’0’.
+? 2002 Microchip Technology Inc. DS39564B-page 29
+PIC18FXX2
+FSR1H 242 442 252 452 ---- xxxx ---- uuuu ---- uuuu
+FSR1L 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+BSR 242 442 252 452 ---- 0000 ---- 0000 ---- uuuu
+INDF2 242 442 252 452 N/A N/A N/A
+POSTINC2 242 442 252 452 N/A N/A N/A
+POSTDEC2 242 442 252 452 N/A N/A N/A
+PREINC2 242 442 252 452 N/A N/A N/A
+PLUSW2 242 442 252 452 N/A N/A N/A
+FSR2H 242 442 252 452 ---- xxxx ---- uuuu ---- uuuu
+FSR2L 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+STATUS 242 442 252 452 ---x xxxx ---u uuuu ---u uuuu
+TMR0H 242 442 252 452 0000 0000 uuuu uuuu uuuu uuuu
+TMR0L 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+T0CON 242 442 252 452 1111 1111 1111 1111 uuuu uuuu
+OSCCON 242 442 252 452 ---- ---0 ---- ---0 ---- ---u
+LVDCON 242 442 252 452 --00 0101 --00 0101 --uu uuuu
+WDTCON 242 442 252 452 ---- ---0 ---- ---0 ---- ---u
+RCON(4) 242 442 252 452 0--q 11qq 0--q qquu u--u qquu
+TMR1H 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+TMR1L 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+T1CON 242 442 252 452 0-00 0000 u-uu uuuu u-uu uuuu
+TMR2 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+PR2 242 442 252 452 1111 1111 1111 1111 1111 1111
+T2CON 242 442 252 452 -000 0000 -000 0000 -uuu uuuu
+SSPBUF 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+SSPADD 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+SSPSTAT 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+SSPCON1 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+SSPCON2 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+TABLE 3-3: INITIALIZATION CONDITIONS FOR ALL REGISTERS (CONTINUED)
+Register Applicable Devices
+Power-on Reset,
+Brown-out Reset
+MCLR Resets
+WDT Reset
+RESET Instruction
+Stack Resets
+Wake-up via WDT
+or Interrupt
+Legend: u = unchanged, x = unknown, - = unimplemented bit, read as ’0’, q = value depends on condition.
+Shaded cells indicate conditions do not apply for the designated device.
+Note 1: One or more bits in the INTCONx or PIRx registers will be affected (to cause wake-up).
+2: When the wake-up is due to an interrupt and the GIEL or GIEH bit is set, the PC is loaded with the interrupt
+vector (0008h or 0018h).
+3: When the wake-up is due to an interrupt and the GIEL or GIEH bit is set, the TOSU, TOSH and TOSL are
+updated with the current value of the PC. The STKPTR is modified to point to the next location in the
+hardware stack.
+4: See Table 3-2 for RESET value for specific condition.
+5: Bit 6 of PORTA, LATA, and TRISA are enabled in ECIO and RCIO Oscillator modes only. In all other
+Oscillator modes, they are disabled and read ’0’.
+6: Bit 6 of PORTA, LATA and TRISA are not available on all devices. When unimplemented, they are read ’0’.
+PIC18FXX2
+DS39564B-page 30 ? 2002 Microchip Technology Inc.
+ADRESH 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+ADRESL 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+ADCON0 242 442 252 452 0000 00-0 0000 00-0 uuuu uu-u
+ADCON1 242 442 252 452 00-- 0000 00-- 0000 uu-- uuuu
+CCPR1H 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+CCPR1L 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+CCP1CON 242 442 252 452 --00 0000 --00 0000 --uu uuuu
+CCPR2H 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+CCPR2L 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+CCP2CON 242 442 252 452 --00 0000 --00 0000 --uu uuuu
+TMR3H 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+TMR3L 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+T3CON 242 442 252 452 0000 0000 uuuu uuuu uuuu uuuu
+SPBRG 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+RCREG 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+TXREG 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+TXSTA 242 442 252 452 0000 -010 0000 -010 uuuu -uuu
+RCSTA 242 442 252 452 0000 000x 0000 000x uuuu uuuu
+EEADR 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+EEDATA 242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+EECON1 242 442 252 452 xx-0 x000 uu-0 u000 uu-0 u000
+EECON2 242 442 252 452 ---- ---- ---- ---- ---- ----
+TABLE 3-3: INITIALIZATION CONDITIONS FOR ALL REGISTERS (CONTINUED)
+Register Applicable Devices
+Power-on Reset,
+Brown-out Reset
+MCLR Resets
+WDT Reset
+RESET Instruction
+Stack Resets
+Wake-up via WDT
+or Interrupt
+Legend: u = unchanged, x = unknown, - = unimplemented bit, read as ’0’, q = value depends on condition.
+Shaded cells indicate conditions do not apply for the designated device.
+Note 1: One or more bits in the INTCONx or PIRx registers will be affected (to cause wake-up).
+2: When the wake-up is due to an interrupt and the GIEL or GIEH bit is set, the PC is loaded with the interrupt
+vector (0008h or 0018h).
+3: When the wake-up is due to an interrupt and the GIEL or GIEH bit is set, the TOSU, TOSH and TOSL are
+updated with the current value of the PC. The STKPTR is modified to point to the next location in the
+hardware stack.
+4: See Table 3-2 for RESET value for specific condition.
+5: Bit 6 of PORTA, LATA, and TRISA are enabled in ECIO and RCIO Oscillator modes only. In all other
+Oscillator modes, they are disabled and read ’0’.
+6: Bit 6 of PORTA, LATA and TRISA are not available on all devices. When unimplemented, they are read ’0’.
+? 2002 Microchip Technology Inc. DS39564B-page 31
+PIC18FXX2
+IPR2 242 442 252 452 ---1 1111 ---1 1111 ---u uuuu
+PIR2 242 442 252 452 ---0 0000 ---0 0000 ---u uuuu(1)
+PIE2 242 442 252 452 ---0 0000 ---0 0000 ---u uuuu
+IPR1
+242 442 252 452 1111 1111 1111 1111 uuuu uuuu
+242 442 252 452 -111 1111 -111 1111 -uuu uuuu
+PIR1
+242 442 252 452 0000 0000 0000 0000 uuuu uuuu(1)
+242 442 252 452 -000 0000 -000 0000 -uuu uuuu(1)
+PIE1
+242 442 252 452 0000 0000 0000 0000 uuuu uuuu
+242 442 252 452 -000 0000 -000 0000 -uuu uuuu
+TRISE 242 442 252 452 0000 -111 0000 -111 uuuu -uuu
+TRISD 242 442 252 452 1111 1111 1111 1111 uuuu uuuu
+TRISC 242 442 252 452 1111 1111 1111 1111 uuuu uuuu
+TRISB 242 442 252 452 1111 1111 1111 1111 uuuu uuuu
+TRISA(5,6) 242 442 252 452 -111 1111(5) -111 1111(5) -uuu uuuu(5)
+LATE 242 442 252 452 ---- -xxx ---- -uuu ---- -uuu
+LATD 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+LATC 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+LATB 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+LATA(5,6) 242 442 252 452 -xxx xxxx(5) -uuu uuuu(5) -uuu uuuu(5)
+PORTE 242 442 252 452 ---- -000 ---- -000 ---- -uuu
+PORTD 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+PORTC 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+PORTB 242 442 252 452 xxxx xxxx uuuu uuuu uuuu uuuu
+PORTA(5,6) 242 442 252 452 -x0x 0000(5) -u0u 0000(5) -uuu uuuu(5)
+TABLE 3-3: INITIALIZATION CONDITIONS FOR ALL REGISTERS (CONTINUED)
+Register Applicable Devices
+Power-on Reset,
+Brown-out Reset
+MCLR Resets
+WDT Reset
+RESET Instruction
+Stack Resets
+Wake-up via WDT
+or Interrupt
+Legend: u = unchanged, x = unknown, - = unimplemented bit, read as ’0’, q = value depends on condition.
+Shaded cells indicate conditions do not apply for the designated device.
+Note 1: One or more bits in the INTCONx or PIRx registers will be affected (to cause wake-up).
+2: When the wake-up is due to an interrupt and the GIEL or GIEH bit is set, the PC is loaded with the interrupt
+vector (0008h or 0018h).
+3: When the wake-up is due to an interrupt and the GIEL or GIEH bit is set, the TOSU, TOSH and TOSL are
+updated with the current value of the PC. The STKPTR is modified to point to the next location in the
+hardware stack.
+4: See Table 3-2 for RESET value for specific condition.
+5: Bit 6 of PORTA, LATA, and TRISA are enabled in ECIO and RCIO Oscillator modes only. In all other
+Oscillator modes, they are disabled and read ’0’.
+6: Bit 6 of PORTA, LATA and TRISA are not available on all devices. When unimplemented, they are read ’0’.
+PIC18FXX2
+DS39564B-page 32 ? 2002 Microchip Technology Inc.
+FIGURE 3-3: TIME-OUT SEQUENCE ON POWER-UP (MCLR TIED TO VDD)
+FIGURE 3-4: TIME-OUT SEQUENCE ON POWER-UP (MCLR NOT TIED TO VDD): CASE 1
+FIGURE 3-5: TIME-OUT SEQUENCE ON POWER-UP (MCLR NOT TIED TO VDD): CASE 2
+TPWRT
+TOST
+VDD
+MCLR
+INTERNAL POR
+PWRT TIME-OUT
+OST TIME-OUT
+INTERNAL RESET
+TPWRT
+TOST
+VDD
+MCLR
+INTERNAL POR
+PWRT TIME-OUT
+OST TIME-OUT
+INTERNAL RESET
+VDD
+MCLR
+INTERNAL POR
+PWRT TIME-OUT
+OST TIME-OUT
+INTERNAL RESET
+TPWRT
+TOST
+? 2002 Microchip Technology Inc. DS39564B-page 33
+PIC18FXX2
+FIGURE 3-6: SLOW RISE TIME (MCLR TIED TO VDD)
+FIGURE 3-7: TIME-OUT SEQUENCE ON POR W/ PLL ENABLED (MCLR TIED TO VDD)
+VDD
+MCLR
+INTERNAL POR
+PWRT TIME-OUT
+OST TIME-OUT
+INTERNAL RESET
+0V 1V
+5V
+TPWRT
+TOST
+TPWRT
+TOST
+VDD
+MCLR
+IINTERNAL POR
+PWRT TIME-OUT
+OST TIME-OUT
+INTERNAL RESET
+PLL TIME-OUT
+TPLL
+Note: TOST = 1024 clock cycles.
+TPLL ? 2 ms max. First three stages of the PWRT timer.
+PIC18FXX2
+DS39564B-page 34 ? 2002 Microchip Technology Inc.
+NOTES:
+? 2002 Microchip Technology Inc. DS39564B-page 35
+PIC18FXX2
+4.0 MEMORY ORGANIZATION
+There are three memory blocks in Enhanced MCU
+devices. These memory blocks are:
+• Program Memory
+• Data RAM
+• Data EEPROM
+Data and program memory use separate busses,
+which allows for concurrent access of these blocks.
+Additional detailed information for FLASH program
+memory and Data EEPROM is provided in Section 5.0
+and Section 6.0, respectively.
+4.1 Program Memory Organization
+A 21-bit program counter is capable of addressing the
+2-Mbyte program memory space. Accessing a location
+between the physically implemented memory and the
+2-Mbyte address will cause a read of all ’0’s (a NOP
+instruction).
+The PIC18F252 and PIC18F452 each have 32 Kbytes
+of FLASH memory, while the PIC18F242 and
+PIC18F442 have 16 Kbytes of FLASH. This means that
+PIC18FX52 devices can store up to 16K of single word
+instructions, and PIC18FX42 devices can store up to
+8K of single word instructions.
+The RESET vector address is at 0000h and the
+interrupt vector addresses are at 0008h and 0018h.
+Figure 4-1 shows the Program Memory Map for
+PIC18F242/442 devices and Figure 4-2 shows the
+Program Memory Map for PIC18F252/452 devices.
+PIC18FXX2
+DS39564B-page 36 ? 2002 Microchip Technology Inc.
+FIGURE 4-1: PROGRAM MEMORY MAP
+AND STACK FOR
+PIC18F442/242
+FIGURE 4-2: PROGRAM MEMORY MAP
+AND STACK FOR
+PIC18F452/252
+PC<20:0>
+Stack Level 1
+•
+Stack Level 31
+RESET Vector
+Low Priority Interrupt Vector
+••
+CALL,RCALL,RETURN
+RETFIE,RETLW
+21
+0000h
+0018h
+On-Chip
+Program Memory
+High Priority Interrupt Vector 0008h
+User Memory Space
+1FFFFFh
+4000h
+3FFFh
+Read ’0’
+200000h
+PC<20:0>
+Stack Level 1
+•
+Stack Level 31
+RESET Vector
+Low Priority Interrupt Vector
+••
+CALL,RCALL,RETURN
+RETFIE,RETLW
+21
+0000h
+0018h
+8000h
+7FFFh
+On-Chip
+Program Memory
+High Priority Interrupt Vector 0008h
+User Memory Space
+Read ’0’
+1FFFFFh
+200000h
+? 2002 Microchip Technology Inc. DS39564B-page 37
+PIC18FXX2
+4.2 Return Address Stack
+The return address stack allows any combination of up
+to 31 program calls and interrupts to occur. The PC
+(Program Counter) is pushed onto the stack when a
+CALL or RCALL instruction is executed, or an interrupt
+is acknowledged. The PC value is pulled off the stack
+on a RETURN, RETLW or a RETFIE instruction.
+PCLATU and PCLATH are not affected by any of the
+RETURN or CALL instructions.
+The stack operates as a 31-word by 21-bit RAM and a
+5-bit stack pointer, with the stack pointer initialized to
+00000b after all RESETS. There is no RAM associated
+with stack pointer 00000b. This is only a RESET value.
+During a CALL type instruction, causing a push onto the
+stack, the stack pointer is first incremented and the
+RAM location pointed to by the stack pointer is written
+with the contents of the PC. During a RETURN type
+instruction, causing a pop from the stack, the contents
+of the RAM location pointed to by the STKPTR are
+transferred to the PC and then the stack pointer is
+decremented.
+The stack space is not part of either program or data
+space. The stack pointer is readable and writable, and
+the address on the top of the stack is readable and writable
+through SFR registers. Data can also be pushed
+to, or popped from, the stack using the top-of-stack
+SFRs. Status bits indicate if the stack pointer is at, or
+beyond the 31 levels provided.
+4.2.1 TOP-OF-STACK ACCESS
+The top of the stack is readable and writable. Three
+register locations, TOSU, TOSH and TOSL hold the
+contents of the stack location pointed to by the
+STKPTR register. This allows users to implement a
+software stack if necessary. After a CALL, RCALL or
+interrupt, the software can read the pushed value by
+reading the TOSU, TOSH and TOSL registers. These
+values can be placed on a user defined software stack.
+At return time, the software can replace the TOSU,
+TOSH and TOSL and do a return.
+The user must disable the global interrupt enable bits
+during this time to prevent inadvertent stack
+operations.
+4.2.2 RETURN STACK POINTER
+(STKPTR)
+The STKPTR register contains the stack pointer value,
+the STKFUL (stack full) status bit, and the STKUNF
+(stack underflow) status bits. Register 4-1 shows the
+STKPTR register. The value of the stack pointer can be
+0 through 31. The stack pointer increments when values
+are pushed onto the stack and decrements when
+values are popped off the stack. At RESET, the stack
+pointer value will be 0. The user may read and write the
+stack pointer value. This feature can be used by a Real
+Time Operating System for return stack maintenance.
+After the PC is pushed onto the stack 31 times (without
+popping any values off the stack), the STKFUL bit is
+set. The STKFUL bit can only be cleared in software or
+by a POR.
+The action that takes place when the stack becomes
+full depends on the state of the STVREN (Stack Overflow
+Reset Enable) configuration bit. Refer to
+Section 20.0 for a description of the device configuration
+bits. If STVREN is set (default), the 31st push will
+push the (PC + 2) value onto the stack, set the STKFUL
+bit, and reset the device. The STKFUL bit will remain
+set and the stack pointer will be set to ‘0’.
+If STVREN is cleared, the STKFUL bit will be set on the
+31st push and the stack pointer will increment to 31.
+Any additional pushes will not overwrite the 31st push,
+and STKPTR will remain at 31.
+When the stack has been popped enough times to
+unload the stack, the next pop will return a value of zero
+to the PC and sets the STKUNF bit, while the stack
+pointer remains at 0. The STKUNF bit will remain set
+until cleared in software or a POR occurs.
+Note: Returning a value of zero to the PC on an
+underflow has the effect of vectoring the
+program to the RESET vector, where the
+stack conditions can be verified and
+appropriate actions can be taken.
+PIC18FXX2
+DS39564B-page 38 ? 2002 Microchip Technology Inc.
+REGISTER 4-1: STKPTR REGISTER
+FIGURE 4-3: RETURN ADDRESS STACK AND ASSOCIATED REGISTERS
+4.2.3 PUSH AND POP INSTRUCTIONS
+Since the Top-of-Stack (TOS) is readable and writable,
+the ability to push values onto the stack and pull values
+off the stack without disturbing normal program execution
+is a desirable option. To push the current PC value
+onto the stack, a PUSH instruction can be executed.
+This will increment the stack pointer and load the current
+PC value onto the stack. TOSU, TOSH and TOSL
+can then be modified to place a return address on the
+stack.
+The ability to pull the TOS value off of the stack and
+replace it with the value that was previously pushed
+onto the stack, without disturbing normal execution, is
+achieved by using the POP instruction. The POP instruction
+discards the current TOS by decrementing the
+stack pointer. The previous value pushed onto the
+stack then becomes the TOS value.
+4.2.4 STACK FULL/UNDERFLOW RESETS
+These resets are enabled by programming the
+STVREN configuration bit. When the STVREN bit is
+disabled, a full or underflow condition will set the appropriate
+STKFUL or STKUNF bit, but not cause a device
+RESET. When the STVREN bit is enabled, a full or
+underflow will set the appropriate STKFUL or STKUNF
+bit and then cause a device RESET. The STKFUL or
+STKUNF bits are only cleared by the user software or
+a POR Reset.
+R/C-0 R/C-0 U-0 R/W-0 R/W-0 R/W-0 R/W-0 R/W-0
+STKOVF STKUNF — SP4 SP3 SP2 SP1 SP0
+bit 7 bit 0
+bit 7(1) STKOVF: Stack Full Flag bit
+1 = Stack became full or overflowed
+0 = Stack has not become full or overflowed
+bit 6(1) STKUNF: Stack Underflow Flag bit
+1 = Stack underflow occurred
+0 = Stack underflow did not occur
+bit 5 Unimplemented: Read as '0'
+bit 4-0 SP4:SP0: Stack Pointer Location bits
+Note 1: Bit 7 and bit 6 can only be cleared in user software or by a POR.
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+00011
+0x001A34
+11111
+11110
+11101
+00010
+00001
+00000
+00010
+Return Address Stack
+Top of Stack
+0x000D58
+TOSU TOSH TOSL
+0x00 0x1A 0x34
+STKPTR<4:0>
+? 2002 Microchip Technology Inc. DS39564B-page 39
+PIC18FXX2
+4.3 Fast Register Stack
+A “fast interrupt return” option is available for interrupts.
+A Fast Register Stack is provided for the STATUS,
+WREG and BSR registers and are only one in depth.
+The stack is not readable or writable and is loaded with
+the current value of the corresponding register when
+the processor vectors for an interrupt. The values in the
+registers are then loaded back into the working registers,
+if the FAST RETURN instruction is used to return
+from the interrupt.
+A low or high priority interrupt source will push values
+into the stack registers. If both low and high priority
+interrupts are enabled, the stack registers cannot be
+used reliably for low priority interrupts. If a high priority
+interrupt occurs while servicing a low priority interrupt,
+the stack register values stored by the low priority interrupt
+will be overwritten.
+If high priority interrupts are not disabled during low priority
+interrupts, users must save the key registers in
+software during a low priority interrupt.
+If no interrupts are used, the fast register stack can be
+used to restore the STATUS, WREG and BSR registers
+at the end of a subroutine call. To use the fast register
+stack for a subroutine call, a FAST CALL instruction
+must be executed.
+Example 4-1 shows a source code example that uses
+the fast register stack.
+EXAMPLE 4-1: FAST REGISTER STACK
+CODE EXAMPLE
+4.4 PCL, PCLATH and PCLATU
+The program counter (PC) specifies the address of the
+instruction to fetch for execution. The PC is 21-bits
+wide. The low byte is called the PCL register. This register
+is readable and writable. The high byte is called
+the PCH register. This register contains the PC<15:8>
+bits and is not directly readable or writable. Updates to
+the PCH register may be performed through the
+PCLATH register. The upper byte is called PCU. This
+register contains the PC<20:16> bits and is not directly
+readable or writable. Updates to the PCU register may
+be performed through the PCLATU register.
+The PC addresses bytes in the program memory. To
+prevent the PC from becoming misaligned with word
+instructions, the LSB of PCL is fixed to a value of ’0’.
+The PC increments by 2 to address sequential
+instructions in the program memory.
+The CALL, RCALL, GOTO and program branch
+instructions write to the program counter directly. For
+these instructions, the contents of PCLATH and
+PCLATU are not transferred to the program counter.
+The contents of PCLATH and PCLATU will be transferred
+to the program counter by an operation that
+writes PCL. Similarly, the upper two bytes of the program
+counter will be transferred to PCLATH and
+PCLATU by an operation that reads PCL. This is useful
+for computed offsets to the PC (see Section 4.8.1).
+4.5 Clocking Scheme/Instruction
+Cycle
+The clock input (from OSC1) is internally divided by
+four to generate four non-overlapping quadrature
+clocks, namely Q1, Q2, Q3 and Q4. Internally, the program
+counter (PC) is incremented every Q1, the
+instruction is fetched from the program memory and
+latched into the instruction register in Q4. The instruction
+is decoded and executed during the following Q1
+through Q4. The clocks and instruction execution flow
+are shown in Figure 4-4.
+FIGURE 4-4: CLOCK/INSTRUCTION CYCLE
+CALL SUB1, FAST ;STATUS, WREG, BSR
+;SAVED IN FAST REGISTER
+;STACK
+••
+SUB1 •••
+RETURN FAST ;RESTORE VALUES SAVED
+;IN FAST REGISTER STACK
+Q1 Q2 Q3 Q4 Q1 Q2 Q3 Q4 Q1 Q2 Q3 Q4
+OSC1
+Q1
+Q2
+Q3
+Q4
+PC
+OSC2/CLKO
+(RC mode)
+PC PC+2 PC+4
+Fetch INST (PC)
+Execute INST (PC-2)
+Fetch INST (PC+2)
+Execute INST (PC)
+Fetch INST (PC+4)
+Execute INST (PC+2)
+Internal
+Phase
+Clock
+PIC18FXX2
+DS39564B-page 40 ? 2002 Microchip Technology Inc.
+4.6 Instruction Flow/Pipelining
+An “Instruction Cycle” consists of four Q cycles (Q1,
+Q2, Q3 and Q4). The instruction fetch and execute are
+pipelined such that fetch takes one instruction cycle,
+while decode and execute takes another instruction
+cycle. However, due to the pipelining, each instruction
+effectively executes in one cycle. If an instruction
+causes the program counter to change (e.g., GOTO)
+then two cycles are required to complete the instruction
+(Example 4-2).
+A fetch cycle begins with the program counter (PC)
+incrementing in Q1.
+In the execution cycle, the fetched instruction is latched
+into the “Instruction Register” (IR) in cycle Q1. This
+instruction is then decoded and executed during the
+Q2, Q3, and Q4 cycles. Data memory is read during Q2
+(operand read) and written during Q4 (destination
+write).
+EXAMPLE 4-2: INSTRUCTION PIPELINE FLOW
+4.7 Instructions in Program Memory
+The program memory is addressed in bytes. Instructions
+are stored as two bytes or four bytes in program
+memory. The Least Significant Byte of an instruction
+word is always stored in a program memory location
+with an even address (LSB =’0’). Figure 4-5 shows an
+example of how instruction words are stored in the program
+memory. To maintain alignment with instruction
+boundaries, the PC increments in steps of 2 and the
+LSB will always read ’0’ (see Section 4.4).
+The CALL and GOTO instructions have an absolute program
+memory address embedded into the instruction.
+Since instructions are always stored on word boundaries,
+the data contained in the instruction is a word
+address. The word address is written to PC<20:1>,
+which accesses the desired byte address in program
+memory. Instruction #2 in Figure 4-5 shows how the
+instruction “GOTO 000006h’ is encoded in the program
+memory. Program branch instructions which encode a
+relative address offset operate in the same manner.
+The offset value stored in a branch instruction represents
+the number of single word instructions that the
+PC will be offset by. Section 20.0 provides further
+details of the instruction set.
+FIGURE 4-5: INSTRUCTIONS IN PROGRAM MEMORY
+All instructions are single cycle, except for any program branches. These take two cycles since the fetch instruction
+is “flushed” from the pipeline while the new instruction is being fetched and then executed.
+TCY0 TCY1 TCY2 TCY3 TCY4 TCY5
+1. MOVLW 55h Fetch 1 Execute 1
+2. MOVWF PORTB Fetch 2 Execute 2
+3. BRA SUB_1 Fetch 3 Execute 3
+4. BSF PORTA, BIT3 (Forced NOP) Fetch 4 Flush (NOP)
+5. Instruction @ address SUB_1 Fetch SUB_1 Execute SUB_1
+Word Address
+LSB = 1 LSB = 0 v
+Program Memory
+Byte Locations >
+000000h
+000002h
+000004h
+000006h
+Instruction 1: MOVLW 055h 0Fh 55h 000008h
+Instruction 2: GOTO 000006h EFh 03h 00000Ah
+F0h 00h 00000Ch
+Instruction 3: MOVFF 123h, 456h C1h 23h 00000Eh
+F4h 56h 000010h
+000012h
+000014h
+? 2002 Microchip Technology Inc. DS39564B-page 41
+PIC18FXX2
+4.7.1 TWO-WORD INSTRUCTIONS
+The PIC18FXX2 devices have four two-word instructions:
+MOVFF, CALL, GOTO and LFSR. The second
+word of these instructions has the 4 MSBs set to 1’s
+and is a special kind of NOP instruction. The lower 12
+bits of the second word contain data to be used by the
+instruction. If the first word of the instruction is executed,
+the data in the second word is accessed. If the
+second word of the instruction is executed by itself (first
+word was skipped), it will execute as a NOP. This action
+is necessary when the two-word instruction is preceded
+by a conditional instruction that changes the PC. A program
+example that demonstrates this concept is shown
+in Example 4-3. Refer to Section 20.0 for further details
+of the instruction set.
+EXAMPLE 4-3: TWO-WORD INSTRUCTIONS
+4.8 Lookup Tables
+Lookup tables are implemented two ways. These are:
+• Computed GOTO
+• Table Reads
+4.8.1 COMPUTED GOTO
+A computed GOTO is accomplished by adding an offset
+to the program counter (ADDWF PCL).
+A lookup table can be formed with an ADDWF PCL
+instruction and a group of RETLW 0xnn instructions.
+WREG is loaded with an offset into the table before
+executing a call to that table. The first instruction of the
+called routine is the ADDWF PCL instruction. The next
+instruction executed will be one of the RETLW 0xnn
+instructions, that returns the value 0xnn to the calling
+function.
+The offset value (value in WREG) specifies the number
+of bytes that the program counter should advance.
+In this method, only one data byte may be stored in
+each instruction location and room on the return
+address stack is required.
+4.8.2 TABLE READS/TABLE WRITES
+A better method of storing data in program memory
+allows 2 bytes of data to be stored in each instruction
+location.
+Lookup table data may be stored 2 bytes per program
+word by using table reads and writes. The table pointer
+(TBLPTR) specifies the byte address and the table
+latch (TABLAT) contains the data that is read from, or
+written to program memory. Data is transferred to/from
+program memory, one byte at a time.
+A description of the Table Read/Table Write operation
+is shown in Section 3.0.
+CASE 1:
+Object Code Source Code
+0110 0110 0000 0000 TSTFSZ REG1 ; is RAM location 0?
+1100 0001 0010 0011 MOVFF REG1, REG2 ; No, execute 2-word instruction
+1111 0100 0101 0110 ; 2nd operand holds address of REG2
+0010 0100 0000 0000 ADDWF REG3 ; continue code
+CASE 2:
+Object Code Source Code
+0110 0110 0000 0000 TSTFSZ REG1 ; is RAM location 0?
+1100 0001 0010 0011 MOVFF REG1, REG2 ; Yes
+1111 0100 0101 0110 ; 2nd operand becomes NOP
+0010 0100 0000 0000 ADDWF REG3 ; continue code
+Note: The ADDWF PCL instruction does not
+update PCLATH and PCLATU. A read
+operation on PCL must be performed to
+update PCLATH and PCLATU.
+PIC18FXX2
+DS39564B-page 42 ? 2002 Microchip Technology Inc.
+4.9 Data Memory Organization
+The data memory is implemented as static RAM. Each
+register in the data memory has a 12-bit address,
+allowing up to 4096 bytes of data memory. Figure 4-6
+and Figure 4-7 show the data memory organization for
+the PIC18FXX2 devices.
+The data memory map is divided into as many as 16
+banks that contain 256 bytes each. The lower 4 bits of
+the Bank Select Register (BSR<3:0>) select which
+bank will be accessed. The upper 4 bits for the BSR are
+not implemented.
+The data memory contains Special Function Registers
+(SFR) and General Purpose Registers (GPR). The
+SFRs are used for control and status of the controller
+and peripheral functions, while GPRs are used for data
+storage and scratch pad operations in the user’s application.
+The SFRs start at the last location of Bank 15
+(0xFFF) and extend downwards. Any remaining space
+beyond the SFRs in the Bank may be implemented as
+GPRs. GPRs start at the first location of Bank 0 and
+grow upwards. Any read of an unimplemented location
+will read as ’0’s.
+The entire data memory may be accessed directly or
+indirectly. Direct addressing may require the use of the
+BSR register. Indirect addressing requires the use of a
+File Select Register (FSRn) and a corresponding Indirect
+File Operand (INDFn). Each FSR holds a 12-bit
+address value that can be used to access any location
+in the Data Memory map without banking.
+The instruction set and architecture allow operations
+across all banks. This may be accomplished by indirect
+addressing or by the use of the MOVFF instruction. The
+MOVFF instruction is a two-word/two-cycle instruction
+that moves a value from one register to another.
+To ensure that commonly used registers (SFRs and
+select GPRs) can be accessed in a single cycle,
+regardless of the current BSR values, an Access Bank
+is implemented. A segment of Bank 0 and a segment of
+Bank 15 comprise the Access RAM. Section 4.10
+provides a detailed description of the Access RAM.
+4.9.1 GENERAL PURPOSE REGISTER
+FILE
+The register file can be accessed either directly or indirectly.
+Indirect addressing operates using a File Select
+Register and corresponding Indirect File Operand. The
+operation of indirect addressing is shown in
+Section 4.12.
+Enhanced MCU devices may have banked memory in
+the GPR area. GPRs are not initialized by a Power-on
+Reset and are unchanged on all other RESETS.
+Data RAM is available for use as GPR registers by all
+instructions. The top half of Bank 15 (0xF80 to 0xFFF)
+contains SFRs. All other banks of data memory contain
+GPR registers, starting with Bank 0.
+4.9.2 SPECIAL FUNCTION REGISTERS
+The Special Function Registers (SFRs) are registers
+used by the CPU and Peripheral Modules for controlling
+the desired operation of the device. These registers
+are implemented as static RAM. A list of these
+registers is given in Table 4-1 and Table 4-2.
+The SFRs can be classified into two sets; those associated
+with the “core” function and those related to the
+peripheral functions. Those registers related to the
+“core” are described in this section, while those related
+to the operation of the peripheral features are
+described in the section of that peripheral feature.
+The SFRs are typically distributed among the
+peripherals whose functions they control.
+The unused SFR locations will be unimplemented and
+read as '0's. See Table 4-1 for addresses for the SFRs.
+? 2002 Microchip Technology Inc. DS39564B-page 43
+PIC18FXX2
+FIGURE 4-6: DATA MEMORY MAP FOR PIC18F242/442
+Bank 0
+Bank 1
+Bank 14
+Bank 15
+BSR<3:0> Data Memory Map
+= 0000
+= 0001
+= 1111
+080h
+07Fh
+F80h
+FFFh
+00h
+7Fh
+80h
+FFh
+Access Bank
+When a = 0,
+the BSR is ignored and the
+Access Bank is used.
+The first 128 bytes are General
+Purpose RAM (from Bank 0).
+The second 128 bytes are
+Special Function Registers
+(from Bank 15).
+When a = 1,
+the BSR is used to specify the
+RAM location that the
+instruction uses.
+F7Fh
+F00h
+EFFh
+1FFh
+100h
+0FFh
+Access RAM 000h
+FFh
+00h
+FFh
+00h
+FFh
+00h
+GPR
+GPR
+SFR
+Unused
+Access RAM high
+Access RAM low
+Bank 3
+to
+200h
+Unused
+= 1110 Read ’00h’
+= 0011
+(SFRs)
+GPR
+2FFh
+300h
+FFh
+00h
+Bank 2
+= 0010
+PIC18FXX2
+DS39564B-page 44 ? 2002 Microchip Technology Inc.
+FIGURE 4-7: DATA MEMORY MAP FOR PIC18F252/452
+Bank 0
+Bank 1
+Bank 14
+Bank 15
+BSR<3:0> Data Memory Map
+= 0000
+= 0001
+= 1110
+= 1111
+080h
+07Fh
+F80h
+FFFh
+00h
+7Fh
+80h
+FFh
+Access Bank
+When a = 0,
+the BSR is ignored and the
+Access Bank is used.
+The first 128 bytes are General
+Purpose RAM (from Bank 0).
+The second 128 bytes are
+Special Function Registers
+(from Bank 15).
+When a = 1,
+the BSR is used to specify the
+RAM location that the
+instruction uses.
+Bank 4
+Bank 3
+Bank 2
+F7Fh
+F00h
+EFFh
+3FFh
+300h
+2FFh
+200h
+1FFh
+100h
+0FFh
+000h
+= 0110
+= 0101
+= 0011
+= 0010
+Access RAM
+FFh
+00h
+FFh
+00h
+FFh
+00h
+FFh
+00h
+FFh
+00h
+FFh
+00h
+GPR
+GPR
+GPR
+GPR
+SFR
+Unused
+Access RAM high
+Access RAM low
+Bank 5
+GPR
+GPR
+Bank 6
+to
+4FFh
+400h
+5FFh
+500h
+600h
+Unused
+Read ’00h’
+= 0100
+(SFR’s)
+? 2002 Microchip Technology Inc. DS39564B-page 45
+PIC18FXX2
+TABLE 4-1: SPECIAL FUNCTION REGISTER MAP
+Address Name Address Name Address Name Address Name
+FFFh TOSU FDFh INDF2(3) FBFh CCPR1H F9Fh IPR1
+FFEh TOSH FDEh POSTINC2(3) FBEh CCPR1L F9Eh PIR1
+FFDh TOSL FDDh POSTDEC2(3) FBDh CCP1CON F9Dh PIE1
+FFCh STKPTR FDCh PREINC2(3) FBCh CCPR2H F9Ch —
+FFBh PCLATU FDBh PLUSW2(3) FBBh CCPR2L F9Bh —
+FFAh PCLATH FDAh FSR2H FBAh CCP2CON F9Ah —
+FF9h PCL FD9h FSR2L FB9h — F99h —
+FF8h TBLPTRU FD8h STATUS FB8h — F98h —
+FF7h TBLPTRH FD7h TMR0H FB7h — F97h —
+FF6h TBLPTRL FD6h TMR0L FB6h — F96h TRISE(2)
+FF5h TABLAT FD5h T0CON FB5h — F95h TRISD(2)
+FF4h PRODH FD4h — FB4h — F94h TRISC
+FF3h PRODL FD3h OSCCON FB3h TMR3H F93h TRISB
+FF2h INTCON FD2h LVDCON FB2h TMR3L F92h TRISA
+FF1h INTCON2 FD1h WDTCON FB1h T3CON F91h —
+FF0h INTCON3 FD0h RCON FB0h — F90h —
+FEFh INDF0(3) FCFh TMR1H FAFh SPBRG F8Fh —
+FEEh POSTINC0(3) FCEh TMR1L FAEh RCREG F8Eh —
+FEDh POSTDEC0(3) FCDh T1CON FADh TXREG F8Dh LATE(2)
+FECh PREINC0(3) FCCh TMR2 FACh TXSTA F8Ch LATD(2)
+FEBh PLUSW0(3) FCBh PR2 FABh RCSTA F8Bh LATC
+FEAh FSR0H FCAh T2CON FAAh — F8Ah LATB
+FE9h FSR0L FC9h SSPBUF FA9h EEADR F89h LATA
+FE8h WREG FC8h SSPADD FA8h EEDATA F88h —
+FE7h INDF1(3) FC7h SSPSTAT FA7h EECON2 F87h —
+FE6h POSTINC1(3) FC6h SSPCON1 FA6h EECON1 F86h —
+FE5h POSTDEC1(3) FC5h SSPCON2 FA5h — F85h —
+FE4h PREINC1(3) FC4h ADRESH FA4h — F84h PORTE(2)
+FE3h PLUSW1(3) FC3h ADRESL FA3h — F83h PORTD(2)
+FE2h FSR1H FC2h ADCON0 FA2h IPR2 F82h PORTC
+FE1h FSR1L FC1h ADCON1 FA1h PIR2 F81h PORTB
+FE0h BSR FC0h — FA0h PIE2 F80h PORTA
+Note 1: Unimplemented registers are read as ’0’.
+2: This register is not available on PIC18F2X2 devices.
+3: This is not a physical register.
+PIC18FXX2
+DS39564B-page 46 ? 2002 Microchip Technology Inc.
+TABLE 4-2: REGISTER FILE SUMMARY
+File Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on
+POR, BOR
+Details
+on page:
+TOSU — — — Top-of-Stack upper Byte (TOS<20:16>) ---0 0000 37
+TOSH Top-of-Stack High Byte (TOS<15:8>) 0000 0000 37
+TOSL Top-of-Stack Low Byte (TOS<7:0>) 0000 0000 37
+STKPTR STKFUL STKUNF — Return Stack Pointer 00-0 0000 38
+PCLATU — — — Holding Register for PC<20:16> ---0 0000 39
+PCLATH Holding Register for PC<15:8> 0000 0000 39
+PCL PC Low Byte (PC<7:0>) 0000 0000 39
+TBLPTRU — — bit21(2) Program Memory Table Pointer Upper Byte (TBLPTR<20:16>) --00 0000 58
+TBLPTRH Program Memory Table Pointer High Byte (TBLPTR<15:8>) 0000 0000 58
+TBLPTRL Program Memory Table Pointer Low Byte (TBLPTR<7:0>) 0000 0000 58
+TABLAT Program Memory Table Latch 0000 0000 58
+PRODH Product Register High Byte xxxx xxxx 71
+PRODL Product Register Low Byte xxxx xxxx 71
+INTCON GIE/GIEH PEIE/GIEL TMR0IE INT0IE RBIE TMR0IF INT0IF RBIF 0000 000x 75
+INTCON2 RBPU INTEDG0 INTEDG1 INTEDG2 — TMR0IP — RBIP 1111 -1-1 76
+INTCON3 INT2IP INT1IP — INT2IE INT1IE — INT2IF INT1IF 11-0 0-00 77
+INDF0 Uses contents of FSR0 to address data memory - value of FSR0 not changed (not a physical register) n/a 50
+POSTINC0 Uses contents of FSR0 to address data memory - value of FSR0 post-incremented (not a physical register) n/a 50
+POSTDEC0 Uses contents of FSR0 to address data memory - value of FSR0 post-decremented (not a physical register) n/a 50
+PREINC0 Uses contents of FSR0 to address data memory - value of FSR0 pre-incremented (not a physical register) n/a 50
+PLUSW0 Uses contents of FSR0 to address data memory - value of FSR0 (not a physical register).
+Offset by value in WREG.
+n/a 50
+FSR0H — — — — Indirect Data Memory Address Pointer 0 High Byte ---- 0000 50
+FSR0L Indirect Data Memory Address Pointer 0 Low Byte xxxx xxxx 50
+WREG Working Register xxxx xxxx n/a
+INDF1 Uses contents of FSR1 to address data memory - value of FSR1 not changed (not a physical register) n/a 50
+POSTINC1 Uses contents of FSR1 to address data memory - value of FSR1 post-incremented (not a physical register) n/a 50
+POSTDEC1 Uses contents of FSR1 to address data memory - value of FSR1 post-decremented (not a physical register) n/a 50
+PREINC1 Uses contents of FSR1 to address data memory - value of FSR1 pre-incremented (not a physical register) n/a 50
+PLUSW1 Uses contents of FSR1 to address data memory - value of FSR1 (not a physical register).
+Offset by value in WREG.
+n/a 50
+FSR1H — — — — Indirect Data Memory Address Pointer 1 High Byte ---- 0000 50
+FSR1L Indirect Data Memory Address Pointer 1 Low Byte xxxx xxxx 50
+BSR — — — — Bank Select Register ---- 0000 49
+INDF2 Uses contents of FSR2 to address data memory - value of FSR2 not changed (not a physical register) n/a 50
+POSTINC2 Uses contents of FSR2 to address data memory - value of FSR2 post-incremented (not a physical register) n/a 50
+POSTDEC2 Uses contents of FSR2 to address data memory - value of FSR2 post-decremented (not a physical register) n/a 50
+PREINC2 Uses contents of FSR2 to address data memory - value of FSR2 pre-incremented (not a physical register) n/a 50
+PLUSW2 Uses contents of FSR2 to address data memory - value of FSR2 (not a physical register).
+Offset by value in WREG.
+n/a 50
+FSR2H — — — — Indirect Data Memory Address Pointer 2 High Byte ---- 0000 50
+FSR2L Indirect Data Memory Address Pointer 2 Low Byte xxxx xxxx 50
+STATUS — — — N OV Z DC C ---x xxxx 52
+TMR0H Timer0 Register High Byte 0000 0000 105
+TMR0L Timer0 Register Low Byte xxxx xxxx 105
+T0CON TMR0ON T08BIT T0CS T0SE PSA T0PS2 T0PS1 T0PS0 1111 1111 103
+Legend: x = unknown, u = unchanged, - = unimplemented, q = value depends on condition
+Note 1: RA6 and associated bits are configured as port pins in RCIO and ECIO Oscillator mode only and read '0' in all other Oscillator modes.
+2: Bit 21 of the TBLPTRU allows access to the device configuration bits.
+3: These registers and bits are reserved on the PIC18F2X2 devices; always maintain these clear.
+? 2002 Microchip Technology Inc. DS39564B-page 47
+PIC18FXX2
+OSCCON — — — — — — — SCS ---- ---0 21
+LVDCON — — IRVST LVDEN LVDL3 LVDL2 LVDL1 LVDL0 --00 0101 191
+WDTCON — — — — — — — SWDTE ---- ---0 203
+RCON IPEN — — RI TO PD POR BOR 0--1 11qq 53, 28, 84
+TMR1H Timer1 Register High Byte xxxx xxxx 107
+TMR1L Timer1 Register Low Byte xxxx xxxx 107
+T1CON RD16 — T1CKPS1 T1CKPS0 T1OSCEN T1SYNC TMR1CS TMR1ON 0-00 0000 107
+TMR2 Timer2 Register 0000 0000 111
+PR2 Timer2 Period Register 1111 1111 112
+T2CON — TOUTPS3 TOUTPS2 TOUTPS1 TOUTPS0 TMR2ON T2CKPS1 T2CKPS0 -000 0000 111
+SSPBUF SSP Receive Buffer/Transmit Register xxxx xxxx 125
+SSPADD SSP Address Register in I2C Slave mode. SSP Baud Rate Reload Register in I2C Master mode. 0000 0000 134
+SSPSTAT SMP CKE D/A P S R/W UA BF 0000 0000 126
+SSPCON1 WCOL SSPOV SSPEN CKP SSPM3 SSPM2 SSPM1 SSPM0 0000 0000 127
+SSPCON2 GCEN ACKSTAT ACKDT ACKEN RCEN PEN RSEN SEN 0000 0000 137
+ADRESH A/D Result Register High Byte xxxx xxxx 187,188
+ADRESL A/D Result Register Low Byte xxxx xxxx 187,188
+ADCON0 ADCS1 ADCS0 CHS2 CHS1 CHS0 GO/DONE — ADON 0000 00-0 181
+ADCON1 ADFM ADCS2 — — PCFG3 PCFG2 PCFG1 PCFG0 00-- 0000 182
+CCPR1H Capture/Compare/PWM Register1 High Byte xxxx xxxx 121, 123
+CCPR1L Capture/Compare/PWM Register1 Low Byte xxxx xxxx 121, 123
+CCP1CON — — DC1B1 DC1B0 CCP1M3 CCP1M2 CCP1M1 CCP1M0 --00 0000 117
+CCPR2H Capture/Compare/PWM Register2 High Byte xxxx xxxx 121, 123
+CCPR2L Capture/Compare/PWM Register2 Low Byte xxxx xxxx 121, 123
+CCP2CON — — DC2B1 DC2B0 CCP2M3 CCP2M2 CCP2M1 CCP2M0 --00 0000 117
+TMR3H Timer3 Register High Byte xxxx xxxx 113
+TMR3L Timer3 Register Low Byte xxxx xxxx 113
+T3CON RD16 T3CCP2 T3CKPS1 T3CKPS0 T3CCP1 T3SYNC TMR3CS TMR3ON 0000 0000 113
+SPBRG USART1 Baud Rate Generator 0000 0000 168
+RCREG USART1 Receive Register 0000 0000 175, 178,
+180
+TXREG USART1 Transmit Register 0000 0000 173, 176,
+179
+TXSTA CSRC TX9 TXEN SYNC — BRGH TRMT TX9D 0000 -010 166
+RCSTA SPEN RX9 SREN CREN ADDEN FERR OERR RX9D 0000 000x 167
+EEADR Data EEPROM Address Register 0000 0000 65, 69
+EEDATA Data EEPROM Data Register 0000 0000 69
+EECON2 Data EEPROM Control Register 2 (not a physical register) ---- ---- 65, 69
+EECON1 EEPGD CFGS — FREE WRERR WREN WR RD xx-0 x000 66
+TABLE 4-2: REGISTER FILE SUMMARY (CONTINUED)
+File Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on
+POR, BOR
+Details
+on page:
+Legend: x = unknown, u = unchanged, - = unimplemented, q = value depends on condition
+Note 1: RA6 and associated bits are configured as port pins in RCIO and ECIO Oscillator mode only and read '0' in all other Oscillator modes.
+2: Bit 21 of the TBLPTRU allows access to the device configuration bits.
+3: These registers and bits are reserved on the PIC18F2X2 devices; always maintain these clear.
+PIC18FXX2
+DS39564B-page 48 ? 2002 Microchip Technology Inc.
+IPR2 — — — EEIP BCLIP LVDIP TMR3IP CCP2IP ---1 1111 83
+PIR2 — — — EEIF BCLIF LVDIF TMR3IF CCP2IF ---0 0000 79
+PIE2 — — — EEIE BCLIE LVDIE TMR3IE CCP2IE ---0 0000 81
+IPR1 PSPIP(3) ADIP RCIP TXIP SSPIP CCP1IP TMR2IP TMR1IP 1111 1111 82
+PIR1 PSPIF(3) ADIF RCIF TXIF SSPIF CCP1IF TMR2IF TMR1IF 0000 0000 78
+PIE1 PSPIE(3) ADIE RCIE TXIE SSPIE CCP1IE TMR2IE TMR1IE 0000 0000 80
+TRISE(3) IBF OBF IBOV PSPMODE — Data Direction bits for PORTE 0000 -111 98
+TRISD(3) Data Direction Control Register for PORTD 1111 1111 96
+TRISC Data Direction Control Register for PORTC 1111 1111 93
+TRISB Data Direction Control Register for PORTB 1111 1111 90
+TRISA — TRISA6(1) Data Direction Control Register for PORTA -111 1111 87
+LATE(3) — — — — — Read PORTE Data Latch,
+Write PORTE Data Latch
+---- -xxx 99
+LATD(3) Read PORTD Data Latch, Write PORTD Data Latch xxxx xxxx 95
+LATC Read PORTC Data Latch, Write PORTC Data Latch xxxx xxxx 93
+LATB Read PORTB Data Latch, Write PORTB Data Latch xxxx xxxx 90
+LATA — LATA6(1) Read PORTA Data Latch, Write PORTA Data Latch(1) -xxx xxxx 87
+PORTE(3) Read PORTE pins, Write PORTE Data Latch ---- -000 99
+PORTD(3) Read PORTD pins, Write PORTD Data Latch xxxx xxxx 95
+PORTC Read PORTC pins, Write PORTC Data Latch xxxx xxxx 93
+PORTB Read PORTB pins, Write PORTB Data Latch xxxx xxxx 90
+PORTA — RA6(1) Read PORTA pins, Write PORTA Data Latch(1) -x0x 0000 87
+TABLE 4-2: REGISTER FILE SUMMARY (CONTINUED)
+File Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on
+POR, BOR
+Details
+on page:
+Legend: x = unknown, u = unchanged, - = unimplemented, q = value depends on condition
+Note 1: RA6 and associated bits are configured as port pins in RCIO and ECIO Oscillator mode only and read '0' in all other Oscillator modes.
+2: Bit 21 of the TBLPTRU allows access to the device configuration bits.
+3: These registers and bits are reserved on the PIC18F2X2 devices; always maintain these clear.
+? 2002 Microchip Technology Inc. DS39564B-page 49
+PIC18FXX2
+4.10 Access Bank
+The Access Bank is an architectural enhancement
+which is very useful for C compiler code optimization.
+The techniques used by the C compiler may also be
+useful for programs written in assembly.
+This data memory region can be used for:
+• Intermediate computational values
+• Local variables of subroutines
+• Faster context saving/switching of variables
+• Common variables
+• Faster evaluation/control of SFRs (no banking)
+The Access Bank is comprised of the upper 128 bytes
+in Bank 15 (SFRs) and the lower 128 bytes in Bank 0.
+These two sections will be referred to as Access RAM
+High and Access RAM Low, respectively. Figure 4-6
+and Figure 4-7 indicate the Access RAM areas.
+A bit in the instruction word specifies if the operation is
+to occur in the bank specified by the BSR register or in
+the Access Bank. This bit is denoted by the ’a’ bit (for
+access bit).
+When forced in the Access Bank (a = 0), the last
+address in Access RAM Low is followed by the first
+address in Access RAM High. Access RAM High maps
+the Special Function registers, so that these registers
+can be accessed without any software overhead. This is
+useful for testing status flags and modifying control bits.
+4.11 Bank Select Register (BSR)
+The need for a large general purpose memory space
+dictates a RAM banking scheme. The data memory is
+partitioned into sixteen banks. When using direct
+addressing, the BSR should be configured for the
+desired bank.
+BSR<3:0> holds the upper 4 bits of the 12-bit RAM
+address. The BSR<7:4> bits will always read ’0’s, and
+writes will have no effect.
+A MOVLB instruction has been provided in the
+instruction set to assist in selecting banks.
+If the currently selected bank is not implemented, any
+read will return all '0's and all writes are ignored. The
+STATUS register bits will be set/cleared as appropriate
+for the instruction performed.
+Each Bank extends up to FFh (256 bytes). All data
+memory is implemented as static RAM.
+A MOVFF instruction ignores the BSR, since the 12-bit
+addresses are embedded into the instruction word.
+Section 4.12 provides a description of indirect addressing,
+which allows linear addressing of the entire RAM
+space.
+FIGURE 4-8: DIRECT ADDRESSING
+Note 1: For register file map detail, see Table 4-1.
+2: The access bit of the instruction can be used to force an override of the selected bank (BSR<3:0>) to the
+registers of the Access Bank.
+3: The MOVFF instruction embeds the entire 12-bit address in the instruction.
+Data
+Memory(1)
+Direct Addressing
+Bank Select(2) Location Select(3)
+BSR<3:0> 7 From Opcode(3) 0
+00h 01h 0Eh 0Fh
+Bank 0 Bank 1 Bank 14 Bank 15
+1FFh
+100h
+0FFh
+000h
+EFFh
+E00h
+FFFh
+F00h
+PIC18FXX2
+DS39564B-page 50 ? 2002 Microchip Technology Inc.
+4.12 Indirect Addressing, INDF and
+FSR Registers
+Indirect addressing is a mode of addressing data memory,
+where the data memory address in the instruction
+is not fixed. An FSR register is used as a pointer to the
+data memory location that is to be read or written. Since
+this pointer is in RAM, the contents can be modified by
+the program. This can be useful for data tables in the
+data memory and for software stacks. Figure 4-9
+shows the operation of indirect addressing. This shows
+the moving of the value to the data memory address
+specified by the value of the FSR register.
+Indirect addressing is possible by using one of the
+INDF registers. Any instruction using the INDF register
+actually accesses the register pointed to by the File
+Select Register, FSR. Reading the INDF register itself,
+indirectly (FSR = 0), will read 00h. Writing to the INDF
+register indirectly, results in a no operation. The FSR
+register contains a 12-bit address, which is shown in
+Figure 4-10.
+The INDFn register is not a physical register. Addressing
+INDFn actually addresses the register whose
+address is contained in the FSRn register (FSRn is a
+pointer). This is indirect addressing.
+Example 4-4 shows a simple use of indirect addressing
+to clear the RAM in Bank1 (locations 100h-1FFh) in a
+minimum number of instructions.
+EXAMPLE 4-4: HOW TO CLEAR RAM
+(BANK1) USING INDIRECT
+ADDRESSING
+There are three indirect addressing registers. To
+address the entire data memory space (4096 bytes),
+these registers are 12-bit wide. To store the 12-bits of
+addressing information, two 8-bit registers are
+required. These indirect addressing registers are:
+1. FSR0: composed of FSR0H:FSR0L
+2. FSR1: composed of FSR1H:FSR1L
+3. FSR2: composed of FSR2H:FSR2L
+In addition, there are registers INDF0, INDF1 and
+INDF2, which are not physically implemented. Reading
+or writing to these registers activates indirect addressing,
+with the value in the corresponding FSR register
+being the address of the data. If an instruction writes a
+value to INDF0, the value will be written to the address
+pointed to by FSR0H:FSR0L. A read from INDF1 reads
+the data from the address pointed to by
+FSR1H:FSR1L. INDFn can be used in code anywhere
+an operand can be used.
+If INDF0, INDF1 or INDF2 are read indirectly via an
+FSR, all ’0’s are read (zero bit is set). Similarly, if
+INDF0, INDF1 or INDF2 are written to indirectly, the
+operation will be equivalent to a NOP instruction and the
+STATUS bits are not affected.
+4.12.1 INDIRECT ADDRESSING
+OPERATION
+Each FSR register has an INDF register associated
+with it, plus four additional register addresses. Performing
+an operation on one of these five registers determines
+how the FSR will be modified during indirect
+addressing.
+When data access is done to one of the five INDFn
+locations, the address selected will configure the FSRn
+register to:
+• Do nothing to FSRn after an indirect access (no
+change) - INDFn
+• Auto-decrement FSRn after an indirect access
+(post-decrement) - POSTDECn
+• Auto-increment FSRn after an indirect access
+(post-increment) - POSTINCn
+• Auto-increment FSRn before an indirect access
+(pre-increment) - PREINCn
+• Use the value in the WREG register as an offset
+to FSRn. Do not modify the value of the WREG or
+the FSRn register after an indirect access (no
+change) - PLUSWn
+When using the auto-increment or auto-decrement features,
+the effect on the FSR is not reflected in the
+STATUS register. For example, if the indirect address
+causes the FSR to equal '0', the Z bit will not be set.
+Incrementing or decrementing an FSR affects all 12
+bits. That is, when FSRnL overflows from an increment,
+FSRnH will be incremented automatically.
+Adding these features allows the FSRn to be used as a
+stack pointer, in addition to its uses for table operations
+in data memory.
+Each FSR has an address associated with it that performs
+an indexed indirect access. When a data access
+to this INDFn location (PLUSWn) occurs, the FSRn is
+configured to add the signed value in the WREG register
+and the value in FSR to form the address before an
+indirect access. The FSR value is not changed.
+If an FSR register contains a value that points to one of
+the INDFn, an indirect read will read 00h (zero bit is
+set), while an indirect write will be equivalent to a NOP
+(STATUS bits are not affected).
+If an indirect addressing operation is done where the
+target address is an FSRnH or FSRnL register, the
+write operation will dominate over the pre- or
+post-increment/decrement functions.
+LFSR FSR0 ,0x100 ;
+NEXT CLRF POSTINC0 ; Clear INDF
+; register and
+; inc pointer
+BTFSS FSR0H, 1 ; All done with
+; Bank1?
+GOTO NEXT ; NO, clear next
+CONTINUE ; YES, continue
+? 2002 Microchip Technology Inc. DS39564B-page 51
+PIC18FXX2
+FIGURE 4-9: INDIRECT ADDRESSING OPERATION
+FIGURE 4-10: INDIRECT ADDRESSING
+Opcode Address
+File Address = access of an indirect addressing register
+FSR
+Instruction
+Executed
+Instruction
+Fetched
+RAM
+Opcode File
+12 12
+12
+BSR<3:0>
+4 8
+0h
+FFFh
+Note 1: For register file map detail, see Table 4-1.
+Data
+Memory(1)
+Indirect Addressing
+11 FSR Register 0
+0FFFh
+0000h
+Location Select
+PIC18FXX2
+DS39564B-page 52 ? 2002 Microchip Technology Inc.
+4.13 STATUS Register
+The STATUS register, shown in Register 4-2, contains
+the arithmetic status of the ALU. The STATUS register
+can be the destination for any instruction, as with any
+other register. If the STATUS register is the destination
+for an instruction that affects the Z, DC, C, OV, or N bits,
+then the write to these five bits is disabled. These bits
+are set or cleared according to the device logic. Therefore,
+the result of an instruction with the STATUS
+register as destination may be different than intended.
+For example, CLRF STATUS will clear the upper three
+bits and set the Z bit. This leaves the STATUS register
+as 000u u1uu (where u = unchanged).
+It is recommended, therefore, that only BCF, BSF,
+SWAPF, MOVFF and MOVWF instructions are used to
+alter the STATUS register, because these instructions
+do not affect the Z, C, DC, OV, or N bits from the
+STATUS register. For other instructions not affecting
+any status bits, see Table 20-2.
+REGISTER 4-2: STATUS REGISTER
+Note: The C and DC bits operate as a borrow and
+digit borrow bit respectively, in subtraction.
+U-0 U-0 U-0 R/W-x R/W-x R/W-x R/W-x R/W-x
+— — — N OV Z DC C
+bit 7 bit 0
+bit 7-5 Unimplemented: Read as '0'
+bit 4 N: Negative bit
+This bit is used for signed arithmetic (2’s complement). It indicates whether the result was
+negative (ALU MSB = 1).
+1 = Result was negative
+0 = Result was positive
+bit 3 OV: Overflow bit
+This bit is used for signed arithmetic (2’s complement). It indicates an overflow of the
+7-bit magnitude, which causes the sign bit (bit7) to change state.
+1 = Overflow occurred for signed arithmetic (in this arithmetic operation)
+0 = No overflow occurred
+bit 2 Z: Zero bit
+1 = The result of an arithmetic or logic operation is zero
+0 = The result of an arithmetic or logic operation is not zero
+bit 1 DC: Digit carry/borrow bit
+For ADDWF, ADDLW, SUBLW, and SUBWF instructions
+1 = A carry-out from the 4th low order bit of the result occurred
+0 = No carry-out from the 4th low order bit of the result
+Note: For borrow, the polarity is reversed. A subtraction is executed by adding the two’s
+complement of the second operand. For rotate (RRF, RLF) instructions, this bit is
+loaded with either the bit 4 or bit 3 of the source register.
+bit 0 C: Carry/borrow bit
+For ADDWF, ADDLW, SUBLW, and SUBWF instructions
+1 = A carry-out from the Most Significant bit of the result occurred
+0 = No carry-out from the Most Significant bit of the result occurred
+Note: For borrow, the polarity is reversed. A subtraction is executed by adding the two’s
+complement of the second operand. For rotate (RRF, RLF) instructions, this bit is
+loaded with either the high or low order bit of the source register.
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+? 2002 Microchip Technology Inc. DS39564B-page 53
+PIC18FXX2
+4.14 RCON Register
+The Reset Control (RCON) register contains flag bits
+that allow differentiation between the sources of a
+device RESET. These flags include the TO, PD, POR,
+BOR and RI bits. This register is readable and writable.
+REGISTER 4-3: RCON REGISTER
+Note 1: If the BOREN configuration bit is set
+(Brown-out Reset enabled), the BOR bit is
+’1’ on a Power-on Reset. After a Brownout
+Reset has occurred, the BOR bit will
+be cleared, and must be set by firmware to
+indicate the occurrence of the next
+Brown-out Reset.
+2: It is recommended that the POR bit be set
+after a Power-on Reset has been
+detected, so that subsequent Power-on
+Resets may be detected.
+R/W-0 U-0 U-0 R/W-1 R-1 R-1 R/W-0 R/W-0
+IPEN — — RI TO PD POR BOR
+bit 7 bit 0
+bit 7 IPEN: Interrupt Priority Enable bit
+1 = Enable priority levels on interrupts
+0 = Disable priority levels on interrupts (16CXXX Compatibility mode)
+bit 6-5 Unimplemented: Read as '0'
+bit 4 RI: RESET Instruction Flag bit
+1 = The RESET instruction was not executed
+0 = The RESET instruction was executed causing a device RESET
+(must be set in software after a Brown-out Reset occurs)
+bit 3 TO: Watchdog Time-out Flag bit
+1 = After power-up, CLRWDT instruction, or SLEEP instruction
+0 = A WDT time-out occurred
+bit 2 PD: Power-down Detection Flag bit
+1 = After power-up or by the CLRWDT instruction
+0 = By execution of the SLEEP instruction
+bit 1 POR: Power-on Reset Status bit
+1 = A Power-on Reset has not occurred
+0 = A Power-on Reset occurred
+(must be set in software after a Power-on Reset occurs)
+bit 0 BOR: Brown-out Reset Status bit
+1 = A Brown-out Reset has not occurred
+0 = A Brown-out Reset occurred
+(must be set in software after a Brown-out Reset occurs)
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+PIC18FXX2
+DS39564B-page 54 ? 2002 Microchip Technology Inc.
+NOTES:
+? 2002 Microchip Technology Inc. DS39564B-page 55
+PIC18FXX2
+5.0 FLASH PROGRAM MEMORY
+The FLASH Program Memory is readable, writable,
+and erasable during normal operation over the entire
+VDD range.
+A read from program memory is executed on one byte
+at a time. A write to program memory is executed on
+blocks of 8 bytes at a time. Program memory is erased
+in blocks of 64 bytes at a time. A bulk erase operation
+may not be issued from user code.
+Writing or erasing program memory will cease instruction
+fetches until the operation is complete. The program
+memory cannot be accessed during the write or
+erase, therefore, code cannot execute. An internal programming
+timer terminates program memory writes
+and erases.
+A value written to program memory does not need to be
+a valid instruction. Executing a program memory
+location that forms an invalid instruction results in a
+NOP.
+5.1 Table Reads and Table Writes
+In order to read and write program memory, there are
+two operations that allow the processor to move bytes
+between the program memory space and the data
+RAM:
+• Table Read (TBLRD)
+• Table Write (TBLWT)
+The program memory space is 16-bits wide, while the
+data RAM space is 8-bits wide. Table Reads and Table
+Writes move data between these two memory spaces
+through an 8-bit register (TABLAT).
+Table Read operations retrieve data from program
+memory and places it into the data RAM space.
+Figure 5-1 shows the operation of a Table Read with
+program memory and data RAM.
+Table Write operations store data from the data memory
+space into holding registers in program memory.
+The procedure to write the contents of the holding registers
+into program memory is detailed in Section 5.5,
+'”Writing to FLASH Program Memory”. Figure 5-2
+shows the operation of a Table Write with program
+memory and data RAM.
+Table operations work with byte entities. A table block
+containing data, rather than program instructions, is not
+required to be word aligned. Therefore, a table block
+can start and end at any byte address. If a Table Write
+is being used to write executable code into program
+memory, program instructions will need to be word
+aligned.
+FIGURE 5-1: TABLE READ OPERATION
+Table Pointer(1)
+Table Latch (8-bit)
+Program Memory
+TBLPTRH TBLPTRL
+TABLAT
+TBLPTRU
+Instruction: TBLRD*
+Note 1: Table Pointer points to a byte in program memory.
+Program Memory
+(TBLPTR)
+PIC18FXX2
+DS39564B-page 56 ? 2002 Microchip Technology Inc.
+FIGURE 5-2: TABLE WRITE OPERATION
+5.2 Control Registers
+Several control registers are used in conjunction with
+the TBLRD and TBLWT instructions. These include the:
+• EECON1 register
+• EECON2 register
+• TABLAT register
+• TBLPTR registers
+5.2.1 EECON1 AND EECON2 REGISTERS
+EECON1 is the control register for memory accesses.
+EECON2 is not a physical register. Reading EECON2
+will read all '0's. The EECON2 register is used
+exclusively in the memory write and erase sequences.
+Control bit EEPGD determines if the access will be a
+program or data EEPROM memory access. When
+clear, any subsequent operations will operate on the
+data EEPROM memory. When set, any subsequent
+operations will operate on the program memory.
+Control bit CFGS determines if the access will be to the
+configuration registers or to program memory/data
+EEPROM memory. When set, subsequent operations
+will operate on configuration registers, regardless of
+EEPGD (see “Special Features of the CPU”,
+Section 19.0). When clear, memory selection access is
+determined by EEPGD.
+The FREE bit, when set, will allow a program memory
+erase operation. When the FREE bit is set, the erase
+operation is initiated on the next WR command. When
+FREE is clear, only writes are enabled.
+The WREN bit, when set, will allow a write operation.
+On power-up, the WREN bit is clear. The WRERR bit is
+set when a write operation is interrupted by a MCLR
+Reset or a WDT Time-out Reset during normal operation.
+In these situations, the user can check the
+WRERR bit and rewrite the location. It is necessary to
+reload the data and address registers (EEDATA and
+EEADR), due to RESET values of zero.
+Control bit WR initiates write operations. This bit cannot
+be cleared, only set, in software. It is cleared in hardware
+at the completion of the write operation. The
+inability to clear the WR bit in software prevents the
+accidental or premature termination of a write
+operation.
+Table Pointer(1) Table Latch (8-bit)
+TBLPTRH TBLPTRL TABLAT
+Program Memory
+(TBLPTR)
+TBLPTRU
+Instruction: TBLWT*
+Note 1: Table Pointer actually points to one of eight holding registers, the address of which is determined by
+TBLPTRL<2:0>. The process for physically writing data to the Program Memory Array is discussed in
+Section 5.5.
+Holding Registers
+Program Memory
+Note: Interrupt flag bit EEIF, in the PIR2 register,
+is set when the write is complete. It must
+be cleared in software.
+? 2002 Microchip Technology Inc. DS39564B-page 57
+PIC18FXX2
+REGISTER 5-1: EECON1 REGISTER (ADDRESS FA6h)
+R/W-x R/W-x U-0 R/W-0 R/W-x R/W-0 R/S-0 R/S-0
+EEPGD CFGS — FREE WRERR WREN WR RD
+bit 7 bit 0
+bit 7 EEPGD: FLASH Program or Data EEPROM Memory Select bit
+1 = Access FLASH Program memory
+0 = Access Data EEPROM memory
+bit 6 CFGS: FLASH Program/Data EE or Configuration Select bit
+1 = Access Configuration registers
+0 = Access FLASH Program or Data EEPROM memory
+bit 5 Unimplemented: Read as '0'
+bit 4 FREE: FLASH Row Erase Enable bit
+1 = Erase the program memory row addressed by TBLPTR on the next WR command
+(cleared by completion of erase operation)
+0 = Perform write only
+bit 3 WRERR: FLASH Program/Data EE Error Flag bit
+1 = A write operation is prematurely terminated
+(any RESET during self-timed programming in normal operation)
+0 = The write operation completed
+Note: When a WRERR occurs, the EEPGD and CFGS bits are not cleared. This allows
+tracing of the error condition.
+bit 2 WREN: FLASH Program/Data EE Write Enable bit
+1 = Allows write cycles
+0 = Inhibits write to the EEPROM
+bit 1 WR: Write Control bit
+1 = Initiates a data EEPROM erase/write cycle or a program memory erase cycle or write cycle.
+(The operation is self timed and the bit is cleared by hardware once write is complete. The
+WR bit can only be set (not cleared) in software.)
+0 =Write cycle to the EEPROM is complete
+bit 0 RD: Read Control bit
+1 = Initiates an EEPROM read
+(Read takes one cycle. RD is cleared in hardware. The RD bit can only be set (not cleared)
+in software. RD bit cannot be set when EEPGD = 1.)
+0 = Does not initiate an EEPROM read
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+PIC18FXX2
+DS39564B-page 58 ? 2002 Microchip Technology Inc.
+5.2.2 TABLAT - TABLE LATCH REGISTER
+The Table Latch (TABLAT) is an 8-bit register mapped
+into the SFR space. The Table Latch is used to hold
+8-bit data during data transfers between program
+memory and data RAM.
+5.2.3 TBLPTR - TABLE POINTER
+REGISTER
+The Table Pointer (TBLPTR) addresses a byte within
+the program memory. The TBLPTR is comprised of
+three SFR registers: Table Pointer Upper Byte, Table
+Pointer High Byte and Table Pointer Low Byte
+(TBLPTRU:TBLPTRH:TBLPTRL). These three registers
+join to form a 22-bit wide pointer. The low order 21
+bits allow the device to address up to 2 Mbytes of program
+memory space. The 22nd bit allows access to the
+Device ID, the User ID and the Configuration bits.
+The table pointer, TBLPTR, is used by the TBLRD and
+TBLWT instructions. These instructions can update the
+TBLPTR in one of four ways based on the table operation.
+These operations are shown in Table 5-1. These
+operations on the TBLPTR only affect the low order
+21 bits.
+5.2.4 TABLE POINTER BOUNDARIES
+TBLPTR is used in reads, writes, and erases of the
+FLASH program memory.
+When a TBLRD is executed, all 22 bits of the Table
+Pointer determine which byte is read from program
+memory into TABLAT.
+When a TBLWT is executed, the three LSbs of the Table
+Pointer (TBLPTR<2:0>) determine which of the eight
+program memory holding registers is written to. When
+the timed write to program memory (long write) begins,
+the 19 MSbs of the Table Pointer, TBLPTR
+(TBLPTR<21:3>), will determine which program memory
+block of 8 bytes is written to. For more detail, see
+Section 5.5 (“Writing to FLASH Program Memory”).
+When an erase of program memory is executed, the 16
+MSbs of the Table Pointer (TBLPTR<21:6>) point to the
+64-byte block that will be erased. The Least Significant
+bits (TBLPTR<5:0>) are ignored.
+Figure 5-3 describes the relevant boundaries of
+TBLPTR based on FLASH program memory
+operations.
+TABLE 5-1: TABLE POINTER OPERATIONS WITH TBLRD AND TBLWT INSTRUCTIONS
+FIGURE 5-3: TABLE POINTER BOUNDARIES BASED ON OPERATION
+Example Operation on Table Pointer
+TBLRD*
+TBLWT*
+TBLPTR is not modified
+TBLRD*+
+TBLWT*+
+TBLPTR is incremented after the read/write
+TBLRD*-
+TBLWT*-
+TBLPTR is decremented after the read/write
+TBLRD+*
+TBLWT+*
+TBLPTR is incremented before the read/write
+21 16 15 8 7 0
+ERASE - TBLPTR<21:6>
+WRITE - TBLPTR<21:3>
+READ - TBLPTR<21:0>
+TBLPTRU TBLPTRH TBLPTRL
+? 2002 Microchip Technology Inc. DS39564B-page 59
+PIC18FXX2
+5.3 Reading the FLASH Program
+Memory
+The TBLRD instruction is used to retrieve data from program
+memory and place into data RAM. Table Reads
+from program memory are performed one byte at a
+time.
+TBLPTR points to a byte address in program space.
+Executing TBLRD places the byte pointed to into
+TABLAT. In addition, TBLPTR can be modified
+automatically for the next Table Read operation.
+The internal program memory is typically organized by
+words. The Least Significant bit of the address selects
+between the high and low bytes of the word. Figure 5-4
+shows the interface between the internal program
+memory and the TABLAT.
+FIGURE 5-4: READS FROM FLASH PROGRAM MEMORY
+EXAMPLE 5-1: READING A FLASH PROGRAM MEMORY WORD
+(Even Byte Address)
+Program Memory
+(Odd Byte Address)
+TBLRD
+TABLAT
+TBLPTR = xxxxx1
+FETCH
+Instruction Register
+(IR) Read Register
+TBLPTR = xxxxx0
+MOVLW CODE_ADDR_UPPER ; Load TBLPTR with the base
+MOVWF TBLPTRU ; address of the word
+MOVLW CODE_ADDR_HIGH
+MOVWF TBLPTRH
+MOVLW CODE_ADDR_LOW
+MOVWF TBLPTRL
+READ_WORD
+TBLRD*+ ; read into TABLAT and increment
+MOVF TABLAT, W ; get data
+MOVWF WORD_EVEN
+TBLRD*+ ; read into TABLAT and increment
+MOVF TABLAT, W ; get data
+MOVWF WORD_ODD
+PIC18FXX2
+DS39564B-page 60 ? 2002 Microchip Technology Inc.
+5.4 Erasing FLASH Program memory
+The minimum erase block is 32 words or 64 bytes. Only
+through the use of an external programmer, or through
+ICSP control can larger blocks of program memory be
+bulk erased. Word erase in the FLASH array is not
+supported.
+When initiating an erase sequence from the microcontroller
+itself, a block of 64 bytes of program memory
+is erased. The Most Significant 16 bits of the
+TBLPTR<21:6> point to the block being erased.
+TBLPTR<5:0> are ignored.
+The EECON1 register commands the erase operation.
+The EEPGD bit must be set to point to the FLASH program
+memory. The WREN bit must be set to enable
+write operations. The FREE bit is set to select an erase
+operation.
+For protection, the write initiate sequence for EECON2
+must be used.
+A long write is necessary for erasing the internal
+FLASH. Instruction execution is halted while in a long
+write cycle. The long write will be terminated by the
+internal programming timer.
+5.4.1 FLASH PROGRAM MEMORY
+ERASE SEQUENCE
+The sequence of events for erasing a block of internal
+program memory location is:
+1. Load table pointer with address of row being
+erased.
+2. Set EEPGD bit to point to program memory,
+clear CFGS bit to access program memory, set
+WREN bit to enable writes, and set FREE bit to
+enable the erase.
+3. Disable interrupts.
+4. Write 55h to EECON2.
+5. Write AAh to EECON2.
+6. Set the WR bit. This will begin the row erase
+cycle.
+7. The CPU will stall for duration of the erase
+(about 2 ms using internal timer).
+8. Re-enable interrupts.
+EXAMPLE 5-2: ERASING A FLASH PROGRAM MEMORY ROW
+MOVLW CODE_ADDR_UPPER ; load TBLPTR with the base
+MOVWF TBLPTRU ; address of the memory block
+MOVLW CODE_ADDR_HIGH
+MOVWF TBLPTRH
+MOVLW CODE_ADDR_LOW
+MOVWF TBLPTRL
+ERASE_ROW
+BSF EECON1,EEPGD ; point to FLASH program memory
+BCF EECON1,CFGS ; access FLASH program memory
+BSF EECON1,WREN ; enable write to memory
+BSF EECON1,FREE ; enable Row Erase operation
+BCF INTCON,GIE ; disable interrupts
+MOVLW 55h
+Required MOVWF EECON2 ; write 55h
+Sequence MOVLW AAh
+MOVWF EECON2 ; write AAh
+BSF EECON1,WR ; start erase (CPU stall)
+BSF INTCON,GIE ; re-enable interrupts
+? 2002 Microchip Technology Inc. DS39564B-page 61
+PIC18FXX2
+5.5 Writing to FLASH Program
+Memory
+The minimum programming block is 4 words or 8 bytes.
+Word or byte programming is not supported.
+Table Writes are used internally to load the holding registers
+needed to program the FLASH memory. There
+are 8 holding registers used by the Table Writes for
+programming.
+Since the Table Latch (TABLAT) is only a single byte,
+the TBLWT instruction has to be executed 8 times for
+each programming operation. All of the Table Write
+operations will essentially be short writes, because only
+the holding registers are written. At the end of updating
+8 registers, the EECON1 register must be written to, to
+start the programming operation with a long write.
+The long write is necessary for programming the internal
+FLASH. Instruction execution is halted while in a
+long write cycle. The long write will be terminated by
+the internal programming timer.
+The EEPROM on-chip timer controls the write time.
+The write/erase voltages are generated by an on-chip
+charge pump rated to operate over the voltage range of
+the device for byte or word operations.
+FIGURE 5-5: TABLE WRITES TO FLASH PROGRAM MEMORY
+5.5.1 FLASH PROGRAM MEMORY WRITE
+SEQUENCE
+The sequence of events for programming an internal
+program memory location should be:
+1. Read 64 bytes into RAM.
+2. Update data values in RAM as necessary.
+3. Load Table Pointer with address being erased.
+4. Do the row erase procedure.
+5. Load Table Pointer with address of first byte
+being written.
+6. Write the first 8 bytes into the holding registers
+with auto-increment (TBLWT*+ or TBLWT+*).
+7. Set EEPGD bit to point to program memory,
+clear the CFGS bit to access program memory,
+and set WREN to enable byte writes.
+8. Disable interrupts.
+9. Write 55h to EECON2.
+10. Write AAh to EECON2.
+11. Set the WR bit. This will begin the write cycle.
+12. The CPU will stall for duration of the write (about
+2 ms using internal timer).
+13. Re-enable interrupts.
+14. Repeat steps 6-14 seven times, to write
+64 bytes.
+15. Verify the memory (Table Read).
+This procedure will require about 18 ms to update one
+row of 64 bytes of memory. An example of the required
+code is given in Example 5-3.
+Holding Register
+TABLAT
+Holding Register
+TBLPTR = xxxxx7
+Holding Register
+TBLPTR = xxxxx1
+Holding Register
+TBLPTR = xxxxx0
+8 8 8 8
+Write Register
+TBLPTR = xxxxx2
+Program Memory
+Note: Before setting the WR bit, the table pointer
+address needs to be within the intended
+address range of the 8 bytes in the holding
+registers.
+PIC18FXX2
+DS39564B-page 62 ? 2002 Microchip Technology Inc.
+EXAMPLE 5-3: WRITING TO FLASH PROGRAM MEMORY
+MOVLW D’64 ; number of bytes in erase block
+MOVWF COUNTER
+MOVLW BUFFER_ADDR_HIGH ; point to buffer
+MOVWF FSR0H
+MOVLW BUFFER_ADDR_LOW
+MOVWF FSR0L
+MOVLW CODE_ADDR_UPPER ; Load TBLPTR with the base
+MOVWF TBLPTRU ; address of the memory block
+MOVLW CODE_ADDR_HIGH
+MOVWF TBLPTRH
+MOVLW CODE_ADDR_LOW
+MOVWF TBLPTRL
+READ_BLOCK
+TBLRD*+ ; read into TABLAT, and inc
+MOVF TABLAT, W ; get data
+MOVWF POSTINC0 ; store data
+DECFSZ COUNTER ; done?
+BRA READ_BLOCK ; repeat
+MODIFY_WORD
+MOVLW DATA_ADDR_HIGH ; point to buffer
+MOVWF FSR0H
+MOVLW DATA_ADDR_LOW
+MOVWF FSR0L
+MOVLW NEW_DATA_LOW ; update buffer word
+MOVWF POSTINC0
+MOVLW NEW_DATA_HIGH
+MOVWF INDF0
+ERASE_BLOCK
+MOVLW CODE_ADDR_UPPER ; load TBLPTR with the base
+MOVWF TBLPTRU ; address of the memory block
+MOVLW CODE_ADDR_HIGH
+MOVWF TBLPTRH
+MOVLW CODE_ADDR_LOW
+MOVWF TBLPTRL
+BSF EECON1,EEPGD ; point to FLASH program memory
+BCF EECON1,CFGS ; access FLASH program memory
+BSF EECON1,WREN ; enable write to memory
+BSF EECON1,FREE ; enable Row Erase operation
+BCF INTCON,GIE ; disable interrupts
+MOVLW 55h
+MOVWF EECON2 ; write 55h
+MOVLW AAh
+MOVWF EECON2 ; write AAh
+BSF EECON1,WR ; start erase (CPU stall)
+BSF INTCON,GIE ; re-enable interrupts
+TBLRD*- ; dummy read decrement
+WRITE_BUFFER_BACK
+MOVLW 8 ; number of write buffer groups of 8 bytes
+MOVWF COUNTER_HI
+MOVLW BUFFER_ADDR_HIGH ; point to buffer
+MOVWF FSR0H
+MOVLW BUFFER_ADDR_LOW
+MOVWF FSR0L
+PROGRAM_LOOP
+MOVLW 8 ; number of bytes in holding register
+MOVWF COUNTER
+WRITE_WORD_TO_HREGS
+MOVF POSTINC0, W ; get low byte of buffer data
+MOVWF TABLAT ; present data to table latch
+TBLWT+* ; write data, perform a short write
+; to internal TBLWT holding register.
+DECFSZ COUNTER ; loop until buffers are full
+BRA WRITE_WORD_TO_HREGS
+? 2002 Microchip Technology Inc. DS39564B-page 63
+PIC18FXX2
+EXAMPLE 5-3: WRITING TO FLASH PROGRAM MEMORY (CONTINUED)
+5.5.2 WRITE VERIFY
+Depending on the application, good programming
+practice may dictate that the value written to the memory
+should be verified against the original value. This
+should be used in applications where excessive writes
+can stress bits near the specification limit.
+5.5.3 UNEXPECTED TERMINATION OF
+WRITE OPERATION
+If a write is terminated by an unplanned event, such as
+loss of power or an unexpected RESET, the memory
+location just programmed should be verified and reprogrammed
+if needed.The WRERR bit is set when a write
+operation is interrupted by a MCLR Reset, or a WDT
+Time-out Reset during normal operation. In these situations,
+users can check the WRERR bit and rewrite the
+location.
+5.5.4 PROTECTION AGAINST SPURIOUS
+WRITES
+To protect against spurious writes to FLASH program
+memory, the write initiate sequence must also be followed.
+See “Special Features of the CPU”
+(Section 19.0) for more detail.
+5.6 FLASH Program Operation During
+Code Protection
+See “Special Features of the CPU” (Section 19.0) for
+details on code protection of FLASH program memory.
+TABLE 5-2: REGISTERS ASSOCIATED WITH PROGRAM FLASH MEMORY
+PROGRAM_MEMORY
+BSF EECON1,EEPGD ; point to FLASH program memory
+BCF EECON1,CFGS ; access FLASH program memory
+BSF EECON1,WREN ; enable write to memory
+BCF INTCON,GIE ; disable interrupts
+MOVLW 55h
+Required MOVWF EECON2 ; write 55h
+Sequence MOVLW AAh
+MOVWF EECON2 ; write AAh
+BSF EECON1,WR ; start program (CPU stall)
+BSF INTCON,GIE ; re-enable interrupts
+DECFSZ COUNTER_HI ; loop until done
+BRA PROGRAM_LOOP
+BCF EECON1,WREN ; disable write to memory
+Address Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on:
+POR, BOR
+Value on
+All Other
+RESETS
+FF8h TBLPTRU — — bit21 Program Memory Table Pointer Upper Byte
+(TBLPTR<20:16>)
+--00 0000 --00 0000
+FF7h TBPLTRH Program Memory Table Pointer High Byte (TBLPTR<15:8>) 0000 0000 0000 0000
+FF6h TBLPTRL Program Memory Table Pointer High Byte (TBLPTR<7:0>) 0000 0000 0000 0000
+FF5h TABLAT Program Memory Table Latch 0000 0000 0000 0000
+FF2h INTCON GIE/
+GIEH
+PEIE/
+GIEL
+TMR0IE INTE RBIE TMR0IF INTF RBIF 0000 000x 0000 000u
+FA7h EECON2 EEPROM Control Register2 (not a physical register) — —
+FA6h EECON1 EEPGD CFGS — FREE WRERR WREN WR RD xx-0 x000 uu-0 u000
+FA2h IPR2 — — — EEIP BCLIP LVDIP TMR3IP CCP2IP ---1 1111 ---1 1111
+FA1h PIR2 — — — EEIF BCLIF LVDIF TMR3IF CCP2IF ---0 0000 ---0 0000
+FA0h PIE2 — — — EEIE BCLIE LVDIE TMR3IE CCP2IE ---0 0000 ---0 0000
+Legend: x = unknown, u = unchanged, r = reserved, - = unimplemented read as '0'.
+Shaded cells are not used during FLASH/EEPROM access.
+PIC18FXX2
+DS39564B-page 64 ? 2002 Microchip Technology Inc.
+NOTES:
+? 2002 Microchip Technology Inc. DS39564B-page 65
+PIC18FXX2
+6.0 DATA EEPROM MEMORY
+The Data EEPROM is readable and writable during
+normal operation over the entire VDD range. The data
+memory is not directly mapped in the register file
+space. Instead, it is indirectly addressed through the
+Special Function Registers (SFR).
+There are four SFRs used to read and write the
+program and data EEPROM memory. These registers
+are:
+• EECON1
+• EECON2
+• EEDATA
+• EEADR
+The EEPROM data memory allows byte read and write.
+When interfacing to the data memory block, EEDATA
+holds the 8-bit data for read/write and EEADR holds the
+address of the EEPROM location being accessed.
+These devices have 256 bytes of data EEPROM with
+an address range from 0h to FFh.
+The EEPROM data memory is rated for high erase/
+write cycles. A byte write automatically erases the location
+and writes the new data (erase-before-write). The
+write time is controlled by an on-chip timer. The write
+time will vary with voltage and temperature, as well as
+from chip to chip. Please refer to parameter D122
+(Electrical Characteristics, Section 22.0) for exact
+limits.
+6.1 EEADR
+The address register can address up to a maximum of
+256 bytes of data EEPROM.
+6.2 EECON1 and EECON2 Registers
+EECON1 is the control register for EEPROM memory
+accesses.
+EECON2 is not a physical register. Reading EECON2
+will read all '0's. The EECON2 register is used
+exclusively in the EEPROM write sequence.
+Control bits RD and WR initiate read and write operations,
+respectively. These bits cannot be cleared, only
+set, in software. They are cleared in hardware at the
+completion of the read or write operation. The inability
+to clear the WR bit in software prevents the accidental
+or premature termination of a write operation.
+The WREN bit, when set, will allow a write operation.
+On power-up, the WREN bit is clear. The WRERR bit is
+set when a write operation is interrupted by a MCLR
+Reset, or a WDT Time-out Reset during normal operation.
+In these situations, the user can check the
+WRERR bit and rewrite the location. It is necessary to
+reload the data and address registers (EEDATA and
+EEADR), due to the RESET condition forcing the
+contents of the registers to zero.
+Note: Interrupt flag bit, EEIF in the PIR2 register,
+is set when write is complete. It must be
+cleared in software.
+PIC18FXX2
+DS39564B-page 66 ? 2002 Microchip Technology Inc.
+REGISTER 6-1: EECON1 REGISTER (ADDRESS FA6h)
+R/W-x R/W-x U-0 R/W-0 R/W-x R/W-0 R/S-0 R/S-0
+EEPGD CFGS — FREE WRERR WREN WR RD
+bit 7 bit 0
+bit 7 EEPGD: FLASH Program or Data EEPROM Memory Select bit
+1 = Access FLASH Program memory
+0 = Access Data EEPROM memory
+bit 6 CFGS: FLASH Program/Data EE or Configuration Select bit
+1 = Access Configuration or Calibration registers
+0 = Access FLASH Program or Data EEPROM memory
+bit 5 Unimplemented: Read as '0'
+bit 4 FREE: FLASH Row Erase Enable bit
+1 = Erase the program memory row addressed by TBLPTR on the next WR command
+(cleared by completion of erase operation)
+0 = Perform write only
+bit 3 WRERR: FLASH Program/Data EE Error Flag bit
+1 = A write operation is prematurely terminated
+(any MCLR or any WDT Reset during self-timed programming in normal operation)
+0 = The write operation completed
+Note: When a WRERR occurs, the EEPGD or FREE bits are not cleared. This allows tracing
+of the error condition.
+bit 2 WREN: FLASH Program/Data EE Write Enable bit
+1 = Allows write cycles
+0 = Inhibits write to the EEPROM
+bit 1 WR: Write Control bit
+1 = Initiates a data EEPROM erase/write cycle or a program memory erase cycle or write cycle.
+(The operation is self-timed and the bit is cleared by hardware once write is complete. The
+WR bit can only be set (not cleared) in software.)
+0 =Write cycle to the EEPROM is complete
+bit 0 RD: Read Control bit
+1 = Initiates an EEPROM read
+(Read takes one cycle. RD is cleared in hardware. The RD bit can only be set (not cleared)
+in software. RD bit cannot be set when EEPGD = 1.)
+0 = Does not initiate an EEPROM read
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+? 2002 Microchip Technology Inc. DS39564B-page 67
+PIC18FXX2
+6.3 Reading the Data EEPROM
+Memory
+To read a data memory location, the user must write the
+address to the EEADR register, clear the EEPGD control
+bit (EECON1<7>), clear the CFGS control bit
+(EECON1<6>), and then set control bit RD
+(EECON1<0>). The data is available for the very next
+instruction cycle; therefore, the EEDATA register can
+be read by the next instruction. EEDATA will hold this
+value until another read operation, or until it is written to
+by the user (during a write operation).
+EXAMPLE 6-1: DATA EEPROM READ
+6.4 Writing to the Data EEPROM
+Memory
+To write an EEPROM data location, the address must
+first be written to the EEADR register and the data written
+to the EEDATA register. Then the sequence in
+Example 6-2 must be followed to initiate the write cycle.
+The write will not initiate if the above sequence is not
+exactly followed (write 55h to EECON2, write AAh to
+EECON2, then set WR bit) for each byte. It is strongly
+recommended that interrupts be disabled during this
+code segment.
+Additionally, the WREN bit in EECON1 must be set to
+enable writes. This mechanism prevents accidental
+writes to data EEPROM due to unexpected code execution
+(i.e., runaway programs). The WREN bit should
+be kept clear at all times, except when updating the
+EEPROM. The WREN bit is not cleared by hardware.
+After a write sequence has been initiated, EECON1,
+EEADR and EDATA cannot be modified. The WR bit
+will be inhibited from being set unless the WREN bit is
+set. The WREN bit must be set on a previous instruction.
+Both WR and WREN cannot be set with the same
+instruction.
+At the completion of the write cycle, the WR bit is
+cleared in hardware and the EEPROM Write Complete
+Interrupt Flag bit (EEIF) is set. The user may either
+enable this interrupt, or poll this bit. EEIF must be
+cleared by software.
+EXAMPLE 6-2: DATA EEPROM WRITE
+MOVLW DATA_EE_ADDR ;
+MOVWF EEADR ; Data Memory Address to read
+BCF EECON1, EEPGD ; Point to DATA memory
+BCF EECON1, CFGS ; Access program FLASH or Data EEPROM memory
+BSF EECON1, RD ; EEPROM Read
+MOVF EEDATA, W ; W = EEDATA
+MOVLW DATA_EE_ADDR ;
+MOVWF EEADR ; Data Memory Address to read
+MOVLW DATA_EE_DATA ;
+MOVWF EEDATA ; Data Memory Value to write
+BCF EECON1, EEPGD ; Point to DATA memory
+BCF EECON1, CFGS ; Access program FLASH or Data EEPROM memory
+BSF EECON1, WREN ; Enable writes
+BCF INTCON, GIE ; Disable interrupts
+Required MOVLW 55h ;
+Sequence MOVWF EECON2 ; Write 55h
+MOVLW AAh ;
+MOVWF EECON2 ; Write AAh
+BSF EECON1, WR ; Set WR bit to begin write
+BSF INTCON, GIE ; Enable interrupts
+. ; user code execution
+.
+.
+BCF EECON1, WREN ; Disable writes on write complete (EEIF set)
+PIC18FXX2
+DS39564B-page 68 ? 2002 Microchip Technology Inc.
+6.5 Write Verify
+Depending on the application, good programming
+practice may dictate that the value written to the memory
+should be verified against the original value. This
+should be used in applications where excessive writes
+can stress bits near the specification limit.
+6.6 Protection Against Spurious Write
+There are conditions when the device may not want to
+write to the data EEPROM memory. To protect against
+spurious EEPROM writes, various mechanisms have
+been built-in. On power-up, the WREN bit is cleared.
+Also, the Power-up Timer (72 ms duration) prevents
+EEPROM write.
+The write initiate sequence and the WREN bit together
+help prevent an accidental write during brown-out,
+power glitch, or software malfunction.
+6.7 Operation During Code Protect
+Data EEPROM memory has its own code protect
+mechanism. External Read and Write operations are
+disabled if either of these mechanisms are enabled.
+The microcontroller itself can both read and write to the
+internal Data EEPROM, regardless of the state of the
+code protect configuration bit. Refer to “Special Features
+of the CPU” (Section 19.0) for additional information.
+6.8 Using the Data EEPROM
+The data EEPROM is a high endurance, byte addressable
+array that has been optimized for the storage of
+frequently changing information (e.g., program variables
+or other data that are updated often). Frequently
+changing values will typically be updated more often
+than specification D124. If this is not the case, an array
+refresh must be performed. For this reason, variables
+that change infrequently (such as constants, IDs, calibration,
+etc.) should be stored in FLASH program
+memory.
+A simple data EEPROM refresh routine is shown in
+Example 6-3.
+EXAMPLE 6-3: DATA EEPROM REFRESH ROUTINE
+Note: If data EEPROM is only used to store constants
+and/or data that changes rarely, an
+array refresh is likely not required. See
+specification D124.
+clrf EEADR ; Start at address 0
+bcf EECON1,CFGS ; Set for memory
+bcf EECON1,EEPGD ; Set for Data EEPROM
+bcf INTCON,GIE ; Disable interrupts
+bsf EECON1,WREN ; Enable writes
+Loop ; Loop to refresh array
+bsf EECON1,RD ; Read current address
+movlw 55h ;
+movwf EECON2 ; Write 55h
+movlw AAh ;
+movwf EECON2 ; Write AAh
+bsf EECON1,WR ; Set WR bit to begin write
+btfsc EECON1,WR ; Wait for write to complete
+bra $-2
+incfsz EEADR,F ; Increment address
+bra Loop ; Not zero, do it again
+bcf EECON1,WREN ; Disable writes
+bsf INTCON,GIE ; Enable interrupts
+? 2002 Microchip Technology Inc. DS39564B-page 69
+PIC18FXX2
+TABLE 6-1: REGISTERS ASSOCIATED WITH DATA EEPROM MEMORY
+Address Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on:
+POR, BOR
+Value on
+All Other
+RESETS
+FF2h INTCON GIE/
+GIEH
+PEIE/
+GIEL
+T0IE INTE RBIE T0IF INTF RBIF 0000 000x 0000 000u
+FA9h EEADR EEPROM Address Register 0000 0000 0000 0000
+FA8h EEDATA EEPROM Data Register 0000 0000 0000 0000
+FA7h EECON2 EEPROM Control Register2 (not a physical register) — —
+FA6h EECON1 EEPGD CFGS — FREE WRERR WREN WR RD xx-0 x000 uu-0 u000
+FA2h IPR2 — — — EEIP BCLIP LVDIP TMR3IP CCP2IP ---1 1111 ---1 1111
+FA1h PIR2 — — — EEIF BCLIF LVDIF TMR3IF CCP2IF ---0 0000 ---0 0000
+FA0h PIE2 — — — EEIE BCLIE LVDIE TMR3IE CCP2IE ---0 0000 ---0 0000
+Legend: x = unknown, u = unchanged, r = reserved, - = unimplemented, read as '0'.
+Shaded cells are not used during FLASH/EEPROM access.
+PIC18FXX2
+DS39564B-page 70 ? 2002 Microchip Technology Inc.
+NOTES:
+? 2002 Microchip Technology Inc. DS39564B-page 71
+PIC18FXX2
+7.0 8 X 8 HARDWARE MULTIPLIER
+7.1 Introduction
+An 8 x 8 hardware multiplier is included in the ALU of
+the PIC18FXX2 devices. By making the multiply a
+hardware operation, it completes in a single instruction
+cycle. This is an unsigned multiply that gives a 16-bit
+result. The result is stored into the 16-bit product register
+pair (PRODH:PRODL). The multiplier does not
+affect any flags in the ALUSTA register.
+Making the 8 x 8 multiplier execute in a single cycle
+gives the following advantages:
+• Higher computational throughput
+• Reduces code size requirements for multiply
+algorithms
+The performance increase allows the device to be used
+in applications previously reserved for Digital Signal
+Processors.
+Table 7-1 shows a performance comparison between
+enhanced devices using the single cycle hardware multiply,
+and performing the same function without the
+hardware multiply.
+TABLE 7-1: PERFORMANCE COMPARISON
+7.2 Operation
+Example 7-1 shows the sequence to do an 8 x 8
+unsigned multiply. Only one instruction is required
+when one argument of the multiply is already loaded in
+the WREG register.
+Example 7-2 shows the sequence to do an 8 x 8 signed
+multiply. To account for the sign bits of the arguments,
+each argument’s Most Significant bit (MSb) is tested
+and the appropriate subtractions are done.
+EXAMPLE 7-1: 8 x 8 UNSIGNED
+MULTIPLY ROUTINE
+EXAMPLE 7-2: 8 x 8 SIGNED MULTIPLY
+ROUTINE
+Example 7-3 shows the sequence to do a 16 x 16
+unsigned multiply. Equation 7-1 shows the algorithm
+that is used. The 32-bit result is stored in four registers,
+RES3:RES0.
+EQUATION 7-1: 16 x 16 UNSIGNED
+MULTIPLICATION
+ALGORITHM
+Routine Multiply Method
+Program
+Memory
+(Words)
+Cycles
+(Max)
+Time
+@ 40 MHz @ 10 MHz @ 4 MHz
+8 x 8 unsigned
+Without hardware multiply 13 69 6.9 ?s 27.6 ?s 69 ?s
+Hardware multiply 1 1 100 ns 400 ns 1 ?s
+8 x 8 signed
+Without hardware multiply 33 91 9.1 ?s 36.4 ?s 91 ?s
+Hardware multiply 6 6 600 ns 2.4 ?s 6 ?s
+16 x 16 unsigned
+Without hardware multiply 21 242 24.2 ?s 96.8 ?s 242 ?s
+Hardware multiply 24 24 2.4 ?s 9.6 ?s 24 ?s
+16 x 16 signed
+Without hardware multiply 52 254 25.4 ?s 102.6 ?s 254 ?s
+Hardware multiply 36 36 3.6 ?s 14.4 ?s 36 ?s
+MOVF ARG1, W ;
+MULWF ARG2 ; ARG1 * ARG2 ->
+; PRODH:PRODL
+MOVF ARG1, W
+MULWF ARG2 ; ARG1 * ARG2 ->
+; PRODH:PRODL
+BTFSC ARG2, SB ; Test Sign Bit
+SUBWF PRODH, F ; PRODH = PRODH
+; - ARG1
+MOVF ARG2, W
+BTFSC ARG1, SB ; Test Sign Bit
+SUBWF PRODH, F ; PRODH = PRODH
+; - ARG2
+RES3:RES0 = ARG1H:ARG1L • ARG2H:ARG2L
+= (ARG1H • ARG2H • 216) +
+(ARG1H • ARG2L • 28) +
+(ARG1L • ARG2H • 28) +
+(ARG1L • ARG2L)
+PIC18FXX2
+DS39564B-page 72 ? 2002 Microchip Technology Inc.
+EXAMPLE 7-3: 16 x 16 UNSIGNED
+MULTIPLY ROUTINE
+Example 7-4 shows the sequence to do a 16 x 16
+signed multiply. Equation 7-2 shows the algorithm
+used. The 32-bit result is stored in four registers,
+RES3:RES0. To account for the sign bits of the arguments,
+each argument pairs Most Significant bit (MSb)
+is tested and the appropriate subtractions are done.
+EQUATION 7-2: 16 x 16 SIGNED
+MULTIPLICATION
+ALGORITHM
+EXAMPLE 7-4: 16 x 16 SIGNED
+MULTIPLY ROUTINE
+MOVF ARG1L, W
+MULWF ARG2L ; ARG1L * ARG2L ->
+; PRODH:PRODL
+MOVFF PRODH, RES1 ;
+MOVFF PRODL, RES0 ;
+;
+MOVF ARG1H, W
+MULWF ARG2H ; ARG1H * ARG2H ->
+; PRODH:PRODL
+MOVFF PRODH, RES3 ;
+MOVFF PRODL, RES2 ;
+;
+MOVF ARG1L, W
+MULWF ARG2H ; ARG1L * ARG2H ->
+; PRODH:PRODL
+MOVF PRODL, W ;
+ADDWF RES1, F ; Add cross
+MOVF PRODH, W ; products
+ADDWFC RES2, F ;
+CLRF WREG ;
+ADDWFC RES3, F ;
+;
+MOVF ARG1H, W ;
+MULWF ARG2L ; ARG1H * ARG2L ->
+; PRODH:PRODL
+MOVF PRODL, W ;
+ADDWF RES1, F ; Add cross
+MOVF PRODH, W ; products
+ADDWFC RES2, F ;
+CLRF WREG ;
+ADDWFC RES3, F ;
+RES3:RES0
+= ARG1H:ARG1L • ARG2H:ARG2L
+= (ARG1H • ARG2H • 216) +
+(ARG1H • ARG2L • 28) +
+(ARG1L • ARG2H • 28) +
+(ARG1L • ARG2L) +
+(-1 • ARG2H<7> • ARG1H:ARG1L • 216) +
+(-1 • ARG1H<7> • ARG2H:ARG2L • 216)
+MOVF ARG1L, W
+MULWF ARG2L ; ARG1L * ARG2L ->
+; PRODH:PRODL
+MOVFF PRODH, RES1 ;
+MOVFF PRODL, RES0 ;
+;
+MOVF ARG1H, W
+MULWF ARG2H ; ARG1H * ARG2H ->
+; PRODH:PRODL
+MOVFF PRODH, RES3 ;
+MOVFF PRODL, RES2 ;
+;
+MOVF ARG1L, W
+MULWF ARG2H ; ARG1L * ARG2H ->
+; PRODH:PRODL
+MOVF PRODL, W ;
+ADDWF RES1, F ; Add cross
+MOVF PRODH, W ; products
+ADDWFC RES2, F ;
+CLRF WREG ;
+ADDWFC RES3, F ;
+;
+MOVF ARG1H, W ;
+MULWF ARG2L ; ARG1H * ARG2L ->
+; PRODH:PRODL
+MOVF PRODL, W ;
+ADDWF RES1, F ; Add cross
+MOVF PRODH, W ; products
+ADDWFC RES2, F ;
+CLRF WREG ;
+ADDWFC RES3, F ;
+;
+BTFSS ARG2H, 7 ; ARG2H:ARG2L neg?
+BRA SIGN_ARG1 ; no, check ARG1
+MOVF ARG1L, W ;
+SUBWF RES2 ;
+MOVF ARG1H, W ;
+SUBWFB RES3
+;
+SIGN_ARG1
+BTFSS ARG1H, 7 ; ARG1H:ARG1L neg?
+BRA CONT_CODE ; no, done
+MOVF ARG2L, W ;
+SUBWF RES2 ;
+MOVF ARG2H, W ;
+SUBWFB RES3
+;
+CONT_CODE
+:
+? 2002 Microchip Technology Inc. DS39564B-page 73
+PIC18FXX2
+8.0 INTERRUPTS
+The PIC18FXX2 devices have multiple interrupt
+sources and an interrupt priority feature that allows
+each interrupt source to be assigned a high priority
+level or a low priority level. The high priority interrupt
+vector is at 000008h and the low priority interrupt vector
+is at 000018h. High priority interrupt events will override
+any low priority interrupts that may be in progress.
+There are ten registers which are used to control
+interrupt operation. These registers are:
+• RCON
+• INTCON
+• INTCON2
+• INTCON3
+• PIR1, PIR2
+• PIE1, PIE2
+• IPR1, IPR2
+It is recommended that the Microchip header files supplied
+with MPLAB® IDE be used for the symbolic bit
+names in these registers. This allows the assembler/
+compiler to automatically take care of the placement of
+these bits within the specified register.
+Each interrupt source, except INT0, has three bits to
+control its operation. The functions of these bits are:
+• Flag bit to indicate that an interrupt event
+occurred
+• Enable bit that allows program execution to
+branch to the interrupt vector address when the
+flag bit is set
+• Priority bit to select high priority or low priority
+The interrupt priority feature is enabled by setting the
+IPEN bit (RCON<7>). When interrupt priority is
+enabled, there are two bits which enable interrupts globally.
+Setting the GIEH bit (INTCON<7>) enables all
+interrupts that have the priority bit set. Setting the GIEL
+bit (INTCON<6>) enables all interrupts that have the
+priority bit cleared. When the interrupt flag, enable bit
+and appropriate global interrupt enable bit are set, the
+interrupt will vector immediately to address 000008h or
+000018h, depending on the priority level. Individual
+interrupts can be disabled through their corresponding
+enable bits.
+When the IPEN bit is cleared (default state), the interrupt
+priority feature is disabled and interrupts are compatible
+with PICmicro® mid-range devices. In
+Compatibility mode, the interrupt priority bits for each
+source have no effect. INTCON<6> is the PEIE bit,
+which enables/disables all peripheral interrupt sources.
+INTCON<7> is the GIE bit, which enables/disables all
+interrupt sources. All interrupts branch to address
+000008h in Compatibility mode.
+When an interrupt is responded to, the Global Interrupt
+Enable bit is cleared to disable further interrupts. If the
+IPEN bit is cleared, this is the GIE bit. If interrupt priority
+levels are used, this will be either the GIEH or GIEL bit.
+High priority interrupt sources can interrupt a low
+priority interrupt.
+The return address is pushed onto the stack and the
+PC is loaded with the interrupt vector address
+(000008h or 000018h). Once in the Interrupt Service
+Routine, the source(s) of the interrupt can be determined
+by polling the interrupt flag bits. The interrupt
+flag bits must be cleared in software before re-enabling
+interrupts to avoid recursive interrupts.
+The “return from interrupt” instruction, RETFIE, exits
+the interrupt routine and sets the GIE bit (GIEH or GIEL
+if priority levels are used), which re-enables interrupts.
+For external interrupt events, such as the INT pins or
+the PORTB input change interrupt, the interrupt latency
+will be three to four instruction cycles. The exact
+latency is the same for one or two-cycle instructions.
+Individual interrupt flag bits are set, regardless of the
+status of their corresponding enable bit or the GIE bit.
+Note: Do not use the MOVFF instruction to modify
+any of the Interrupt control registers while
+any interrupt is enabled. Doing so may
+cause erratic microcontroller behavior.
+PIC18FXX2
+DS39564B-page 74 ? 2002 Microchip Technology Inc.
+FIGURE 8-1: INTERRUPT LOGIC
+TMR0IE
+GIEH/GIE
+GIEL/PEIE
+Wake-up if in SLEEP mode
+Interrupt to CPU
+Vector to location
+0008h
+INT2IF
+INT2IE
+INT2IP
+INT1IF
+INT1IE
+INT1IP
+TMR0IF
+TMR0IE
+TMR0IP
+RBIF
+RBIE
+RBIP
+IPEN
+TMR0IF
+TMR0IP
+INT1IF
+INT1IE
+INT1IP
+INT2IF
+INT2IE
+INT2IP
+RBIF
+RBIE
+RBIP
+INT0IF
+INT0IE
+GIEL/PEIE
+Interrupt to CPU
+Vector to Location
+IPEN
+IPE
+0018h
+Peripheral Interrupt Flag bit
+Peripheral Interrupt Enable bit
+Peripheral Interrupt Priority bit
+Peripheral Interrupt Flag bit
+Peripheral Interrupt Enable bit
+Peripheral Interrupt Priority bit
+TMR1IF
+TMR1IE
+TMR1IP
+XXXXIF
+XXXXIE
+XXXXIP
+Additional Peripheral Interrupts
+TMR1IF
+TMR1IE
+TMR1IP
+High Priority Interrupt Generation
+Low Priority Interrupt Generation
+XXXXIF
+XXXXIE
+XXXXIP
+Additional Peripheral Interrupts
+GIE/GIEH
+? 2002 Microchip Technology Inc. DS39564B-page 75
+PIC18FXX2
+8.1 INTCON Registers
+The INTCON Registers are readable and writable registers,
+which contain various enable, priority and flag
+bits.
+REGISTER 8-1: INTCON REGISTER
+Note: Interrupt flag bits are set when an interrupt
+condition occurs, regardless of the state of
+its corresponding enable bit or the global
+enable bit. User software should ensure
+the appropriate interrupt flag bits are clear
+prior to enabling an interrupt. This feature
+allows for software polling.
+R/W-0 R/W-0 R/W-0 R/W-0 R/W-0 R/W-0 R/W-0 R/W-x
+GIE/GIEH PEIE/GIEL TMR0IE INT0IE RBIE TMR0IF INT0IF RBIF
+bit 7 bit 0
+bit 7 GIE/GIEH: Global Interrupt Enable bit
+When IPEN = 0:
+1 = Enables all unmasked interrupts
+0 = Disables all interrupts
+When IPEN = 1:
+1 = Enables all high priority interrupts
+0 = Disables all interrupts
+bit 6 PEIE/GIEL: Peripheral Interrupt Enable bit
+When IPEN = 0:
+1 = Enables all unmasked peripheral interrupts
+0 = Disables all peripheral interrupts
+When IPEN = 1:
+1 = Enables all low priority peripheral interrupts
+0 = Disables all low priority peripheral interrupts
+bit 5 TMR0IE: TMR0 Overflow Interrupt Enable bit
+1 = Enables the TMR0 overflow interrupt
+0 = Disables the TMR0 overflow interrupt
+bit 4 INT0IE: INT0 External Interrupt Enable bit
+1 = Enables the INT0 external interrupt
+0 = Disables the INT0 external interrupt
+bit 3 RBIE: RB Port Change Interrupt Enable bit
+1 = Enables the RB port change interrupt
+0 = Disables the RB port change interrupt
+bit 2 TMR0IF: TMR0 Overflow Interrupt Flag bit
+1 = TMR0 register has overflowed (must be cleared in software)
+0 = TMR0 register did not overflow
+bit 1 INT0IF: INT0 External Interrupt Flag bit
+1 = The INT0 external interrupt occurred (must be cleared in software)
+0 = The INT0 external interrupt did not occur
+bit 0 RBIF: RB Port Change Interrupt Flag bit
+1 = At least one of the RB7:RB4 pins changed state (must be cleared in software)
+0 = None of the RB7:RB4 pins have changed state
+Note: A mismatch condition will continue to set this bit. Reading PORTB will end the
+mismatch condition and allow the bit to be cleared.
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+PIC18FXX2
+DS39564B-page 76 ? 2002 Microchip Technology Inc.
+REGISTER 8-2: INTCON2 REGISTER
+R/W-1 R/W-1 R/W-1 R/W-1 U-0 R/W-1 U-0 R/W-1
+RBPU INTEDG0 INTEDG1 INTEDG2 — TMR0IP — RBIP
+bit 7 bit 0
+bit 7 RBPU: PORTB Pull-up Enable bit
+1 = All PORTB pull-ups are disabled
+0 = PORTB pull-ups are enabled by individual port latch values
+bit 6 INTEDG0:External Interrupt0 Edge Select bit
+1 = Interrupt on rising edge
+0 = Interrupt on falling edge
+bit 5 INTEDG1: External Interrupt1 Edge Select bit
+1 = Interrupt on rising edge
+0 = Interrupt on falling edge
+bit 4 INTEDG2: External Interrupt2 Edge Select bit
+1 = Interrupt on rising edge
+0 = Interrupt on falling edge
+bit 3 Unimplemented: Read as '0'
+bit 2 TMR0IP: TMR0 Overflow Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 1 Unimplemented: Read as '0'
+bit 0 RBIP: RB Port Change Interrupt Priority bit
+1 = High priority
+0 = Low priority
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+Note: Interrupt flag bits are set when an interrupt condition occurs, regardless of the state
+of its corresponding enable bit or the global enable bit. User software should ensure
+the appropriate interrupt flag bits are clear prior to enabling an interrupt. This feature
+allows for software polling.
+? 2002 Microchip Technology Inc. DS39564B-page 77
+PIC18FXX2
+REGISTER 8-3: INTCON3 REGISTER
+R/W-1 R/W-1 U-0 R/W-0 R/W-0 U-0 R/W-0 R/W-0
+INT2IP INT1IP — INT2IE INT1IE — INT2IF INT1IF
+bit 7 bit 0
+bit 7 INT2IP: INT2 External Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 6 INT1IP: INT1 External Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 5 Unimplemented: Read as '0'
+bit 4 INT2IE: INT2 External Interrupt Enable bit
+1 = Enables the INT2 external interrupt
+0 = Disables the INT2 external interrupt
+bit 3 INT1IE: INT1 External Interrupt Enable bit
+1 = Enables the INT1 external interrupt
+0 = Disables the INT1 external interrupt
+bit 2 Unimplemented: Read as '0'
+bit 1 INT2IF: INT2 External Interrupt Flag bit
+1 = The INT2 external interrupt occurred (must be cleared in software)
+0 = The INT2 external interrupt did not occur
+bit 0 INT1IF: INT1 External Interrupt Flag bit
+1 = The INT1 external interrupt occurred (must be cleared in software)
+0 = The INT1 external interrupt did not occur
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+Note: Interrupt flag bits are set when an interrupt condition occurs, regardless of the state
+of its corresponding enable bit or the global enable bit. User software should ensure
+the appropriate interrupt flag bits are clear prior to enabling an interrupt. This feature
+allows for software polling.
+PIC18FXX2
+DS39564B-page 78 ? 2002 Microchip Technology Inc.
+8.2 PIR Registers
+The PIR registers contain the individual flag bits for the
+peripheral interrupts. Due to the number of peripheral
+interrupt sources, there are two Peripheral Interrupt
+Flag Registers (PIR1, PIR2).
+REGISTER 8-4: PIR1: PERIPHERAL INTERRUPT REQUEST (FLAG) REGISTER 1
+Note 1: Interrupt flag bits are set when an interrupt
+condition occurs, regardless of the state of
+its corresponding enable bit or the global
+enable bit, GIE (INTCON<7>).
+2: User software should ensure the appropriate
+interrupt flag bits are cleared prior to enabling
+an interrupt, and after servicing that interrupt.
+R/W-0 R/W-0 R-0 R-0 R/W-0 R/W-0 R/W-0 R/W-0
+PSPIF(1) ADIF RCIF TXIF SSPIF CCP1IF TMR2IF TMR1IF
+bit 7 bit 0
+bit 7 PSPIF(1): Parallel Slave Port Read/Write Interrupt Flag bit
+1 = A read or a write operation has taken place (must be cleared in software)
+0 = No read or write has occurred
+bit 6 ADIF: A/D Converter Interrupt Flag bit
+1 = An A/D conversion completed (must be cleared in software)
+0 = The A/D conversion is not complete
+bit 5 RCIF: USART Receive Interrupt Flag bit
+1 = The USART receive buffer, RCREG, is full (cleared when RCREG is read)
+0 = The USART receive buffer is empty
+bit 4 TXIF: USART Transmit Interrupt Flag bit (see Section 16.0 for details on TXIF functionality)
+1 = The USART transmit buffer, TXREG, is empty (cleared when TXREG is written)
+0 = The USART transmit buffer is full
+bit 3 SSPIF: Master Synchronous Serial Port Interrupt Flag bit
+1 = The transmission/reception is complete (must be cleared in software)
+0 = Waiting to transmit/receive
+bit 2 CCP1IF: CCP1 Interrupt Flag bit
+Capture mode:
+1 = A TMR1 register capture occurred (must be cleared in software)
+0 = No TMR1 register capture occurred
+Compare mode:
+1 = A TMR1 register compare match occurred (must be cleared in software)
+0 = No TMR1 register compare match occurred
+PWM mode:
+Unused in this mode
+bit 1 TMR2IF: TMR2 to PR2 Match Interrupt Flag bit
+1 = TMR2 to PR2 match occurred (must be cleared in software)
+0 = No TMR2 to PR2 match occurred
+bit 0 TMR1IF: TMR1 Overflow Interrupt Flag bit
+1 = TMR1 register overflowed (must be cleared in software)
+0 = MR1 register did not overflow
+Note 1: This bit is reserved on PIC18F2X2 devices; always maintain this bit clear.
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+? 2002 Microchip Technology Inc. DS39564B-page 79
+PIC18FXX2
+REGISTER 8-5: PIR2: PERIPHERAL INTERRUPT REQUEST (FLAG) REGISTER 2
+U-0 U-0 U-0 R/W-0 R/W-0 R/W-0 R/W-0 R/W-0
+— — — EEIF BCLIF LVDIF TMR3IF CCP2IF
+bit 7 bit 0
+bit 7-5 Unimplemented: Read as '0'
+bit 4 EEIF: Data EEPROM/FLASH Write Operation Interrupt Flag bit
+1 = The Write operation is complete (must be cleared in software)
+0 = The Write operation is not complete, or has not been started
+bit 3 BCLIF: Bus Collision Interrupt Flag bit
+1 = A bus collision occurred (must be cleared in software)
+0 = No bus collision occurred
+bit 2 LVDIF: Low Voltage Detect Interrupt Flag bit
+1 = A low voltage condition occurred (must be cleared in software)
+0 = The device voltage is above the Low Voltage Detect trip point
+bit 1 TMR3IF: TMR3 Overflow Interrupt Flag bit
+1 = TMR3 register overflowed (must be cleared in software)
+0 = TMR3 register did not overflow
+bit 0 CCP2IF: CCPx Interrupt Flag bit
+Capture mode:
+1 = A TMR1 register capture occurred (must be cleared in software)
+0 = No TMR1 register capture occurred
+Compare mode:
+1 = A TMR1 register compare match occurred (must be cleared in software)
+0 = No TMR1 register compare match occurred
+PWM mode:
+Unused in this mode
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+PIC18FXX2
+DS39564B-page 80 ? 2002 Microchip Technology Inc.
+8.3 PIE Registers
+The PIE registers contain the individual enable bits for
+the peripheral interrupts. Due to the number of peripheral
+interrupt sources, there are two Peripheral Interrupt
+Enable Registers (PIE1, PIE2). When IPEN = 0,
+the PEIE bit must be set to enable any of these
+peripheral interrupts.
+REGISTER 8-6: PIE1: PERIPHERAL INTERRUPT ENABLE REGISTER 1
+R/W-0 R/W-0 R/W-0 R/W-0 R/W-0 R/W-0 R/W-0 R/W-0
+PSPIE(1) ADIE RCIE TXIE SSPIE CCP1IE TMR2IE TMR1IE
+bit 7 bit 0
+bit 7 PSPIE(1): Parallel Slave Port Read/Write Interrupt Enable bit
+1 = Enables the PSP read/write interrupt
+0 = Disables the PSP read/write interrupt
+bit 6 ADIE: A/D Converter Interrupt Enable bit
+1 = Enables the A/D interrupt
+0 = Disables the A/D interrupt
+bit 5 RCIE: USART Receive Interrupt Enable bit
+1 = Enables the USART receive interrupt
+0 = Disables the USART receive interrupt
+bit 4 TXIE: USART Transmit Interrupt Enable bit
+1 = Enables the USART transmit interrupt
+0 = Disables the USART transmit interrupt
+bit 3 SSPIE: Master Synchronous Serial Port Interrupt Enable bit
+1 = Enables the MSSP interrupt
+0 = Disables the MSSP interrupt
+bit 2 CCP1IE: CCP1 Interrupt Enable bit
+1 = Enables the CCP1 interrupt
+0 = Disables the CCP1 interrupt
+bit 1 TMR2IE: TMR2 to PR2 Match Interrupt Enable bit
+1 = Enables the TMR2 to PR2 match interrupt
+0 = Disables the TMR2 to PR2 match interrupt
+bit 0 TMR1IE: TMR1 Overflow Interrupt Enable bit
+1 = Enables the TMR1 overflow interrupt
+0 = Disables the TMR1 overflow interrupt
+Note 1: This bit is reserved on PIC18F2X2 devices; always maintain this bit clear.
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+? 2002 Microchip Technology Inc. DS39564B-page 81
+PIC18FXX2
+REGISTER 8-7: PIE2: PERIPHERAL INTERRUPT ENABLE REGISTER 2
+U-0 U-0 U-0 R/W-0 R/W-0 R/W-0 R/W-0 R/W-0
+— — — EEIE BCLIE LVDIE TMR3IE CCP2IE
+bit 7 bit 0
+bit 7-5 Unimplemented: Read as '0'
+bit 4 EEIE: Data EEPROM/FLASH Write Operation Interrupt Enable bit
+1 = Enabled
+0 = Disabled
+bit 3 BCLIE: Bus Collision Interrupt Enable bit
+1 = Enabled
+0 = Disabled
+bit 2 LVDIE: Low Voltage Detect Interrupt Enable bit
+1 = Enabled
+0 = Disabled
+bit 1 TMR3IE: TMR3 Overflow Interrupt Enable bit
+1 = Enables the TMR3 overflow interrupt
+0 = Disables the TMR3 overflow interrupt
+bit 0 CCP2IE: CCP2 Interrupt Enable bit
+1 = Enables the CCP2 interrupt
+0 = Disables the CCP2 interrupt
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+PIC18FXX2
+DS39564B-page 82 ? 2002 Microchip Technology Inc.
+8.4 IPR Registers
+The IPR registers contain the individual priority bits for
+the peripheral interrupts. Due to the number of peripheral
+interrupt sources, there are two Peripheral Interrupt
+Priority Registers (IPR1, IPR2). The operation of
+the priority bits requires that the Interrupt Priority
+Enable (IPEN) bit be set.
+REGISTER 8-8: IPR1: PERIPHERAL INTERRUPT PRIORITY REGISTER 1
+R/W-1 R/W-1 R/W-1 R/W-1 R/W-1 R/W-1 R/W-1 R/W-1
+PSPIP(1) ADIP RCIP TXIP SSPIP CCP1IP TMR2IP TMR1IP
+bit 7 bit 0
+bit 7 PSPIP(1): Parallel Slave Port Read/Write Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 6 ADIP: A/D Converter Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 5 RCIP: USART Receive Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 4 TXIP: USART Transmit Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 3 SSPIP: Master Synchronous Serial Port Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 2 CCP1IP: CCP1 Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 1 TMR2IP: TMR2 to PR2 Match Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 0 TMR1IP: TMR1 Overflow Interrupt Priority bit
+1 = High priority
+0 = Low priority
+Note 1: This bit is reserved on PIC18F2X2 devices; always maintain this bit set.
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+? 2002 Microchip Technology Inc. DS39564B-page 83
+PIC18FXX2
+REGISTER 8-9: IPR2: PERIPHERAL INTERRUPT PRIORITY REGISTER 2
+U-0 U-0 U-0 R/W-1 R/W-1 R/W-1 R/W-1 R/W-1
+— — — EEIP BCLIP LVDIP TMR3IP CCP2IP
+bit 7 bit 0
+bit 7-5 Unimplemented: Read as '0'
+bit 4 EEIP: Data EEPROM/FLASH Write Operation Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 3 BCLIP: Bus Collision Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 2 LVDIP: Low Voltage Detect Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 1 TMR3IP: TMR3 Overflow Interrupt Priority bit
+1 = High priority
+0 = Low priority
+bit 0 CCP2IP: CCP2 Interrupt Priority bit
+1 = High priority
+0 = Low priority
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+PIC18FXX2
+DS39564B-page 84 ? 2002 Microchip Technology Inc.
+8.5 RCON Register
+The RCON register contains the bit which is used to
+enable prioritized interrupts (IPEN).
+REGISTER 8-10: RCON REGISTER
+R/W-0 U-0 U-0 R/W-1 R-1 R-1 R/W-0 R/W-0
+IPEN — — RI TO PD POR BOR
+bit 7 bit 0
+bit 7 IPEN: Interrupt Priority Enable bit
+1 = Enable priority levels on interrupts
+0 = Disable priority levels on interrupts (16CXXX Compatibility mode)
+bit 6-5 Unimplemented: Read as '0'
+bit 4 RI: RESET Instruction Flag bit
+For details of bit operation, see Register 4-3
+bit 3 TO: Watchdog Time-out Flag bit
+For details of bit operation, see Register 4-3
+bit 2 PD: Power-down Detection Flag bit
+For details of bit operation, see Register 4-3
+bit 1 POR: Power-on Reset Status bit
+For details of bit operation, see Register 4-3
+bit 0 BOR: Brown-out Reset Status bit
+For details of bit operation, see Register 4-3
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+? 2002 Microchip Technology Inc. DS39564B-page 85
+PIC18FXX2
+8.6 INT0 Interrupt
+External interrupts on the RB0/INT0, RB1/INT1 and
+RB2/INT2 pins are edge triggered: either rising, if the
+corresponding INTEDGx bit is set in the INTCON2 register,
+or falling, if the INTEDGx bit is clear. When a valid
+edge appears on the RBx/INTx pin, the corresponding
+flag bit INTxF is set. This interrupt can be disabled by
+clearing the corresponding enable bit INTxE. Flag bit
+INTxF must be cleared in software in the Interrupt Service
+Routine before re-enabling the interrupt. All external
+interrupts (INT0, INT1 and INT2) can wake-up the
+processor from SLEEP, if bit INTxE was set prior to
+going into SLEEP. If the global interrupt enable bit GIE
+is set, the processor will branch to the interrupt vector
+following wake-up.
+Interrupt priority for INT1 and INT2 is determined by the
+value contained in the interrupt priority bits, INT1IP
+(INTCON3<6>) and INT2IP (INTCON3<7>). There is
+no priority bit associated with INT0. It is always a high
+priority interrupt source.
+8.7 TMR0 Interrupt
+In 8-bit mode (which is the default), an overflow
+(FFh > 00h) in the TMR0 register will set flag bit
+TMR0IF. In 16-bit mode, an overflow (FFFFh > 0000h)
+in the TMR0H:TMR0L registers will set flag bit TMR0IF.
+The interrupt can be enabled/disabled by setting/
+clearing enable bit T0IE (INTCON<5>). Interrupt priority
+for Timer0 is determined by the value contained in
+the interrupt priority bit TMR0IP (INTCON2<2>). See
+Section 10.0 for further details on the Timer0 module.
+8.8 PORTB Interrupt-on-Change
+An input change on PORTB<7:4> sets flag bit RBIF
+(INTCON<0>). The interrupt can be enabled/disabled
+by setting/clearing enable bit, RBIE (INTCON<3>).
+Interrupt priority for PORTB interrupt-on-change is
+determined by the value contained in the interrupt
+priority bit, RBIP (INTCON2<0>).
+8.9 Context Saving During Interrupts
+During an interrupt, the return PC value is saved on the
+stack. Additionally, the WREG, STATUS and BSR registers
+are saved on the fast return stack. If a fast return
+from interrupt is not used (See Section 4.3), the user
+may need to save the WREG, STATUS and BSR registers
+in software. Depending on the user’s application,
+other registers may also need to be saved. Equation 8-1
+saves and restores the WREG, STATUS and BSR
+registers during an Interrupt Service Routine.
+EXAMPLE 8-1: SAVING STATUS, WREG AND BSR REGISTERS IN RAM
+MOVWF W_TEMP ; W_TEMP is in virtual bank
+MOVFF STATUS, STATUS_TEMP ; STATUS_TEMP located anywhere
+MOVFF BSR, BSR_TEMP ; BSR located anywhere
+;
+; USER ISR CODE
+;
+MOVFF BSR_TEMP, BSR ; Restore BSR
+MOVF W_TEMP, W ; Restore WREG
+MOVFF STATUS_TEMP,STATUS ; Restore STATUS
+PIC18FXX2
+DS39564B-page 86 ? 2002 Microchip Technology Inc.
+NOTES:
+? 2002 Microchip Technology Inc. DS39564B-page 87
+PIC18FXX2
+9.0 I/O PORTS
+Depending on the device selected, there are either five
+ports or three ports available. Some pins of the I/O
+ports are multiplexed with an alternate function from
+the peripheral features on the device. In general, when
+a peripheral is enabled, that pin may not be used as a
+general purpose I/O pin.
+Each port has three registers for its operation. These
+registers are:
+• TRIS register (data direction register)
+• PORT register (reads the levels on the pins of the
+device)
+• LAT register (output latch)
+The data latch (LAT register) is useful for read-modifywrite
+operations on the value that the I/O pins are
+driving.
+9.1 PORTA, TRISA and LATA
+Registers
+PORTA is a 7-bit wide, bi-directional port. The corresponding
+Data Direction register is TRISA. Setting a
+TRISA bit (= 1) will make the corresponding PORTA pin
+an input (i.e., put the corresponding output driver in a
+Hi-Impedance mode). Clearing a TRISA bit (= 0) will
+make the corresponding PORTA pin an output (i.e., put
+the contents of the output latch on the selected pin).
+Reading the PORTA register reads the status of the
+pins, whereas writing to it will write to the port latch.
+The Data Latch register (LATA) is also memory
+mapped. Read-modify-write operations on the LATA
+register reads and writes the latched output value for
+PORTA.
+The RA4 pin is multiplexed with the Timer0 module
+clock input to become the RA4/T0CKI pin. The RA4/
+T0CKI pin is a Schmitt Trigger input and an open drain
+output. All other RA port pins have TTL input levels and
+full CMOS output drivers.
+The other PORTA pins are multiplexed with analog
+inputs and the analog VREF+ and VREF- inputs. The
+operation of each pin is selected by clearing/setting the
+control bits in the ADCON1 register (A/D Control
+Register1).
+The TRISA register controls the direction of the RA
+pins, even when they are being used as analog inputs.
+The user must ensure the bits in the TRISA register are
+maintained set when using them as analog inputs.
+EXAMPLE 9-1: INITIALIZING PORTA
+FIGURE 9-1: BLOCK DIAGRAM OF
+RA3:RA0 AND RA5 PINS
+Note: On a Power-on Reset, RA5 and RA3:RA0
+are configured as analog inputs and read
+as ‘0’. RA6 and RA4 are configured as
+digital inputs.
+CLRF PORTA ; Initialize PORTA by
+; clearing output
+; data latches
+CLRF LATA ; Alternate method
+; to clear output
+; data latches
+MOVLW 0x07 ; Configure A/D
+MOVWF ADCON1 ; for digital inputs
+MOVLW 0xCF ; Value used to
+; initialize data
+; direction
+MOVWF TRISA ; Set RA<3:0> as inputs
+; RA<5:4> as outputs
+Data
+Bus
+D Q
+CK Q
+D Q
+CK Q
+Q D
+EN
+P
+N
+WR LATA
+WR TRISA
+Data Latch
+TRIS Latch
+RD TRISA
+RD PORTA
+VSS
+VDD
+I/O pin(1)
+Note 1: I/O pins have protection diodes to VDD and VSS.
+Analog
+Input
+Mode
+TTL
+Input
+Buffer
+To A/D Converter and LVD Modules
+RD LATA
+or
+PORTA
+SS Input (RA5 only)
+PIC18FXX2
+DS39564B-page 88 ? 2002 Microchip Technology Inc.
+FIGURE 9-2: BLOCK DIAGRAM OF
+RA4/T0CKI PIN
+FIGURE 9-3: BLOCK DIAGRAM OF
+RA6 PIN
+Data
+Bus
+WR TRISA
+RD PORTA
+Data Latch
+TRIS Latch
+RD TRISA
+Schmitt
+Trigger
+Input
+Buffer
+N
+VSS
+I/O pin(1)
+TMR0 Clock Input
+D Q
+CK Q
+D Q
+CK Q
+EN
+Q D
+EN
+RD LATA
+WR LATA
+or
+PORTA
+Note 1: I/O pin has protection diode to VSS only.
+Data
+Bus
+D Q
+CK Q
+Q D
+EN
+P
+N
+WR LATA
+WR
+Data Latch
+TRIS Latch
+RD TRISA
+RD PORTA
+VSS
+VDD
+I/O pin(1)
+Note 1: I/O pins have protection diodes to VDD and VSS.
+or
+PORTA
+RD LATA
+ECRA6 or
+ECRA6 or
+Enable
+TTL
+Input
+Buffer
+RCRA6
+RCRA6 Enable
+TRISA
+D Q
+CK Q
+? 2002 Microchip Technology Inc. DS39564B-page 89
+PIC18FXX2
+TABLE 9-1: PORTA FUNCTIONS
+TABLE 9-2: SUMMARY OF REGISTERS ASSOCIATED WITH PORTA
+Name Bit# Buffer Function
+RA0/AN0 bit0 TTL Input/output or analog input.
+RA1/AN1 bit1 TTL Input/output or analog input.
+RA2/AN2/VREF- bit2 TTL Input/output or analog input or VREF-.
+RA3/AN3/VREF+ bit3 TTL Input/output or analog input or VREF+.
+RA4/T0CKI bit4 ST Input/output or external clock input for Timer0.
+Output is open drain type.
+RA5/SS/AN4/LVDIN bit5 TTL Input/output or slave select input for synchronous serial port or analog
+input, or low voltage detect input.
+OSC2/CLKO/RA6 bit6 TTL OSC2 or clock output or I/O pin.
+Legend: TTL = TTL input, ST = Schmitt Trigger input
+Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on
+POR,
+BOR
+Value on
+All Other
+RESETS
+PORTA — RA6 RA5 RA4 RA3 RA2 RA1 RA0 -x0x 0000 -u0u 0000
+LATA — LATA Data Output Register -xxx xxxx -uuu uuuu
+TRISA — PORTA Data Direction Register -111 1111 -111 1111
+ADCON1 ADFM ADCS2 — — PCFG3 PCFG2 PCFG1 PCFG0 00-- 0000 00-- 0000
+Legend: x = unknown, u = unchanged, - = unimplemented locations read as '0'. Shaded cells are not used by PORTA.
+PIC18FXX2
+DS39564B-page 90 ? 2002 Microchip Technology Inc.
+9.2 PORTB, TRISB and LATB
+Registers
+PORTB is an 8-bit wide, bi-directional port. The corresponding
+Data Direction register is TRISB. Setting a
+TRISB bit (= 1) will make the corresponding PORTB pin
+an input (i.e., put the corresponding output driver in a
+Hi-Impedance mode). Clearing a TRISB bit (= 0) will
+make the corresponding PORTB pin an output (i.e., put
+the contents of the output latch on the selected pin).
+The Data Latch register (LATB) is also memory
+mapped. Read-modify-write operations on the LATB
+register reads and writes the latched output value for
+PORTB.
+EXAMPLE 9-2: INITIALIZING PORTB
+Each of the PORTB pins has a weak internal pull-up. A
+single control bit can turn on all the pull-ups. This is performed
+by clearing bit RBPU (INTCON2<7>). The
+weak pull-up is automatically turned off when the port
+pin is configured as an output. The pull-ups are
+disabled on a Power-on Reset.
+Four of the PORTB pins, RB7:RB4, have an interrupton-
+change feature. Only pins configured as inputs can
+cause this interrupt to occur (i.e., any RB7:RB4 pin
+configured as an output is excluded from the interrupton-
+change comparison). The input pins (of RB7:RB4)
+are compared with the old value latched on the last
+read of PORTB. The “mismatch” outputs of RB7:RB4
+are OR’ed together to generate the RB Port Change
+Interrupt with flag bit, RBIF (INTCON<0>).
+This interrupt can wake the device from SLEEP. The
+user, in the Interrupt Service Routine, can clear the
+interrupt in the following manner:
+a) Any read or write of PORTB (except with the
+MOVFF instruction). This will end the mismatch
+condition.
+b) Clear flag bit RBIF.
+A mismatch condition will continue to set flag bit RBIF.
+Reading PORTB will end the mismatch condition and
+allow flag bit RBIF to be cleared.
+The interrupt-on-change feature is recommended for
+wake-up on key depression operation and operations
+where PORTB is only used for the interrupt-on-change
+feature. Polling of PORTB is not recommended while
+using the interrupt-on-change feature.
+RB3 can be configured by the configuration bit
+CCP2MX as the alternate peripheral pin for the CCP2
+module (CCP2MX=’0’).
+FIGURE 9-4: BLOCK DIAGRAM OF
+RB7:RB4 PINS
+Note: On a Power-on Reset, these pins are
+configured as digital inputs.
+CLRF PORTB ; Initialize PORTB by
+; clearing output
+; data latches
+CLRF LATB ; Alternate method
+; to clear output
+; data latches
+MOVLW 0xCF ; Value used to
+; initialize data
+; direction
+MOVWF TRISB ; Set RB<3:0> as inputs
+; RB<5:4> as outputs
+; RB<7:6> as inputs
+Note 1: While in Low Voltage ICSP mode, the
+RB5 pin can no longer be used as a general
+purpose I/O pin, and should be held
+low during normal operation to protect
+against inadvertent ICSP mode entry.
+2: When using Low Voltage ICSP programming
+(LVP), the pull-up on RB5 becomes
+disabled. If TRISB bit 5 is cleared,
+thereby setting RB5 as an output, LATB
+bit 5 must also be cleared for proper
+operation.
+Data Latch
+From other
+RBPU(2)
+P
+VDD
+I/O pin(1)
+D Q
+CK
+D Q
+CK
+Q D
+EN
+Q D
+EN
+Data Bus
+WR LATB
+WR TRISB
+Set RBIF
+TRIS Latch
+RD TRISB
+RD PORTB
+RB7:RB4 pins
+Weak
+Pull-up
+RD PORTB
+Latch
+TTL
+Input
+Buffer ST
+Buffer
+RB7:RB5 in Serial Programming mode
+Q3
+Q1
+RD LATB
+or
+PORTB
+Note 1: I/O pins have diode protection to VDD and VSS.
+2: To enable weak pull-ups, set the appropriate TRIS bit(s)
+and clear the RBPU bit (INTCON2<7>).
+? 2002 Microchip Technology Inc. DS39564B-page 91
+PIC18FXX2
+FIGURE 9-5: BLOCK DIAGRAM OF RB2:RB0 PINS
+FIGURE 9-6: BLOCK DIAGRAM OF RB3 PIN
+Data Latch
+RBPU(2)
+P
+VDD
+D Q
+CK
+D Q
+CK
+Q D
+EN
+Data Bus
+WR Port
+WR TRIS
+RD TRIS
+RD Port
+Weak
+Pull-up
+RD Port
+RB0/INT
+I/O pin(1)
+TTL
+Input
+Buffer
+Schmitt Trigger
+Buffer
+TRIS Latch
+Note 1: I/O pins have diode protection to VDD and VSS.
+2: To enable weak pull-ups, set the appropriate TRIS bit(s) and clear the RBPU bit (OPTION_REG<7>).
+Data Latch
+P
+VDD
+D Q
+CK
+Q D
+EN
+Data Bus
+WR LATB or
+WR TRISB
+RD TRISB
+RD PORTB
+Weak
+Pull-up
+CCP2 Input(3)
+TTL
+Input
+Buffer
+Schmitt Trigger
+Buffer
+TRIS Latch
+RD LATB
+WR PORTB
+RBPU(2)
+CK
+D
+Enable(3)
+CCP Output
+RD PORTB
+CCP Output(3) 1
+0
+P
+N
+VDD
+VSS
+I/O pin(1)
+Q
+CCP2MX
+CCP2MX = 0
+Note 1: I/O pin has diode protection to VDD and VSS.
+2: To enable weak pull-ups, set the appropriate DDR bit(s) and clear the RBPU bit (INTCON2<7>).
+3: The CCP2 input/output is multiplexed with RB3 if the CCP2MX bit is enabled (=’0’) in the configuration register.
+PIC18FXX2
+DS39564B-page 92 ? 2002 Microchip Technology Inc.
+TABLE 9-3: PORTB FUNCTIONS
+TABLE 9-4: SUMMARY OF REGISTERS ASSOCIATED WITH PORTB
+Name Bit# Buffer Function
+RB0/INT0 bit0 TTL/ST(1) Input/output pin or external interrupt input0.
+Internal software programmable weak pull-up.
+RB1/INT1 bit1 TTL/ST(1) Input/output pin or external interrupt input1.
+Internal software programmable weak pull-up.
+RB2/INT2 bit2 TTL/ST(1) Input/output pin or external interrupt input2.
+Internal software programmable weak pull-up.
+RB3/CCP2(3) bit3 TTL/ST(4) Input/output pin or Capture2 input/Compare2 output/PWM output when
+CCP2MX configuration bit is enabled.
+Internal software programmable weak pull-up.
+RB4 bit4 TTL Input/output pin (with interrupt-on-change).
+Internal software programmable weak pull-up.
+RB5/PGM(5) bit5 TTL/ST(2) Input/output pin (with interrupt-on-change).
+Internal software programmable weak pull-up.
+Low voltage ICSP enable pin.
+RB6/PGC bit6 TTL/ST(2) Input/output pin (with interrupt-on-change).
+Internal software programmable weak pull-up.
+Serial programming clock.
+RB7/PGD bit7 TTL/ST(2) Input/output pin (with interrupt-on-change).
+Internal software programmable weak pull-up.
+Serial programming data.
+Legend: TTL = TTL input, ST = Schmitt Trigger input
+Note 1: This buffer is a Schmitt Trigger input when configured as the external interrupt.
+2: This buffer is a Schmitt Trigger input when used in Serial Programming mode.
+3: A device configuration bit selects which I/O pin the CCP2 pin is multiplexed on.
+4: This buffer is a Schmitt Trigger input when configured as the CCP2 input.
+5: Low Voltage ICSP Programming (LVP) is enabled by default, which disables the RB5 I/O function. LVP
+must be disabled to enable RB5 as an I/O pin and allow maximum compatibility to the other 28-pin and
+40-pin mid-range devices.
+Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on
+POR, BOR
+Value on
+All Other
+RESETS
+PORTB RB7 RB6 RB5 RB4 RB3 RB2 RB1 RB0 xxxx xxxx uuuu uuuu
+LATB LATB Data Output Register xxxx xxxx uuuu uuuu
+TRISB PORTB Data Direction Register 1111 1111 1111 1111
+INTCON GIE/
+GIEH
+PEIE/
+GIEL
+TMR0IE INT0IE RBIE TMR0IF INT0IF RBIF 0000 000x 0000 000u
+INTCON2 RBPU INTEDG0 INTEDG1 INTEDG2 — TMR0IP — RBIP 1111 -1-1 1111 -1-1
+INTCON3 INT2IP INT1IP — INT2IE INT1IE — INT2IF INT1IF 11-0 0-00 11-0 0-00
+Legend: x = unknown, u = unchanged. Shaded cells are not used by PORTB.
+? 2002 Microchip Technology Inc. DS39564B-page 93
+PIC18FXX2
+9.3 PORTC, TRISC and LATC
+Registers
+PORTC is an 8-bit wide, bi-directional port. The corresponding
+Data Direction register is TRISC. Setting a
+TRISC bit (= 1) will make the corresponding PORTC
+pin an input (i.e., put the corresponding output driver in
+a Hi-Impedance mode). Clearing a TRISC bit (= 0) will
+make the corresponding PORTC pin an output (i.e., put
+the contents of the output latch on the selected pin).
+The Data Latch register (LATC) is also memory
+mapped. Read-modify-write operations on the LATC
+register reads and writes the latched output value for
+PORTC.
+PORTC is multiplexed with several peripheral functions
+(Table 9-5). PORTC pins have Schmitt Trigger input
+buffers.
+When enabling peripheral functions, care should be
+taken in defining TRIS bits for each PORTC pin. Some
+peripherals override the TRIS bit to make a pin an output,
+while other peripherals override the TRIS bit to
+make a pin an input. The user should refer to the corresponding
+peripheral section for the correct TRIS bit
+settings.
+The pin override value is not loaded into the TRIS register.
+This allows read-modify-write of the TRIS register,
+without concern due to peripheral overrides.
+RC1 is normally configured by configuration bit,
+CCP2MX, as the default peripheral pin of the CCP2
+module (default/erased state, CCP2MX = ’1’).
+EXAMPLE 9-3: INITIALIZING PORTC
+FIGURE 9-7: PORTC BLOCK DIAGRAM (PERIPHERAL OUTPUT OVERRIDE)
+Note: On a Power-on Reset, these pins are
+configured as digital inputs.
+CLRF PORTC ; Initialize PORTC by
+; clearing output
+; data latches
+CLRF LATC ; Alternate method
+; to clear output
+; data latches
+MOVLW 0xCF ; Value used to
+; initialize data
+; direction
+MOVWF TRISC ; Set RC<3:0> as inputs
+; RC<5:4> as outputs
+; RC<7:6> as inputs
+Data Bus
+WR LATC or
+WR TRISC
+RD TRISC
+D Q
+CK Q
+Q D
+EN
+Peripheral Data Out
+0
+1
+D Q
+CK Q
+RD PORTC
+Peripheral Data In
+WR PORTC
+RD LATC
+Peripheral Output
+Schmitt
+Port/Peripheral Select(2)
+Enable(3)
+P
+N
+VSS
+VDD
+I/O pin(1)
+Note 1: I/O pins have diode protection to VDD and VSS.
+2: Port/Peripheral Select signal selects between port data (input) and peripheral output.
+3: Peripheral Output Enable is only active if peripheral select is active.
+Data Latch
+TRIS Latch
+Trigger
+PIC18FXX2
+DS39564B-page 94 ? 2002 Microchip Technology Inc.
+TABLE 9-5: PORTC FUNCTIONS
+TABLE 9-6: SUMMARY OF REGISTERS ASSOCIATED WITH PORTC
+Name Bit# Buffer Type Function
+RC0/T1OSO/T1CKI bit0 ST Input/output port pin or Timer1 oscillator output/Timer1 clock input.
+RC1/T1OSI/CCP2 bit1 ST Input/output port pin, Timer1 oscillator input, or Capture2 input/
+Compare2 output/PWM output when CCP2MX configuration bit is
+set.
+RC2/CCP1 bit2 ST Input/output port pin or Capture1 input/Compare1 output/PWM1
+output.
+RC3/SCK/SCL bit3 ST RC3 can also be the synchronous serial clock for both SPI and I2C
+modes.
+RC4/SDI/SDA bit4 ST RC4 can also be the SPI Data In (SPI mode) or Data I/O (I2C mode).
+RC5/SDO bit5 ST Input/output port pin or Synchronous Serial Port data output.
+RC6/TX/CK bit6 ST Input/output port pin, Addressable USART Asynchronous Transmit, or
+Addressable USART Synchronous Clock.
+RC7/RX/DT bit7 ST Input/output port pin, Addressable USART Asynchronous Receive, or
+Addressable USART Synchronous Data.
+Legend: ST = Schmitt Trigger input
+Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on
+POR, BOR
+Value on
+All Other
+RESETS
+PORTC RC7 RC6 RC5 RC4 RC3 RC2 RC1 RC0 xxxx xxxx uuuu uuuu
+LATC LATC Data Output Register xxxx xxxx uuuu uuuu
+TRISC PORTC Data Direction Register 1111 1111 1111 1111
+Legend: x = unknown, u = unchanged
+? 2002 Microchip Technology Inc. DS39564B-page 95
+PIC18FXX2
+9.4 PORTD, TRISD and LATD
+Registers
+This section is applicable only to the PIC18F4X2
+devices.
+PORTD is an 8-bit wide, bi-directional port. The corresponding
+Data Direction register is TRISD. Setting a
+TRISD bit (= 1) will make the corresponding PORTD
+pin an input (i.e., put the corresponding output driver in
+a Hi-Impedance mode). Clearing a TRISD bit (= 0) will
+make the corresponding PORTD pin an output (i.e., put
+the contents of the output latch on the selected pin).
+The Data Latch register (LATD) is also memory
+mapped. Read-modify-write operations on the LATD
+register reads and writes the latched output value for
+PORTD.
+PORTD is an 8-bit port with Schmitt Trigger input buffers.
+Each pin is individually configurable as an input or
+output.
+PORTD can be configured as an 8-bit wide microprocessor
+port (parallel slave port) by setting control bit
+PSPMODE (TRISE<4>). In this mode, the input buffers
+are TTL. See Section 9.6 for additional information on
+the Parallel Slave Port (PSP).
+EXAMPLE 9-4: INITIALIZING PORTD
+FIGURE 9-8: PORTD BLOCK DIAGRAM
+IN I/O PORT MODE
+Note: On a Power-on Reset, these pins are
+configured as digital inputs.
+CLRF PORTD ; Initialize PORTD by
+; clearing output
+; data latches
+CLRF LATD ; Alternate method
+; to clear output
+; data latches
+MOVLW 0xCF ; Value used to
+; initialize data
+; direction
+MOVWF TRISD ; Set RD<3:0> as inputs
+; RD<5:4> as outputs
+; RD<7:6> as inputs
+Data
+Bus
+WR LATD
+WR TRISD
+RD PORTD
+Data Latch
+TRIS Latch
+RD TRISD
+Schmitt
+Trigger
+Input
+Buffer
+I/O pin(1)
+D Q
+CK
+D Q
+CK
+EN
+Q D
+EN
+RD LATD
+or
+PORTD
+Note 1: I/O pins have diode protection to VDD and VSS.
+PIC18FXX2
+DS39564B-page 96 ? 2002 Microchip Technology Inc.
+TABLE 9-7: PORTD FUNCTIONS
+TABLE 9-8: SUMMARY OF REGISTERS ASSOCIATED WITH PORTD
+Name Bit# Buffer Type Function
+RD0/PSP0 bit0 ST/TTL(1) Input/output port pin or parallel slave port bit0.
+RD1/PSP1 bit1 ST/TTL(1) Input/output port pin or parallel slave port bit1.
+RD2/PSP2 bit2 ST/TTL(1) Input/output port pin or parallel slave port bit2.
+RD3/PSP3 bit3 ST/TTL(1) Input/output port pin or parallel slave port bit3.
+RD4/PSP4 bit4 ST/TTL(1) Input/output port pin or parallel slave port bit4.
+RD5/PSP5 bit5 ST/TTL(1) Input/output port pin or parallel slave port bit5.
+RD6/PSP6 bit6 ST/TTL(1) Input/output port pin or parallel slave port bit6.
+RD7/PSP7 bit7 ST/TTL(1) Input/output port pin or parallel slave port bit7.
+Legend: ST = Schmitt Trigger input, TTL = TTL input
+Note 1: Input buffers are Schmitt Triggers when in I/O mode and TTL buffer when in Parallel Slave Port mode.
+Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on
+POR, BOR
+Value on
+All Other
+RESETS
+PORTD RD7 RD6 RD5 RD4 RD3 RD2 RD1 RD0 xxxx xxxx uuuu uuuu
+LATD LATD Data Output Register xxxx xxxx uuuu uuuu
+TRISD PORTD Data Direction Register 1111 1111 1111 1111
+TRISE IBF OBF IBOV PSPMODE — PORTE Data Direction bits 0000 -111 0000 -111
+Legend: x = unknown, u = unchanged, - = unimplemented, read as '0'. Shaded cells are not used by PORTD.
+? 2002 Microchip Technology Inc. DS39564B-page 97
+PIC18FXX2
+9.5 PORTE, TRISE and LATE
+Registers
+This section is only applicable to the PIC18F4X2
+devices.
+PORTE is a 3-bit wide, bi-directional port. The corresponding
+Data Direction register is TRISE. Setting a
+TRISE bit (= 1) will make the corresponding PORTE pin
+an input (i.e., put the corresponding output driver in a
+Hi-Impedance mode). Clearing a TRISE bit (= 0) will
+make the corresponding PORTE pin an output (i.e., put
+the contents of the output latch on the selected pin).
+The Data Latch register (LATE) is also memory
+mapped. Read-modify-write operations on the LATE
+register reads and writes the latched output value for
+PORTE.
+PORTE has three pins (RE0/RD/AN5, RE1/WR/AN6
+and RE2/CS/AN7) which are individually configurable
+as inputs or outputs. These pins have Schmitt Trigger
+input buffers.
+Register 9-1 shows the TRISE register, which also
+controls the parallel slave port operation.
+PORTE pins are multiplexed with analog inputs. When
+selected as an analog input, these pins will read as ’0’s.
+TRISE controls the direction of the RE pins, even when
+they are being used as analog inputs. The user must
+make sure to keep the pins configured as inputs when
+using them as analog inputs.
+EXAMPLE 9-5: INITIALIZING PORTE
+FIGURE 9-9: PORTE BLOCK DIAGRAM
+IN I/O PORT MODE
+Note: On a Power-on Reset, these pins are
+configured as analog inputs.
+CLRF PORTE ; Initialize PORTE by
+; clearing output
+; data latches
+CLRF LATE ; Alternate method
+; to clear output
+; data latches
+MOVLW 0x07 ; Configure A/D
+MOVWF ADCON1 ; for digital inputs
+MOVLW 0x05 ; Value used to
+; initialize data
+; direction
+MOVWF TRISE ; Set RE<0> as inputs
+; RE<1> as outputs
+; RE<2> as inputs
+Data
+Bus
+WR LATE
+WR TRISE
+RD PORTE
+Data Latch
+TRIS Latch
+RD TRISE
+Schmitt
+Trigger
+Input
+Buffer
+D Q
+CK
+D Q
+CK
+EN
+Q D
+EN
+I/O pin(1)
+RD LATE
+or
+PORTE
+To Analog Converter
+Note 1: I/O pins have diode protection to VDD and VSS.
+PIC18FXX2
+DS39564B-page 98 ? 2002 Microchip Technology Inc.
+REGISTER 9-1: TRISE REGISTER
+R-0 R-0 R/W-0 R/W-0 U-0 R/W-1 R/W-1 R/W-1
+IBF OBF IBOV PSPMODE — TRISE2 TRISE1 TRISE0
+bit 7 bit 0
+bit 7 IBF: Input Buffer Full Status bit
+1 = A word has been received and waiting to be read by the CPU
+0 = No word has been received
+bit 6 OBF: Output Buffer Full Status bit
+1 = The output buffer still holds a previously written word
+0 = The output buffer has been read
+bit 5 IBOV: Input Buffer Overflow Detect bit (in Microprocessor mode)
+1 = A write occurred when a previously input word has not been read
+(must be cleared in software)
+0 = No overflow occurred
+bit 4 PSPMODE: Parallel Slave Port Mode Select bit
+1 = Parallel Slave Port mode
+0 = General purpose I/O mode
+bit 3 Unimplemented: Read as '0'
+bit 2 TRISE2: RE2 Direction Control bit
+1 = Input
+0 = Output
+bit 1 TRISE1: RE1 Direction Control bit
+1 = Input
+0 = Output
+bit 0 TRISE0: RE0 Direction Control bit
+1 = Input
+0 = Output
+Legend:
+R = Readable bit W = Writable bit U = Unimplemented bit, read as ‘0’
+- n = Value at POR ’1’ = Bit is set ’0’ = Bit is cleared x = Bit is unknown
+? 2002 Microchip Technology Inc. DS39564B-page 99
+PIC18FXX2
+TABLE 9-9: PORTE FUNCTIONS
+TABLE 9-10: SUMMARY OF REGISTERS ASSOCIATED WITH PORTE
+Name Bit# Buffer Type Function
+RE0/RD/AN5 bit0 ST/TTL(1)
+Input/output port pin or read control input in Parallel Slave Port mode
+or analog input:
+RD
+1 = Not a read operation
+0 = Read operation. Reads PORTD register (if chip selected).
+RE1/WR/AN6 bit1 ST/TTL(1)
+Input/output port pin or write control input in Parallel Slave Port mode
+or analog input:
+WR
+1 = Not a write operation
+0 = Write operation. Writes PORTD register (if chip selected).
+RE2/CS/AN7 bit2 ST/TTL(1)
+Input/output port pin or chip select control input in Parallel Slave Port
+mode or analog input:
+CS
+1 = Device is not selected
+0 = Device is selected
+Legend: ST = Schmitt Trigger input, TTL = TTL input
+Note 1: Input buffers are Schmitt Triggers when in I/O mode and TTL buffers when in Parallel Slave Port mode.
+Name Bit 7 Bit 6 Bit 5 Bit 4 Bit 3 Bit 2 Bit 1 Bit 0
+Value on
+POR, BOR
+Value on
+All Other
+RESETS
+PORTE — — — — — RE2 RE1 RE0 ---- -000 ---- -000
+LATE — — — — — LATE Data Output Register ---- -xxx ---- -uuu
+TRISE IBF OBF IBOV PSPMODE — PORTE Data Direction bits 0000 -111 0000 -111-
