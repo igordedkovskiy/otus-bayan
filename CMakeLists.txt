@@ -27,27 +27,12 @@ set_target_properties(cmp-files-lib PROPERTIES
     CXX_STANDARD_REQUIRED ON
 )
 
-add_executable(${PROJECT_NAME}
-    "main.cpp"
-#    "input.hpp"
-#    "input.cpp"
-#    "mask.hpp"
-#    "mask.cpp"
-#    "hash.hpp"
-#    "hash.cpp"
-#    "File.hpp"
-#    "File.cpp"
-#    "filter_files.hpp"
-#    "filter_files.cpp"
-)
+add_executable(${PROJECT_NAME} "main.cpp")
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
 )
-
-
-
 
 
 add_library(hash-library
@@ -161,24 +146,15 @@ if(WITH_GTEST)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    target_compile_options(${PROJECT_NAME} PRIVATE
-        /W4 /await
-    )
-#    target_compile_options(print_ip_lib PRIVATE
-#        /W4 /await
-#    )
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /await)
+
     if(WITH_GTEST)
-        target_compile_options(test_utility PRIVATE
-            /W4 /await
-        )
+        target_compile_options(test_utility PRIVATE /W4 /await)
     endif()
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options(${PROJECT_NAME} PRIVATE
         "-Wall" "-Wextra" "-Werror" "-pedantic" "-fcoroutines"
     )
-#    target_compile_options(print_ip_lib PRIVATE
-#        "-Wall" "-Wextra" "-Werror" "-pedantic" "-fcoroutines"
-#    )
     if(WITH_GTEST)
         target_compile_options(test_utility PRIVATE
             "-Wall" "-Wextra" "-Werror" "-pedantic" "-fcoroutines"
@@ -203,5 +179,5 @@ if(WITH_GTEST)
     include(CTest)
     enable_testing()
     list(APPEND CMAKE_CTEST_ARGUMENTS "--rerun-failed" "--output-on-failure")
-    add_test(test_utility test_utility)# "-i" "../qwerty")
+    add_test(test_utility test_utility)
 endif()
